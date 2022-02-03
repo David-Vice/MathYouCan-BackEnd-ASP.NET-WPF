@@ -93,7 +93,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DataAccess\" />
-    <Folder Include="Img\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Img\mathyoucan_logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
