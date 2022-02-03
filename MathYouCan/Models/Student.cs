@@ -8,5 +8,6 @@ namespace MathYouCan.Models
 {
     internal class Student
     {
+        //hafuewflwnaulfwiaefjlwiuaefi
     }
 }
