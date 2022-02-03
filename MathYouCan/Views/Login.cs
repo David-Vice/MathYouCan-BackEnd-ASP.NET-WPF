@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MathYouCan
+namespace MathYouCan.Views
 {
     public partial class Login : DevExpress.XtraEditors.XtraForm
     {
