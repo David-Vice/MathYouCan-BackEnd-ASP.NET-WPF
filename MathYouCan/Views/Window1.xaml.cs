@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -13,11 +15,11 @@ using System.Windows.Shapes;
 namespace MathYouCan.Views
 {
     /// <summary>
-    /// Interaction logic for Login.xaml
+    /// Interaction logic for Window1.xaml
     /// </summary>
-    public partial class Login : Window
+    public partial class Window1 : Window
     {
-        public Login()
+        public Window1()
         {
             InitializeComponent();
         }
