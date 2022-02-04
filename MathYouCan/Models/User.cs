@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace MathYouCan.Models
 {
-    internal class Student
+    public class User
     {
-        //hafuewflwnaulfwiaefjlwiuaefi
+        public int MyProperty { get; set; }
+
     }
 }
