@@ -62,6 +62,9 @@
     <Compile Include="Services\Abstract\IAuthValidatorService.cs" />
     <Compile Include="Services\Concrete\AuthUserConverterService.cs" />
     <Compile Include="Services\Concrete\AuthValidatorService.cs" />
+    <Compile Include="Views\InstructionsWindow.xaml.cs">
+      <DependentUpon>InstructionsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
@@ -77,6 +80,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\InstructionsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Login.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
