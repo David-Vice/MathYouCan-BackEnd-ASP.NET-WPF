@@ -82,7 +82,7 @@
         </Grid>
         
         <Grid Grid.Row="2" Grid.Column="2">
-            <Label MouseUp="Label_MouseUp" MouseEnter="Label_MouseEnter" MouseLeave="Label_MouseLeave"  HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#F2BE01">Exit</Label>
+            <Label FontSize="30" MouseUp="Label_MouseUp" MouseEnter="Label_MouseEnter" MouseLeave="Label_MouseLeave"  HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#F2BE01">Exit</Label>
         </Grid>
     </Grid>
 </Window>
