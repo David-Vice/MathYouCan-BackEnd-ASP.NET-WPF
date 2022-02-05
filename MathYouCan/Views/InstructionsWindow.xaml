@@ -89,10 +89,6 @@
 
 
 
-
-
-
-
             </Grid>
 
         </Border>
@@ -120,6 +116,30 @@
                 <StackPanel Grid.Row="1" Margin="30,0,0,0">
 
                     <TextBlock Name="instructionContentTextBlock"/>
+
+                    <StackPanel Name="acceptDeclineStackPanel" Orientation="Horizontal" Margin="0,40,0,0"
+                                Visibility="Hidden">
+                        <!-- Contains 2 buttons (accept decline).
+                            Buttons are added dynamically -->
+
+                        <Button Name="acceptButton" Width="75" Height="23" Content="Accept">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="5"/>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+
+                        <Button Name="declineButton" Width="75" Height="23" Content="Decline"
+                                Margin="20,0,0,0">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="5"/>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+
+                    </StackPanel>
 
                 </StackPanel>
 
@@ -169,7 +189,7 @@
             </Grid>
 
         </Border>
-        <!-- Lower Panel -->
+        <!-- Lower Panel END-->
 
     </Grid>
 </Window>

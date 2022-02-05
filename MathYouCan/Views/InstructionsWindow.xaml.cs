@@ -104,7 +104,7 @@ namespace MathYouCan.Views
             instructionContentTextBlock.Inlines.Add(new Bold(new Run("IMPORTANT: ")));
             instructionContentTextBlock.Inlines.Add(new Run("Read this information before selecting the"));
             instructionContentTextBlock.Inlines.Add(new Bold(new Run(" Next ")));
-            instructionContentTextBlock.Inlines.Add(new Run("You are about to take the ACT, which is composed of multiple-choice tests in English, " +
+            instructionContentTextBlock.Inlines.Add(new Run("button.\n\nYou are about to take the ACT, which is composed of multiple-choice tests in English, " +
                 "mathematics, reading, and science,\nfollewed by a writing test, for which you will complete an essay written in English.\n\nThese tests" +
                 "measure skills and abilities highly related to high school course work and success in college. "));
             instructionContentTextBlock.Inlines.Add(new Bold(new Run("Calculators may be\nused on the mathematics only.\n\n")));
@@ -131,20 +131,48 @@ namespace MathYouCan.Views
             instructionContentTextBlock.Inlines.Add(new Bold(new Run("Next ")));
             instructionContentTextBlock.Inlines.Add(new Run("button to proceed."));
 
+            acceptButton.Click -= acceptButton_Click;
+            declineButton.Click -= declineButton_Click;
+
+            acceptDeclineStackPanel.Visibility = Visibility.Hidden;
         }
 
         private void LoadInstruction4()
         {
+            instructionSectionNameLabel.Content = "Examinee Statement";
 
+            instructionContentTextBlock.Inlines.Clear();
+
+            instructionContentTextBlock.Inlines.Add(new Run("By accessing the online test, I agree to comply with and be bound by the "));
+            instructionContentTextBlock.Inlines.Add(new Italic(new Run("Terms and Conditions: Testing Rules and Ploicies for the\n ACT Test ")));
+            instructionContentTextBlock.Inlines.Add(new Run("provided in the ACT registration material for this test, including those conserning test security, " +
+                "score cancellation,\nexaminee remedies, binding arbitration, and consent to the processing of my personally identifying information, " +
+                "including the\ncollection, use, transfer, and disclosure of information as described in the ACT Privace Policy (www.act.org/privacy.html).\n\n" +
+                "I understand that ACT owns the test questions and responces and affirm that I will not share any test questions or responces with\nanyone " +
+                "by any form of communication before, during, or after the test administration. I understand that assuming anyone else's\n identity to take this test " +
+                "is strictly prohibited and may violate the law and subject me to legal penalties.\n\n"));
+            instructionContentTextBlock.Inlines.Add(new Bold(new Run("International Examinees: ")));
+            instructionContentTextBlock.Inlines.Add(new Run("By accessing the online test, I an also providing my consent to ACT to transfer my personally\n" +
+                "identifying information to the United States to ACT, or a third-party service provider, where it will be subject to use and disclosure\n" +
+                "unser the laws of the United States. I acknowledge and agree that it may also be accessible to law enforcement and national\nsecurity authorities " +
+                "im the United States.\n\nBy selecting "));
+            instructionContentTextBlock.Inlines.Add(new Bold(new Run("Accept ")));
+            instructionContentTextBlock.Inlines.Add(new Run("below and/or accessing the online test, I confirm my acceptance of the above terms."));
+
+            acceptButton.Click += acceptButton_Click;
+            declineButton.Click += declineButton_Click;
+
+            acceptDeclineStackPanel.Visibility = Visibility.Visible;
         }
 
         private void SetWindowDefaultSettings()
         {
             this.WindowState = WindowState.Maximized;
         }
+
         private void AssignImageSources()
         {
-            //actLogoImage.Source = new BitmapImage(new Uri("C:\\Users\\kenan\\OneDrive\\Desktop\\act_logo.png"));
+            actLogoImage.Source = new BitmapImage(new Uri("pack://application:,,,/Img/act_logo.png"));
         }
 
         private void nextButton_Click(object sender, RoutedEventArgs e)
@@ -167,12 +195,24 @@ namespace MathYouCan.Views
             if (_currentInstructionNumber == 1) prevButton.IsEnabled = false;
         }
 
+        private void acceptButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("a");
+        }
+
+        private void declineButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("d");
+        }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             SetWindowDefaultSettings();
             LoadInstruction();
             AssignImageSources();
         }
+
+     
 
     }
 }

@@ -53,5 +53,11 @@ namespace MathYouCan.Views
            
               AuthUserConverterService.GetData(jsonData);
         }
+
+        private void ins_Click(object sender, RoutedEventArgs e)
+        {
+            InstructionsWindow instructionsWindow = new InstructionsWindow();
+            instructionsWindow.ShowDialog();
+        }
     }
 }
