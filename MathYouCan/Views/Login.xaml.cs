@@ -57,7 +57,9 @@ namespace MathYouCan.Views
         private void ins_Click(object sender, RoutedEventArgs e)
         {
             InstructionsWindow instructionsWindow = new InstructionsWindow();
+            Close();
             instructionsWindow.ShowDialog();
+
         }
     }
 }
