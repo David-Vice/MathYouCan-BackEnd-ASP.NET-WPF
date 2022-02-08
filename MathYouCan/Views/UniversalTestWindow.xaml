@@ -1,0 +1,321 @@
+﻿<Window x:Class="MathYouCan.Views.UniversalTestWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MathYouCan.Views"
+        mc:Ignorable="d"
+        Height="450" Width="800"
+        WindowStyle="None" ResizeMode="NoResize" WindowState="Maximized" Loaded="Window_Loaded">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="11*"/>
+            <RowDefinition Height="82*"/>
+            <RowDefinition Height="7*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Top Panel -->
+        <Border Grid.Row="0" Background="#001733">
+
+            <Grid>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="0.5*"/>
+                </Grid.RowDefinitions>
+
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="20,0,0,0"
+                            Grid.Row="1">
+
+                    <Image Name="actLogoImage" RenderOptions.BitmapScalingMode="HighQuality"/>
+
+                    <Button Name="prevButton" Content="Prev" Margin="50,0,10,0"
+                            Width="65" FontSize="15" FontWeight="Bold" Background="#F4F6F8"
+                            IsEnabled="False">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="4"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+
+                    <Button Name="navButton" Content="Nav" Margin="10,0,10,0"
+                            Width="65" FontSize="15" FontWeight="Bold" Background="#F4F6F8">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="4"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+
+                    <Button Name="nextButton" Content="Next" Margin="10,0,10,0"
+                            Width="65" FontSize="15" FontWeight="Bold" Background="#F4F6F8">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="4"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+
+                </StackPanel>
+
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="20,0,0,0"
+                            Grid.Row="1">
+
+                    <Button Name="toolsButton" Content="Tools  ▼" Margin="10,0,10,0"
+                            Width="80" FontSize="14" FontWeight="Bold" Background="#F4F6F8">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="4"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+
+                    <Button Name="clearHighlightsButton" Content="Clear Highlights" Margin="10,0,20,0"
+                            Width="130" FontSize="14" FontWeight="Bold" Background="#F4F6F8">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="4"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+
+                </StackPanel>
+
+            </Grid>
+
+        </Border>
+        <!-- Top Panel END-->
+
+        <!-- Middle -->
+        <Border Grid.Row="1" Margin="10,10,10,0">
+
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Middle Left Part -->
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.05*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Info Label -->
+                    <StackPanel Grid.Row="0"  VerticalAlignment="Center" >
+                        <Label HorizontalAlignment="Left" Padding="10,0,0,0" FontSize="17" FontWeight="Bold">Passage II</Label>
+                    </StackPanel>
+                    <!-- Info Label END -->
+
+                    <!-- Info Section -->
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Focusable="False">
+                        <StackPanel>
+                            <TextBlock HorizontalAlignment="Stretch" Height="Auto" TextWrapping="Wrap" Padding="10" FontSize="17">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tortor lacus, accumsan sed augue rhoncus, sodales gravida dolor. Morbi felis augue, pretium non lectus et, porttitor tincidunt lorem. Duis eget odio tincidunt, congue sem gravida, maximus lorem. Integer at imperdiet est. Donec in dapibus diam. Phasellus sit amet tellus in neque suscipit commodo facilisis vitae lacus. Aliquam quis vestibulum ex. Nulla mattis, eros efficitur ullamcorper pretium, felis dolor congue lectus, a volutpat turpis mauris sed nunc. Donec in nibh sit amet nunc fringilla placerat eu dictum nibh. Nulla facilisi. Phasellus a massa porta, pulvinar ante eu, sodales augue.
+                                Curabitur porttitor turpis eget tortor bibendum eleifend. Integer nec lacus interdum, porta mi vel, pharetra urna. Morbi vel risus a urna aliquet posuere sit amet vitae est. Sed sed tincidunt elit. Etiam risus dolor, rutrum quis felis a, condimentum efficitur odio. Suspendisse eget diam vitae risus sodales porta eu nec nunc. Mauris suscipit mi sapien, eget dignissim arcu auctor ut. Pellentesque vel ligula ex. Fusce eget nibh tristique, tincidunt lorem ut, posuere felis. Nulla facilisi.
+                                Aliquam placerat nisi neque, ac tempus elit sollicitudin ac. Maecenas interdum risus quis euismod tincidunt. Aliquam molestie nunc nec mollis sodales. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Phasellus et sollicitudin diam. Ut vel metus mauris. Donec in blandit metus. Cras sed mollis neque. In pretium, neque rhoncus pretium laoreet, tellus purus varius tellus, sit amet congue quam erat sit amet nisl. Praesent finibus erat nec lacus auctor blandit. Ut luctus mattis ex sed convallis. Etiam et accumsan diam. Cras sodales urna sed purus finibus, a lobortis risus consequat. Nam vel accumsan turpis. Fusce varius ante placerat nisl porta commodo.
+                                Suspendisse at elit sem. Aenean semper lectus sit amet dignissim placerat. Phasellus et odio ex. Nullam id porttitor neque. Nulla laoreet massa erat, quis vehicula elit ornare ac. Suspendisse ex enim, iaculis a vulputate nec, luctus nec neque. Nunc hendrerit lorem lacus, id mattis mauris euismod at. Nullam vulputate hendrerit ex. Mauris sit amet ex id mauris accumsan finibus non sed lectus. Suspendisse nec nisl et urna posuere consequat. Etiam vitae metus dictum, feugiat magna ac, sodales sapien. Aliquam fermentum mi hendrerit velit porttitor commodo. Nullam cursus finibus sapien.
+                                Donec pretium dolor at nisl cursus fermentum. Suspendisse non nunc velit. Phasellus finibus, metus id sollicitudin congue, massa velit euismod sem, non eleifend nisi purus vitae massa. Integer ut enim libero. Morbi sit amet justo sit amet odio cursus rhoncus. Pellentesque a ipsum non nulla pharetra dignissim a ut erat. Ut mattis congue eleifend.
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tortor lacus, accumsan sed augue rhoncus, sodales gravida dolor. Morbi felis augue, pretium non lectus et, porttitor tincidunt lorem. Duis eget odio tincidunt, congue sem gravida, maximus lorem. Integer at imperdiet est. Donec in dapibus diam. Phasellus sit amet tellus in neque suscipit commodo facilisis vitae lacus. Aliquam quis vestibulum ex. Nulla mattis, eros efficitur ullamcorper pretium, felis dolor congue lectus, a volutpat turpis mauris sed nunc. Donec in nibh sit amet nunc fringilla placerat eu dictum nibh. Nulla facilisi. Phasellus a massa porta, pulvinar ante eu, sodales augue.
+                                Curabitur porttitor turpis eget tortor bibendum eleifend. Integer nec lacus interdum, porta mi vel, pharetra urna. Morbi vel risus a urna aliquet posuere sit amet vitae est. Sed sed tincidunt elit. Etiam risus dolor, rutrum quis felis a, condimentum efficitur odio. Suspendisse eget diam vitae risus sodales porta eu nec nunc. Mauris suscipit mi sapien, eget dignissim arcu auctor ut. Pellentesque vel ligula ex. Fusce eget nibh tristique, tincidunt lorem ut, posuere felis. Nulla facilisi.
+                                Aliquam placerat nisi neque, ac tempus elit sollicitudin ac. Maecenas interdum risus quis euismod tincidunt. Aliquam molestie nunc nec mollis sodales. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Phasellus et sollicitudin diam. Ut vel metus mauris. Donec in blandit metus. Cras sed mollis neque. In pretium, neque rhoncus pretium laoreet, tellus purus varius tellus, sit amet congue quam erat sit amet nisl. Praesent finibus erat nec lacus auctor blandit. Ut luctus mattis ex sed convallis. Etiam et accumsan diam. Cras sodales urna sed purus finibus, a lobortis risus consequat. Nam vel accumsan turpis. Fusce varius ante placerat nisl porta commodo.
+                                Suspendisse at elit sem. Aenean semper lectus sit amet dignissim placerat. Phasellus et odio ex. Nullam id porttitor neque. Nulla laoreet massa erat, quis vehicula elit ornare ac. Suspendisse ex enim, iaculis a vulputate nec, luctus nec neque. Nunc hendrerit lorem lacus, id mattis mauris euismod at. Nullam vulputate hendrerit ex. Mauris sit amet ex id mauris accumsan finibus non sed lectus. Suspendisse nec nisl et urna posuere consequat. Etiam vitae metus dictum, feugiat magna ac, sodales sapien. Aliquam fermentum mi hendrerit velit porttitor commodo. Nullam cursus finibus sapien.
+                                Donec pretium dolor at nisl cursus fermentum. Suspendisse non nunc velit. Phasellus finibus, metus id sollicitudin congue, massa velit euismod sem, non eleifend nisi purus vitae massa. Integer ut enim libero. Morbi sit amet justo sit amet odio cursus rhoncus. Pellentesque a ipsum non nulla pharetra dignissim a ut erat. Ut mattis congue eleifend.
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tortor lacus, accumsan sed augue rhoncus, sodales gravida dolor. Morbi felis augue, pretium non lectus et, porttitor tincidunt lorem. Duis eget odio tincidunt, congue sem gravida, maximus lorem. Integer at imperdiet est. Donec in dapibus diam. Phasellus sit amet tellus in neque suscipit commodo facilisis vitae lacus. Aliquam quis vestibulum ex. Nulla mattis, eros efficitur ullamcorper pretium, felis dolor congue lectus, a volutpat turpis mauris sed nunc. Donec in nibh sit amet nunc fringilla placerat eu dictum nibh. Nulla facilisi. Phasellus a massa porta, pulvinar ante eu, sodales augue.
+                                Curabitur porttitor turpis eget tortor bibendum eleifend. Integer nec lacus interdum, porta mi vel, pharetra urna. Morbi vel risus a urna aliquet posuere sit amet vitae est. Sed sed tincidunt elit. Etiam risus dolor, rutrum quis felis a, condimentum efficitur odio. Suspendisse eget diam vitae risus sodales porta eu nec nunc. Mauris suscipit mi sapien, eget dignissim arcu auctor ut. Pellentesque vel ligula ex. Fusce eget nibh tristique, tincidunt lorem ut, posuere felis. Nulla facilisi.
+                                Aliquam placerat nisi neque, ac tempus elit sollicitudin ac. Maecenas interdum risus quis euismod tincidunt. Aliquam molestie nunc nec mollis sodales. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Phasellus et sollicitudin diam. Ut vel metus mauris. Donec in blandit metus. Cras sed mollis neque. In pretium, neque rhoncus pretium laoreet, tellus purus varius tellus, sit amet congue quam erat sit amet nisl. Praesent finibus erat nec lacus auctor blandit. Ut luctus mattis ex sed convallis. Etiam et accumsan diam. Cras sodales urna sed purus finibus, a lobortis risus consequat. Nam vel accumsan turpis. Fusce varius ante placerat nisl porta commodo.
+                                Suspendisse at elit sem. Aenean semper lectus sit amet dignissim placerat. Phasellus et odio ex. Nullam id porttitor neque. Nulla laoreet massa erat, quis vehicula elit ornare ac. Suspendisse ex enim, iaculis a vulputate nec, luctus nec neque. Nunc hendrerit lorem lacus, id mattis mauris euismod at. Nullam vulputate hendrerit ex. Mauris sit amet ex id mauris accumsan finibus non sed lectus. Suspendisse nec nisl et urna posuere consequat. Etiam vitae metus dictum, feugiat magna ac, sodales sapien. Aliquam fermentum mi hendrerit velit porttitor commodo. Nullam cursus finibus sapien.
+                                Donec pretium dolor at nisl cursus fermentum. Suspendisse non nunc velit. Phasellus finibus, metus id sollicitudin congue, massa velit euismod sem, non eleifend nisi purus vitae massa. Integer ut enim libero. Morbi sit amet justo sit amet odio cursus rhoncus. Pellentesque a ipsum non nulla pharetra dignissim a ut erat. Ut mattis congue eleifend.
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tortor lacus, accumsan sed augue rhoncus, sodales gravida dolor. Morbi felis augue, pretium non lectus et, porttitor tincidunt lorem. Duis eget odio tincidunt, congue sem gravida, maximus lorem. Integer at imperdiet est. Donec in dapibus diam. Phasellus sit amet tellus in neque suscipit commodo facilisis vitae lacus. Aliquam quis vestibulum ex. Nulla mattis, eros efficitur ullamcorper pretium, felis dolor congue lectus, a volutpat turpis mauris sed nunc. Donec in nibh sit amet nunc fringilla placerat eu dictum nibh. Nulla facilisi. Phasellus a massa porta, pulvinar ante eu, sodales augue.
+                                Curabitur porttitor turpis eget tortor bibendum eleifend. Integer nec lacus interdum, porta mi vel, pharetra urna. Morbi vel risus a urna aliquet posuere sit amet vitae est. Sed sed tincidunt elit. Etiam risus dolor, rutrum quis felis a, condimentum efficitur odio. Suspendisse eget diam vitae risus sodales porta eu nec nunc. Mauris suscipit mi sapien, eget dignissim arcu auctor ut. Pellentesque vel ligula ex. Fusce eget nibh tristique, tincidunt lorem ut, posuere felis. Nulla facilisi.
+                                Aliquam placerat nisi neque, ac tempus elit sollicitudin ac. Maecenas interdum risus quis euismod tincidunt. Aliquam molestie nunc nec mollis sodales. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Phasellus et sollicitudin diam. Ut vel metus mauris. Donec in blandit metus. Cras sed mollis neque. In pretium, neque rhoncus pretium laoreet, tellus purus varius tellus, sit amet congue quam erat sit amet nisl. Praesent finibus erat nec lacus auctor blandit. Ut luctus mattis ex sed convallis. Etiam et accumsan diam. Cras sodales urna sed purus finibus, a lobortis risus consequat. Nam vel accumsan turpis. Fusce varius ante placerat nisl porta commodo.
+                                Suspendisse at elit sem. Aenean semper lectus sit amet dignissim placerat. Phasellus et odio ex. Nullam id porttitor neque. Nulla laoreet massa erat, quis vehicula elit ornare ac. Suspendisse ex enim, iaculis a vulputate nec, luctus nec neque. Nunc hendrerit lorem lacus, id mattis mauris euismod at. Nullam vulputate hendrerit ex. Mauris sit amet ex id mauris accumsan finibus non sed lectus. Suspendisse nec nisl et urna posuere consequat. Etiam vitae metus dictum, feugiat magna ac, sodales sapien. Aliquam fermentum mi hendrerit velit porttitor commodo. Nullam cursus finibus sapien.
+                                Donec pretium dolor at nisl cursus fermentum. Suspendisse non nunc velit. Phasellus finibus, metus id sollicitudin congue, massa velit euismod sem, non eleifend nisi purus vitae massa. Integer ut enim libero. Morbi sit amet justo sit amet odio cursus rhoncus. Pellentesque a ipsum non nulla pharetra dignissim a ut erat. Ut mattis congue eleifend.
+                            </TextBlock>
+                        </StackPanel>
+                    </ScrollViewer>
+                    <!-- Info Section END-->
+                    
+                </Grid>
+                <!-- Middle Left Part END -->
+
+                <!-- Middle Right Part -->
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Focusable="False" Grid.Column="1">
+                    <Grid>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Question Part -->
+                            <TextBlock HorizontalAlignment="Stretch" Height="Auto" TextWrapping="Wrap" Padding="10,20,10,20" FontSize="17" Grid.Row="0">
+                                The data in Figure 2 for time = 140 days are best shown by which of the following graphs?
+                            </TextBlock>
+                            <!-- Question Part END -->
+
+                            <!-- Answer List -->
+                            <Grid Grid.Row="1" Margin="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <Grid Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <RadioButton Name="Ans1" RenderSize="22,22" Margin="0,10,0,10" GroupName="Answers" Background="White" Grid.Column="0" FontSize="17" FontWeight="DemiBold" VerticalContentAlignment="Center">A.</RadioButton>
+                                    <TextBlock Height="Auto" TextWrapping="Wrap" FontSize="17" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="10" Grid.Column="1">
+                                    Answer
+                                    Answer
+                                    Answer
+                                    Answer
+                                    Answer
+                                    Answer
+                                    Answer
+                                    Answer
+                                    Answer
+                                    Answer
+                                    Answer
+                                    </TextBlock>
+                                </Grid>
+
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <RadioButton Name="Ans2" RenderSize="22,22" Margin="0,10,0,10" GroupName="Answers" Background="White" Grid.Column="0" FontSize="17" FontWeight="DemiBold" VerticalContentAlignment="Center">B.</RadioButton>
+                                    <TextBlock Height="Auto" TextWrapping="Wrap" FontSize="17" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="10" Grid.Column="1">
+                                    AnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswer
+                                    </TextBlock>
+                                </Grid>
+
+                                <Grid Grid.Row="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <RadioButton Name="Ans3" RenderSize="22,22" Margin="0,10,0,10" GroupName="Answers" Background="White" Grid.Column="0" FontSize="17" FontWeight="DemiBold" VerticalContentAlignment="Center">C.</RadioButton>
+                                    <TextBlock Height="Auto" TextWrapping="Wrap" FontSize="17" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="10" Grid.Column="1">
+                                    AnswerAnswerAnswerAnswerAnswerAnswerAnswer
+                                    AnswerAnswerAnswerAnswerAnswerAnswerAnswer
+                                    AnswerAnswerAnswerAnswerAnswerAnswerAnswer
+                                    AnswerAnswerAnswerAnswerAnswerAnswerAnswer
+                                    AnswerAnswerAnswerAnswerAnswerAnswerAnswer
+                                    AnswerAnswerAnswerAnswerAnswerAnswerAnswer
+                                    AnswerAnswerAnswerAnswerAnswerAnswerAnswer
+                                    AnswerAnswerAnswerAnswerAnswerAnswerAnswer
+                                    AnswerAnswerAnswerAnswerAnswerAnswerAnswer
+                                    AnswerAnswerAnswerAnswerAnswerAnswerAnswer
+                                    AnswerAnswerAnswerAnswerAnswerAnswerAnswer
+                                    AnswerAnswerAnswerAnswerAnswerAnswerAnswer
+                                    AnswerAnswerAnswerAnswerAnswerAnswerAnswer
+                                    AnswerAnswerAnswerAnswerAnswerAnswerAnswer
+                                    </TextBlock>
+                                </Grid>
+
+                                <Grid Grid.Row="3">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <RadioButton Name="Ans4" RenderSize="22,22" Margin="0,10,0,10" GroupName="Answers" Background="White" Grid.Column="0" FontSize="17" FontWeight="DemiBold" VerticalContentAlignment="Center">D.</RadioButton>
+                                    <TextBlock Height="Auto" TextWrapping="Wrap" FontSize="17" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="10" Grid.Column="1">
+                                    AnswerAnswerAnswerAnswer
+                                    AnswerAnswerAnswerAnswer
+                                    AnswerAnswerAnswerAnswer
+                                    AnswerAnswerAnswerAnswer
+                                    AnswerAnswerAnswerAnswer
+                                    AnswerAnswerAnswerAnswer
+                                    AnswerAnswerAnswerAnswer
+                                    AnswerAnswerAnswerAnswer
+                                    AnswerAnswerAnswerAnswer
+                                    AnswerAnswerAnswerAnswer
+                                    AnswerAnswerAnswerAnswer
+                                    AnswerAnswerAnswerAnswer
+                                    </TextBlock>
+                                </Grid>
+
+                                <Grid Grid.Row="4" Visibility="Collapsed">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <RadioButton Name="Ans5" RenderSize="22,22" Margin="0,10,0,10" GroupName="Answers" Background="White" Grid.Column="0" FontSize="17" FontWeight="DemiBold" VerticalContentAlignment="Center">E.</RadioButton>
+                                    <TextBlock Height="Auto" TextWrapping="Wrap" FontSize="17" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="10" Grid.Column="1">
+                                    AnswerAnswerAnswerAnswer
+                                    AnswerAnswerAnswerAnswer
+                                    AnswerAnswerAnswerAnswer
+                                    AnswerAnswerAnswerAnswer
+                                    AnswerAnswerAnswerAnswer
+                                    AnswerAnswerAnswerAnswer
+                                    AnswerAnswerAnswerAnswer
+                                    AnswerAnswerAnswerAnswer
+                                    AnswerAnswerAnswerAnswer
+                                    AnswerAnswerAnswerAnswer
+                                    AnswerAnswerAnswerAnswer
+                                    AnswerAnswerAnswerAnswer
+                                    AnswerAnswerAnswerAnswer
+                                    AnswerAnswerAnswer
+                                    </TextBlock>
+                                </Grid>
+
+                            </Grid>
+                            <!-- Answer List END -->
+                        </Grid>
+                    </Grid>
+                </ScrollViewer>
+                <!-- Middle Right Part END-->
+            </Grid>
+        </Border>
+        <!-- Middle END-->
+
+        <!-- Lower Panel -->
+        <Border Grid.Row="2" Background="LightGray">
+
+            <Grid>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.33*"/>
+                    <RowDefinition Height="0.34*"/>
+                    <RowDefinition Height="0.33*"/>
+                </Grid.RowDefinitions>
+
+
+                <StackPanel Grid.RowSpan="2" Orientation="Horizontal" 
+                            HorizontalAlignment="Right">
+
+                    <Grid>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                    </Grid>
+
+
+                </StackPanel>
+
+            </Grid>
+
+        </Border>
+        <!-- Lower Panel END-->
+
+    </Grid>
+</Window>
