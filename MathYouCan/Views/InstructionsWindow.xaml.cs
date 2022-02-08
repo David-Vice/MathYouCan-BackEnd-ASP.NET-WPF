@@ -172,7 +172,7 @@ namespace MathYouCan.Views
 
         private void AssignImageSources()
         {
-            actLogoImage.Source = new BitmapImage(new Uri("pack://application:,,,/Img/act_logo.png"));
+            actLogoImage.Source = new BitmapImage(new Uri("pack://application:,,,/Img/mathyoucan_logo.png"));
         }
 
         private void nextButton_Click(object sender, RoutedEventArgs e)

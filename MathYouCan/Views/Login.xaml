@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MathYouCan.Views"
         mc:Ignorable="d"
-        Title="Login"  Height="600" Width="1000" FontSize="25" WindowState="Maximized" WindowStyle="None" >
+        Title="Login"  Height="600" Width="1000" Background="#C4FFD8" FontSize="25" WindowState="Maximized" WindowStyle="None" >
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.5*"></RowDefinition>
@@ -89,7 +89,7 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Click="Button_Click" Grid.Column="1" Background="#C4FFD8">Login</Button>
+            <Button Click="Button_Click" Grid.Column="1" Foreground="AliceBlue" Background="#2FAA2F">Login</Button>
         </Grid>
         
         <Grid Grid.Row="2" Grid.Column="2">
