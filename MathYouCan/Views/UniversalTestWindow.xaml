@@ -142,7 +142,7 @@
                         </StackPanel>
                     </ScrollViewer>
                     <!-- Info Section END-->
-                    
+
                 </Grid>
                 <!-- Middle Left Part END -->
 
@@ -156,7 +156,7 @@
                             </Grid.RowDefinitions>
 
                             <!-- Question Part -->
-                            <TextBlock HorizontalAlignment="Stretch" Height="Auto" TextWrapping="Wrap" Padding="10,20,10,20" FontSize="17" Grid.Row="0">
+                            <TextBlock x:Name="questionTextBlock" HorizontalAlignment="Stretch" Height="Auto" TextWrapping="Wrap" Padding="10,20,10,20" FontSize="17" Grid.Row="0">
                                 The data in Figure 2 for time = 140 days are best shown by which of the following graphs?
                             </TextBlock>
                             <!-- Question Part END -->
@@ -289,28 +289,19 @@
             <Grid>
 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="0.33*"/>
-                    <RowDefinition Height="0.34*"/>
-                    <RowDefinition Height="0.33*"/>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition Height="0.1*"/>
                 </Grid.RowDefinitions>
 
+                <ScrollViewer  Focusable="False" Grid.RowSpan="2" HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Auto">
 
-                <StackPanel Grid.RowSpan="2" Orientation="Horizontal" 
-                            HorizontalAlignment="Right">
+                    <StackPanel x:Name="questionsStackPanel" Orientation="Horizontal">
+                        
+                        
+                    </StackPanel>
+                </ScrollViewer>
 
-                    <Grid>
-
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition Width="2*"/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-
-                    </Grid>
-
-
-                </StackPanel>
 
             </Grid>
 
