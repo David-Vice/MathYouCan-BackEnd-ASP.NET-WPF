@@ -47,11 +47,10 @@
 
         <Grid Grid.Row="1" Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.2*"></RowDefinition>
+                <RowDefinition Height="0.4*"></RowDefinition>
                 <RowDefinition Height="0.8*"></RowDefinition>
-                <RowDefinition Height="0.2*"></RowDefinition>
                 <RowDefinition Height="0.8*"></RowDefinition>
-                <RowDefinition Height="0.2*"></RowDefinition>
+                <RowDefinition Height="0.4*"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.7*"></ColumnDefinition>
@@ -69,8 +68,8 @@
                 <TextBox x:Name="mailTextBox" VerticalContentAlignment="Center" Grid.Row="1"></TextBox>
             </Grid>
 
-            <Label Grid.Row="3" Grid.Column="1" Foreground="#2FAA2F" HorizontalAlignment="Center" VerticalAlignment="Center">Password</Label>
-            <Grid Grid.Row="3" Grid.Column="2">
+            <Label Grid.Row="2" Grid.Column="1" Foreground="#2FAA2F" HorizontalAlignment="Center" VerticalAlignment="Center">Password</Label>
+            <Grid Grid.Row="2" Grid.Column="2">
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
                     <RowDefinition Height="0.9*"></RowDefinition>
