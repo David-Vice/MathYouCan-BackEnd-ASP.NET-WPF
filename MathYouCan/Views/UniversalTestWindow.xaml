@@ -298,7 +298,6 @@
 
                     <StackPanel x:Name="questionsStackPanel" Orientation="Horizontal">
                         
-                        
                     </StackPanel>
                 </ScrollViewer>
 

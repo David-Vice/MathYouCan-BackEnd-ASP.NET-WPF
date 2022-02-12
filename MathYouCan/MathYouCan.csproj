@@ -58,10 +58,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\Instruction.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Services\Abstract\IAuthValidatorService.cs" />
     <Compile Include="Services\Concrete\AuthUserConverterService.cs" />
     <Compile Include="Services\Concrete\AuthValidatorService.cs" />
+    <Compile Include="ViewModels\InstructionWindowViewModel.cs" />
     <Compile Include="Views\InstructionsWindow.xaml.cs">
       <DependentUpon>InstructionsWindow.xaml</DependentUpon>
     </Compile>
@@ -118,9 +120,7 @@
   <ItemGroup>
     <Resource Include="Img\mathyoucan_logo.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Img\act_logo.png" />
   </ItemGroup>

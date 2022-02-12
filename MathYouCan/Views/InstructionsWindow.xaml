@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:MathYouCan.Views"
         mc:Ignorable="d"
         Height="450" Width="800"
-        WindowStyle="None" ResizeMode="NoResize" Loaded="Window_Loaded">
+        WindowStyle="None" ResizeMode="NoResize" Loaded="Window_Loaded"
+        Background="#f2f2f2">
     <Grid>
 
         <Grid.RowDefinitions>
@@ -15,6 +16,13 @@
             <RowDefinition Height="7*"/>
         </Grid.RowDefinitions>
 
+        <Popup Name="navigationPopUp">
+            <StackPanel Name="navigationPopUpStackPanel" Background="Aqua">
+                
+            </StackPanel>
+        </Popup>
+        
+        
         <!-- Top Panel -->
         <Border Grid.Row="0" Background="#001733">
 
@@ -112,7 +120,25 @@
 
                 <StackPanel Grid.Row="1" Margin="30,0,0,0">
 
-                    <TextBlock Name="instructionContentTextBlock"/>
+                    
+                    
+                        <!--This Stack Panel Fills dynamically-->
+                    <StackPanel Name="instructionContent"></StackPanel>
+
+
+                    
+                    
+                    <!--  TEST  -->
+                    <!--<StackPanel Name="instructionContent" MouseUp="instructionContent_MouseUp" MouseLeave="instructionContent_MouseLeave">
+
+                    </StackPanel>-->
+
+
+
+
+
+
+
 
                     <StackPanel Name="acceptDeclineStackPanel" Orientation="Horizontal" Margin="0,40,0,0"
                                 Visibility="Hidden">
@@ -151,27 +177,18 @@
             <Grid>
 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="0.33*"/>
-                    <RowDefinition Height="0.34*"/>
-                    <RowDefinition Height="0.33*"/>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition Height="0.1*"/>
                 </Grid.RowDefinitions>
 
+                <ScrollViewer  Focusable="False" Grid.RowSpan="2" HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Auto">
 
-                <StackPanel Grid.RowSpan="2" Orientation="Horizontal" 
-                            HorizontalAlignment="Right">
+                    <StackPanel x:Name="questionsStackPanel" Orientation="Horizontal" CanHorizontallyScroll="False">
 
-                    <Grid>
+                    </StackPanel>
+                </ScrollViewer>
 
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition Width="2*"/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-
-                    </Grid>
-
-                </StackPanel>
 
             </Grid>
 

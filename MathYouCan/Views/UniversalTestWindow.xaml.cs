@@ -41,6 +41,7 @@ namespace MathYouCan.Views
         {
             AssignImageSources();
         }
+
         private void changeQuestionButton_Click(object sender, RoutedEventArgs e)
         {
             ChangeBtnToPassive(buttons.Where(x => x.Content.ToString() == $"{currentQuestion}").First());
@@ -64,6 +65,17 @@ namespace MathYouCan.Views
             ChangeBtnToActive(buttons.Where(x => x.Content.ToString() == $"{currentQuestion}").First());
         }
 
+        private void ChangeBtnToActive(Button btn)
+        {
+            //changes color to red
+            btn.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#e42a22"));
+        }
+        private void ChangeBtnToPassive(Button btn)
+        {
+            //changes color to white
+            btn.Background = new SolidColorBrush(Colors.White);
+        }
+
 
         #region Method That are called only at the beginning once
         private void AssignImageSources()
@@ -83,8 +95,6 @@ namespace MathYouCan.Views
         {
             for (int i = 0; i < fakeList.Count; i++)
             {
-
-
                 Button btn = new Button();
                 btn.Name = $"btn{i + 1}";
                 btn.Height = 30;
@@ -102,16 +112,7 @@ namespace MathYouCan.Views
             }
 
         }
-        private void ChangeBtnToActive(Button btn)
-        {
-            //changes color to red
-            btn.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#e42a22"));
-        }
-        private void ChangeBtnToPassive(Button btn)
-        {
-            //changes color to red
-            btn.Background = new SolidColorBrush(Colors.White);
-        }
+      
         #endregion
     }
 }
