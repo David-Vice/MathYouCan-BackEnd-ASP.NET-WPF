@@ -26,7 +26,6 @@ namespace MathYouCan.Services.Concrete
             var content = new StringContent(JsonConvert.SerializeObject(values), Encoding.UTF8, "application/json");
             var result = client.PostAsync("http://api.mathyoucan.com/User/api/Auth/login", content).Result;
             return result.Content.ReadAsStringAsync().Result;
-
         }
     }
 }

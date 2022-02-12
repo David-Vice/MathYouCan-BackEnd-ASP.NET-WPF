@@ -26,7 +26,6 @@ namespace MathYouCan.Views
             InitializeComponent();
             _authValidatorService = new AuthValidatorService();
         }
-
        
         private void Label_MouseEnter(object sender, MouseEventArgs e)
         {
@@ -41,7 +40,7 @@ namespace MathYouCan.Views
 
         private void Label_MouseUp(object sender, MouseButtonEventArgs e)
         {
-             if(MessageBox.Show("Do you really want to exit MathYouCan?", "Exit", MessageBoxButton.YesNo).ToString() == "Yes")
+             if(MessageBox.Show("Do you really want to exit MathYouCan?", "Exit", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
              {
                 Close();
              }
@@ -49,17 +48,18 @@ namespace MathYouCan.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-           string jsonData=_authValidatorService.AreValidCredentials(mailTextBox.Text, passwordBox.Password);
-           
-              AuthUserConverterService.GetData(jsonData);
+            //string jsonData=_authValidatorService.AreValidCredentials(mailTextBox.Text, passwordBox.Password);
+            //AuthUserConverterService.GetData(jsonData);
+
+            this.DialogResult = true;
+            this.Close();
         }
 
-        private void ins_Click(object sender, RoutedEventArgs e)
-        {
-            InstructionsWindow instructionsWindow = new InstructionsWindow();
-            Close();
-            instructionsWindow.ShowDialog();
-
-        }
+        //private void ins_Click(object sender, RoutedEventArgs e)
+        //{
+        //    InstructionsWindow instructionsWindow = new InstructionsWindow();
+        //    Close();
+        //    instructionsWindow.ShowDialog();
+        //}
     }
 }

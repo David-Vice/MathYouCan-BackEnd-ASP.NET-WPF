@@ -33,9 +33,6 @@ namespace MathYouCan.Views
             CreateButtons();
             UpdateWindow();
         }
-      
-
-        
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -50,9 +47,6 @@ namespace MathYouCan.Views
             UpdateWindow();
 
         }
-
-        
-
      
         //этот метод вызывается вначале 1 раз и еще каждый раз когда пользователь меняет вопрос кликая на кнопки changeQuestionButton_Click
         private void UpdateWindow()
@@ -90,7 +84,6 @@ namespace MathYouCan.Views
                 fakeList.Add($"This is question {i+1}");
             }
         }
-
         private void CreateButtons()
         {
             for (int i = 0; i < fakeList.Count; i++)
@@ -110,9 +103,7 @@ namespace MathYouCan.Views
                 buttons.Add(btn);
                 questionsStackPanel.Children.Add(btn);
             }
-
         }
-      
         #endregion
     }
 }
