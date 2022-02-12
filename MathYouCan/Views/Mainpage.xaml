@@ -9,8 +9,8 @@
     <Grid>
 
         <Grid.RowDefinitions>
+            <RowDefinition Height="12*"/>
             <RowDefinition Height="9*"/>
-            <RowDefinition Height="7*"/>
             <RowDefinition Height="73*"/>
             <RowDefinition Height="7*"/>
         </Grid.RowDefinitions>
@@ -30,7 +30,7 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="20,0,0,0"
                             Grid.Row="1">
 
-                    <Image Name="actLogoImage" Source="pack://application:,,,/Img/mathyoucan_logo.png" Stretch="Fill" RenderOptions.BitmapScalingMode="HighQuality"/>
+                    <Image Name="actLogoImage" Source="pack://application:,,,/Img/large.png" Stretch="Fill" RenderOptions.BitmapScalingMode="HighQuality"/>
                     <TextBlock Name="nameText" FontSize="30" Foreground="White" Margin="80,0,10,0"
                              FontWeight="Bold" 
                            >Name
