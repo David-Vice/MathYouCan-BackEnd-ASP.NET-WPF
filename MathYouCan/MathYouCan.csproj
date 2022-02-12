@@ -58,12 +58,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\StackPanelConverter.cs" />
+    <Compile Include="Models\Answer.cs" />
     <Compile Include="Models\Instruction.cs" />
+    <Compile Include="Models\Question.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Services\Abstract\IAuthValidatorService.cs" />
     <Compile Include="Services\Concrete\AuthUserConverterService.cs" />
     <Compile Include="Services\Concrete\AuthValidatorService.cs" />
     <Compile Include="ViewModels\InstructionWindowViewModel.cs" />
+    <Compile Include="ViewModels\UniversalTestViewModel.cs" />
     <Compile Include="Views\InstructionsWindow.xaml.cs">
       <DependentUpon>InstructionsWindow.xaml</DependentUpon>
     </Compile>

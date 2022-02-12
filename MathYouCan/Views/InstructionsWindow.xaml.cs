@@ -203,7 +203,7 @@ namespace MathYouCan.Views
                 margin.Bottom = 0;
                 btn.Margin = margin;
                 btn.Content = $"{i + 1}";
-                btn.Click += changeQuestionButton_Click;
+                btn.Click += changeInstructionButton_Click;
                 btn.Background = new SolidColorBrush(Colors.White);
 
                 var style = new Style
@@ -220,7 +220,7 @@ namespace MathYouCan.Views
         }
 
 
-        private void changeQuestionButton_Click(object sender, RoutedEventArgs e)
+        private void changeInstructionButton_Click(object sender, RoutedEventArgs e)
         {
             ChangeBtnToPassive(_buttons.Where(x => x.Content.ToString() == $"{_instructionWindowViewModel.CurrentInstructionIndex + 1}").First());
             _instructionWindowViewModel.CurrentInstructionIndex = int.Parse((sender as Button).Content.ToString()) - 1;
