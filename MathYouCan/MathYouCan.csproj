@@ -78,6 +78,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Views\Mainpage.xaml.cs">
+      <DependentUpon>Mainpage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UniversalTestWindow.xaml.cs">
       <DependentUpon>UniversalTestWindow.xaml</DependentUpon>
     </Compile>
@@ -88,6 +91,10 @@
     <Page Include="Views\Login.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Mainpage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UniversalTestWindow.xaml">
       <SubType>Designer</SubType>
@@ -124,9 +131,14 @@
   <ItemGroup>
     <Resource Include="Img\mathyoucan_logo.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Img\Assetsmall.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Img\act_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Img\large.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -24,9 +24,9 @@
                 <RowDefinition Height="0.1*"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.1*"></ColumnDefinition>
+                <ColumnDefinition Width="0.2*"></ColumnDefinition>
                 <ColumnDefinition ></ColumnDefinition>
-                <ColumnDefinition Width="0.1*"></ColumnDefinition>
+                <ColumnDefinition Width="0.2*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Image Grid.Column="1" Grid.Row="1" Source="pack://application:,,,/Img/mathyoucan_logo.png" Stretch="Fill"  />
         </Grid>
@@ -38,7 +38,7 @@
             <!--TO DELETE-->
             <!--TO DELETE-->
             <!--TO DELETE-->
-            <Button Grid.Column="2" Content="INS" Name="ins" Click="ins_Click"></Button>
+            <!--<Button Grid.Column="2" Content="INS" Name="ins" Click="ins_Click"></Button>-->
             <!--TO DELETE-->
             <!--TO DELETE-->
             <!--TO DELETE-->

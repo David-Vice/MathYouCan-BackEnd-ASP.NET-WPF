@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using MathYouCan.Views;
 
 namespace MathYouCan
 {
@@ -13,5 +14,19 @@ namespace MathYouCan
     /// </summary>
     public partial class App : Application
     {
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            try
+            {
+                if (new Login().ShowDialog() == true)
+                {
+                    new InstructionsWindow().ShowDialog();
+                }
+            }
+            finally
+            {
+                Shutdown();
+            }
+        }
     }
 }

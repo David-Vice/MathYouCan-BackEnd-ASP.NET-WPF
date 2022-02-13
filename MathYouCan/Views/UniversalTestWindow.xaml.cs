@@ -206,7 +206,7 @@ namespace MathYouCan.Views
         #region Method That are called only at the beginning once
         private void AssignImageSources()
         {
-            actLogoImage.Source = new BitmapImage(new Uri("pack://application:,,,/Img/mathyoucan_logo.png"));
+            actLogoImage.Source = new BitmapImage(new Uri("pack://application:,,,/Img/large.png"));
         }
 
         //private void InitializeList()
@@ -245,7 +245,6 @@ namespace MathYouCan.Views
                 buttons.Add(btn);
                 questionsStackPanel.Children.Add(btn);
             }
-
         }
 
         #endregion
