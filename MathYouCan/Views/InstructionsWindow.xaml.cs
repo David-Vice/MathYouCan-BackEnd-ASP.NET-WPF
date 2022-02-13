@@ -167,17 +167,6 @@ namespace MathYouCan.Views
                         tb.Inlines.Add(new Run(word + " "));
                     }
 
-                    /*   TEST   */
-                    /*   TEST   */
-                    /*   TEST   */
-                    /*   TEST   */
-                    //tb.MouseEnter += TextBlock_MouseEnter;
-                    //tb.MouseDown += TextBlock_MouseDown;
-                    /*   TEST   */
-                    /*   TEST   */
-                    /*   TEST   */
-                    /*   TEST   */
-
                     sp.Children.Add(tb);  // Adding word to stack panel
                 }
 
@@ -286,62 +275,6 @@ namespace MathYouCan.Views
 
         #endregion
 
-
-
-
-
-
-
-
-
-
-
-
-        #region PopUp Panel(NOT FINISHED)
-
-
-
-        #endregion
-
-
-
-        #region TEMP
-
-
-        bool isPressed = false;
-
-        private void instructionContent_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            isPressed = false;
-        }
-
-        private void TextBlock_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            isPressed = true;
-
-            TextBlock l = sender as TextBlock;
-
-            l.Background = Brushes.Aqua;
-        }
-
-        private void TextBlock_MouseEnter(object sender, MouseEventArgs e)
-        {
-            if (isPressed)
-            {
-                TextBlock l = sender as TextBlock;
-
-                l.Background = Brushes.Aqua;
-            }
-        }
-
-        private void instructionContent_MouseLeave(object sender, MouseEventArgs e)
-        {
-            isPressed = false;
-
-        }
-
-
-        #endregion
 
     }
 }

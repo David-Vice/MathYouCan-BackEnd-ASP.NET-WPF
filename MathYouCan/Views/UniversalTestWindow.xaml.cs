@@ -36,7 +36,6 @@ namespace MathYouCan.Views
             
             _universalTestViewModel = new UniversalTestViewModel();
 
-            //InitializeList();
             CreateButtons();
             UpdateWindow();
         }
@@ -169,54 +168,11 @@ namespace MathYouCan.Views
         #endregion
 
 
-
-        //bool isPressed = false;
-
-        //private void instructionContent_MouseUp(object sender, MouseButtonEventArgs e)
-        //{
-        //    isPressed = false;
-        //}
-
-        //private void TextBlock_MouseDown(object sender, MouseButtonEventArgs e)
-        //{
-        //    isPressed = true;
-
-        //    TextBlock l = sender as TextBlock;
-
-        //    l.Background = Brushes.Aqua;
-        //}
-
-        //private void TextBlock_MouseEnter(object sender, MouseEventArgs e)
-        //{
-        //    if (isPressed)
-        //    {
-        //        TextBlock l = sender as TextBlock;
-
-        //        l.Background = Brushes.Aqua;
-        //    }
-        //}
-
-        //private void instructionContent_MouseLeave(object sender, MouseEventArgs e)
-        //{
-        //    isPressed = false;
-
-        //}
-
-
         #region Method That are called only at the beginning once
         private void AssignImageSources()
         {
             actLogoImage.Source = new BitmapImage(new Uri("pack://application:,,,/Img/large.png"));
         }
-
-        //private void InitializeList()
-        //{
-        //    //потом этот метод должен принимать IEnumerable<Question>
-        //    for (int i = 0; i < 100; i++)
-        //    {
-        //        fakeList.Add($"This is question {i+1}");
-        //    }
-        //}
 
         private void CreateButtons()
         {

@@ -34,16 +34,6 @@
             <Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="45" Foreground="#2FA1F2">Login</Label>
         </Grid>
         
-            <!--TO DELETE-->
-            <!--TO DELETE-->
-            <!--TO DELETE-->
-            <!--TO DELETE-->
-            <!--<Button Grid.Column="2" Content="INS" Name="ins" Click="ins_Click"></Button>-->
-            <!--TO DELETE-->
-            <!--TO DELETE-->
-            <!--TO DELETE-->
-            <!--TO DELETE-->
-            <!--TO DELETE-->
 
         <Grid Grid.Row="1" Grid.Column="1">
             <Grid.RowDefinitions>

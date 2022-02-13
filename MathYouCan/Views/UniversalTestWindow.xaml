@@ -109,13 +109,13 @@
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
 
-                    <!-- Info Label -->
+                    <!-- Question Title Label -->
                     <StackPanel Grid.Row="0"  VerticalAlignment="Center" >
                         <Label Name="questionTitleLabel" HorizontalAlignment="Left" Padding="10,0,0,0" FontSize="17" FontWeight="Bold">Passage II</Label>
                     </StackPanel>
-                    <!-- Info Label END -->
+                    <!-- Question Title END -->
 
-                    <!-- Info Section -->
+                    <!-- Passage Section -->
                     <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Focusable="False">
                         <StackPanel Name="questionPassageStackPanel" Width="Auto">
 
@@ -144,7 +144,7 @@
 
                         </StackPanel>
                     </ScrollViewer>
-                    <!-- Info Section END-->
+                    <!-- Passage END-->
 
                 </Grid>
                 <!-- Middle Left Part END -->
