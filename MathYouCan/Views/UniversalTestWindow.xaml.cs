@@ -25,13 +25,12 @@ namespace MathYouCan.Views
         // (по дэфолту он 1 ) выбираем вопрос из этого коллекшина API и фулл показывем с помощью UpdateWindow(int questionNumber)
         //а сам коллекшн и его длинную используем для создание динамч. платформы вопросов внизу
         //сам коллекшн передадим через конструкктор
-        //пока пусть это будет коллекшн гавно текста но потом поменяем на коллекш класса в котором уже
+        //пока пусть это будет коллекшн 'нецензурное слово' текста но потом поменяем на коллекш класса в котором уже
         //и текст и картинки и варианты ответов
         //IEnumerable<Question> questions
         List<Button> buttons = new List<Button>();
         List<StackPanel> navPanels = new List<StackPanel>();
         int prevQuestion = 1;
-        int currentQuestion=1;
         //int currentQuestion=1;
 
         private UniversalTestViewModel _universalTestViewModel;
@@ -46,13 +45,11 @@ namespace MathYouCan.Views
             CreateNavButtons();
             UpdateWindow();
         }
-        
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             AssignImageSources();
         }
-
     
         #region Methods To UPDATE WINDOW
 
@@ -89,7 +86,6 @@ namespace MathYouCan.Views
             questionTitleLabel.Content = _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].QuestionTitle;
         }
 
-
         private void FillQuestion()
         {
             FillQuestionPassage();
@@ -104,26 +100,11 @@ namespace MathYouCan.Views
             converter.FillStackPanel(questionPassageStackPanel, _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].QuestionContent, true);
         }
 
-
-            prevQuestion = currentQuestion;
-            currentQuestion = int.Parse((sender as Button).Content.ToString());
-            //Save chosen answer
-            UpdateWindow();
-        }
-        private void navQuestion_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            prevQuestion = currentQuestion;
-            currentQuestion = int.Parse((((sender as StackPanel).Children[0] as StackPanel).Children[0] as Label).Content.ToString());
-            NavPanel.Visibility = Visibility.Collapsed; //no animation
-            UpdateWindow();
-        }
-
         //этот метод вызывается вначале 1 раз и еще каждый раз когда пользователь меняет вопрос кликая на кнопки changeQuestionButton_Click
         private void UpdateWindow()
         {
             ChangeBtnToPassive(buttons.Where(x => x.Content.ToString() == $"{prevQuestion}").First());
             ChangeNavQuestToPassive(navPanels.Where(x => x.Name.ToString() == $"questionNavStackPanel{prevQuestion}").First());
-            questionTextBlock.Text = fakeList[currentQuestion - 1];
             //questionTextBlock.Text = fakeList[currentQuestion - 1];
             UpdateWindowContent();
 
@@ -131,13 +112,12 @@ namespace MathYouCan.Views
             //....
             //...
             //changes the color of exact button which was chosen as current
-            ChangeBtnToActive(buttons.Where(x => x.Content.ToString() == $"{currentQuestion}").First());
-            ChangeNavQuestToActive(navPanels.Where(x => x.Name.ToString() == $"questionNavStackPanel{currentQuestion}").First());
+            //ChangeBtnToActive(buttons.Where(x => x.Content.ToString() == $"{currentQuestion}").First());
+            ChangeNavQuestToActive(navPanels.Where(x => x.Name.ToString() == $"questionNavStackPanel{_universalTestViewModel.CurrentQuestionIndex + 1}").First());
             ChangeBtnToActive(buttons.Where(x => x.Content.ToString() == $"{_universalTestViewModel.CurrentQuestionIndex + 1}").First());
         }
 
         #endregion
-
 
         #region Methods To OPERATE BUTTONS
 
@@ -145,13 +125,21 @@ namespace MathYouCan.Views
         {
             //ChangeBtnToPassive(buttons.Where(x => x.Content.ToString() == $"{currentQuestion}").First());
             //currentQuestion = int.Parse((sender as Button).Content.ToString());
-            ChangeBtnToPassive(buttons.Where(x => x.Content.ToString() == $"{_universalTestViewModel.CurrentQuestionIndex + 1}").First());
-            _universalTestViewModel.CurrentQuestionIndex = int.Parse((sender as Button).Content.ToString()) - 1;
 
+            prevQuestion = _universalTestViewModel.CurrentQuestionIndex + 1;
+            //ChangeBtnToPassive(buttons.Where(x => x.Content.ToString() == $"{_universalTestViewModel.CurrentQuestionIndex + 1}").First());
+            _universalTestViewModel.CurrentQuestionIndex = int.Parse((sender as Button).Content.ToString()) - 1;
+            
             //Save chosen answer
             UpdateWindow();
         }
-
+        private void navQuestion_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            prevQuestion = _universalTestViewModel.CurrentQuestionIndex + 1;
+            _universalTestViewModel.CurrentQuestionIndex = int.Parse((((sender as StackPanel).Children[0] as StackPanel).Children[0] as Label).Content.ToString()) - 1;
+            NavPanel.Visibility = Visibility.Collapsed; //no animation
+            UpdateWindow();
+        }
         private void ChangeBtnToActive(Button btn)
         {
             //changes color to red
@@ -170,25 +158,6 @@ namespace MathYouCan.Views
             btn.FontWeight = FontWeights.Normal;
             btn.BorderThickness = new Thickness(1);
         }
-
-        #endregion
-
-
-        #region prevButton and nextButton Clicks
-
-        private void prevButton_Click(object sender, RoutedEventArgs e)
-        {
-            ChangeBtnToPassive(buttons.Where(x => x.Content.ToString() == $"{_universalTestViewModel.CurrentQuestionIndex + 1}").First());
-            _universalTestViewModel.CurrentQuestionIndex--;
-            UpdateWindow();
-        }
-
-        private void nextButton_Click(object sender, RoutedEventArgs e)
-        {
-            ChangeBtnToPassive(buttons.Where(x => x.Content.ToString() == $"{_universalTestViewModel.CurrentQuestionIndex + 1}").First());
-            _universalTestViewModel.CurrentQuestionIndex++;
-            UpdateWindow();
-        }
         private void ChangeNavQuestToActive(StackPanel stack)
         {
             stack.Background = new SolidColorBrush(Colors.SkyBlue);
@@ -200,6 +169,20 @@ namespace MathYouCan.Views
 
         #endregion
 
+        #region prevButton and nextButton Clicks
+        private void prevButton_Click(object sender, RoutedEventArgs e)
+        {
+            ChangeBtnToPassive(buttons.Where(x => x.Content.ToString() == $"{_universalTestViewModel.CurrentQuestionIndex + 1}").First());
+            _universalTestViewModel.CurrentQuestionIndex--;
+            UpdateWindow();
+        }
+        private void nextButton_Click(object sender, RoutedEventArgs e)
+        {
+            ChangeBtnToPassive(buttons.Where(x => x.Content.ToString() == $"{_universalTestViewModel.CurrentQuestionIndex + 1}").First());
+            _universalTestViewModel.CurrentQuestionIndex++;
+            UpdateWindow();
+        }
+        #endregion
 
         #region Method That are called only at the beginning once
         private void AssignImageSources()
@@ -237,7 +220,7 @@ namespace MathYouCan.Views
         }
         private void CreateNavButtons()
         {
-            for (int i = 0; i < fakeList.Count; i++)
+            for (int i = 0; i < _universalTestViewModel.Questions.Count; i++)
             {
                 Border border = new Border();
                 border.Name = $"borderStackPanel{i + 1}";
@@ -296,7 +279,7 @@ namespace MathYouCan.Views
         }
         #endregion
 
-        #region Navigation Panel Methods
+        #region Methods for NAVIGATION PANEL
         private void navButton_Click(object sender, RoutedEventArgs e)
         {
             NavPanel.Visibility = Visibility.Visible;
@@ -311,15 +294,13 @@ namespace MathYouCan.Views
         }
         private void navQuestion_MouseLeave(object sender, MouseEventArgs e)
         {
-            if((sender as StackPanel).Name == $"questionNavStackPanel{currentQuestion}")
+            if((sender as StackPanel).Name == $"questionNavStackPanel{_universalTestViewModel.CurrentQuestionIndex + 1}")
                 (sender as StackPanel).Background = new SolidColorBrush(Colors.SkyBlue);
             else
                 (sender as StackPanel).Background = new SolidColorBrush(Colors.LightGray);
         }
 
         #endregion
-
-
     }
 }
 
