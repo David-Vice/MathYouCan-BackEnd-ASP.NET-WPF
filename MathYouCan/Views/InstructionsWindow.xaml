@@ -125,19 +125,7 @@
                         <!--This Stack Panel Fills dynamically-->
                     <StackPanel Name="instructionContent"></StackPanel>
 
-
                     
-                    
-                    <!--  TEST  -->
-                    <!--<StackPanel Name="instructionContent" MouseUp="instructionContent_MouseUp" MouseLeave="instructionContent_MouseLeave">
-
-                    </StackPanel>-->
-
-
-
-
-
-
 
 
                     <StackPanel Name="acceptDeclineStackPanel" Orientation="Horizontal" Margin="0,40,0,0"

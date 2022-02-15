@@ -167,17 +167,6 @@ namespace MathYouCan.Views
                         tb.Inlines.Add(new Run(word + " "));
                     }
 
-                    /*   TEST   */
-                    /*   TEST   */
-                    /*   TEST   */
-                    /*   TEST   */
-                    //tb.MouseEnter += TextBlock_MouseEnter;
-                    //tb.MouseDown += TextBlock_MouseDown;
-                    /*   TEST   */
-                    /*   TEST   */
-                    /*   TEST   */
-                    /*   TEST   */
-
                     sp.Children.Add(tb);  // Adding word to stack panel
                 }
 
@@ -203,7 +192,7 @@ namespace MathYouCan.Views
                 margin.Bottom = 0;
                 btn.Margin = margin;
                 btn.Content = $"{i + 1}";
-                btn.Click += changeQuestionButton_Click;
+                btn.Click += changeInstructionButton_Click;
                 btn.Background = new SolidColorBrush(Colors.White);
 
                 var style = new Style
@@ -220,7 +209,7 @@ namespace MathYouCan.Views
         }
 
 
-        private void changeQuestionButton_Click(object sender, RoutedEventArgs e)
+        private void changeInstructionButton_Click(object sender, RoutedEventArgs e)
         {
             ChangeBtnToPassive(_buttons.Where(x => x.Content.ToString() == $"{_instructionWindowViewModel.CurrentInstructionIndex + 1}").First());
             _instructionWindowViewModel.CurrentInstructionIndex = int.Parse((sender as Button).Content.ToString()) - 1;
@@ -286,62 +275,6 @@ namespace MathYouCan.Views
 
         #endregion
 
-
-
-
-
-
-
-
-
-
-
-
-        #region PopUp Panel(NOT FINISHED)
-
-
-
-        #endregion
-
-
-
-        #region TEMP
-
-
-        bool isPressed = false;
-
-        private void instructionContent_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            isPressed = false;
-        }
-
-        private void TextBlock_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            isPressed = true;
-
-            TextBlock l = sender as TextBlock;
-
-            l.Background = Brushes.Aqua;
-        }
-
-        private void TextBlock_MouseEnter(object sender, MouseEventArgs e)
-        {
-            if (isPressed)
-            {
-                TextBlock l = sender as TextBlock;
-
-                l.Background = Brushes.Aqua;
-            }
-        }
-
-        private void instructionContent_MouseLeave(object sender, MouseEventArgs e)
-        {
-            isPressed = false;
-
-        }
-
-
-        #endregion
 
     }
 }
