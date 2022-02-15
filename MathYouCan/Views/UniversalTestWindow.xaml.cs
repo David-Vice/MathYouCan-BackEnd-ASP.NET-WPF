@@ -200,7 +200,10 @@ namespace MathYouCan.Views
                 btn.Content = $"{i + 1}";
                 btn.Click += changeQuestionButton_Click;
                 btn.Background = new SolidColorBrush(Colors.White);
-
+                btn.Foreground= new SolidColorBrush((Colors.Black));
+                btn.BorderBrush = new SolidColorBrush((Colors.Black));
+                btn.FontWeight = FontWeights.Normal;
+                btn.BorderThickness = new Thickness(1);
                 var style = new Style
                 {
                     TargetType = typeof(Border),
