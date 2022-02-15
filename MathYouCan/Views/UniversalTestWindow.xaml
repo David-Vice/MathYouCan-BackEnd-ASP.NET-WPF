@@ -8,6 +8,23 @@
         Height="450" Width="800"
         WindowStyle="None" ResizeMode="NoResize" WindowState="Maximized" Loaded="Window_Loaded">
     <Grid>
+        <Grid.Resources>
+            <Storyboard x:Key="navPanelOpening" Timeline.DesiredFrameRate="60">
+                    <DoubleAnimation
+                    Storyboard.TargetName="NavPanel" 
+                    Storyboard.TargetProperty="Opacity"
+                    From="0.0" To="1.0" Duration="0:0:0.3" 
+                    />
+            </Storyboard>
+            <Storyboard x:Key="navPanelClosing" Timeline.DesiredFrameRate="60">
+                <DoubleAnimation
+                    Storyboard.TargetName="NavPanel" 
+                    Storyboard.TargetProperty="Opacity"
+                    From="1.0" To="0.0" Duration="0:0:0.3"
+                    Completed="navPanelClosing_Completed"
+                    />
+            </Storyboard>
+        </Grid.Resources>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="11*"/>
@@ -43,12 +60,17 @@
                     </Button>
 
                     <Button Name="navButton" Content="Nav" Margin="10,0,10,0"
-                            Width="65" FontSize="15" FontWeight="Bold" Background="#F4F6F8">
+                            Width="65" FontSize="15" FontWeight="Bold" Background="#F4F6F8" Click="navButton_Click">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="4"/>
                             </Style>
                         </Button.Resources>
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="Button.Click">
+                                <BeginStoryboard Storyboard="{StaticResource navPanelOpening}"></BeginStoryboard>
+                            </EventTrigger>
+                        </Button.Triggers>
                     </Button>
 
                     <Button Name="nextButton" Content="Next" Margin="10,0,10,0"
@@ -92,7 +114,7 @@
         <!-- Top Panel END-->
 
         <!-- Middle -->
-        <Border Grid.Row="1" Margin="10,10,10,0">
+        <Border Grid.Row="1" Margin="10,10,10,0" Panel.ZIndex="0">
 
             <Grid>
 
@@ -301,11 +323,64 @@
                     </StackPanel>
                 </ScrollViewer>
 
-
             </Grid>
 
         </Border>
-        <!-- Lower Panel END-->
+        <!-- Lower Panel END -->
+
+        <!-- Navigation Panel -->
+        <Grid x:Name="NavPanel" Grid.Row="0" Grid.RowSpan="3" Panel.ZIndex="1" Visibility="Collapsed" Opacity="0">
+            <Grid.Background>
+                <SolidColorBrush Color="Black" Opacity="0.5"/>
+            </Grid.Background>
+            <Border BorderThickness="1,1,1,1" CornerRadius="10,10,10,10" Margin="40" Background="LightGray">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="8*"/>
+                        <RowDefinition Height="83*"/>
+                        <RowDefinition Height="9*"/>
+                    </Grid.RowDefinitions>
+                    
+                    <Border Grid.Row="0" BorderThickness="0,0,0,2" BorderBrush="DarkGray">
+                        <StackPanel Margin="10,5,10,5" VerticalAlignment="Center">
+                            <Label FontSize="22" Padding="0" HorizontalAlignment="Left" FontWeight="Bold" >Item Navigation</Label>
+                        </StackPanel>
+                    </Border>
+
+                    <ScrollViewer Grid.Row="1" Focusable="False" VerticalScrollBarVisibility="Visible">
+                        <StackPanel Name="navBody" Orientation="Vertical" Margin="10">
+                            <StackPanel HorizontalAlignment="Stretch" Height="Auto" Orientation="Horizontal">
+                                <StackPanel VerticalAlignment="Stretch" Width="70" Margin="0">
+                                    <Label FontSize="25" Padding="0" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center">#</Label>
+                                </StackPanel>
+                                <StackPanel VerticalAlignment="Stretch" Width="200" Margin="0">
+                                    <Label FontSize="25" Padding="10,0,10,0" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center">State</Label>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <Border Grid.Row="2" BorderThickness="0,2,0,0" BorderBrush="DarkGray">
+                        <StackPanel Margin="10,5,10,5" VerticalAlignment="Center">
+                            <Button Name="closeNavButton" Content="Close" Margin="0,0,20,0"
+                            Width="70" Height="30" FontSize="15" FontWeight="Medium" Background="#F4F6F8" HorizontalAlignment="Right">
+                                <Button.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="4"/>
+                                    </Style>
+                                </Button.Resources>
+                                <Button.Triggers>
+                                    <EventTrigger RoutedEvent="Button.Click">
+                                        <BeginStoryboard Storyboard="{StaticResource navPanelClosing}"></BeginStoryboard>
+                                    </EventTrigger>
+                                </Button.Triggers>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Border>
+        </Grid>
+        <!-- Navigation Panel END -->
 
     </Grid>
 </Window>
