@@ -31,16 +31,13 @@ namespace MathYouCan.Views
         List<Button> buttons = new List<Button>();
         List<StackPanel> navPanels = new List<StackPanel>();
         int prevQuestion = 1;
-        //int currentQuestion=1;
 
         private UniversalTestViewModel _universalTestViewModel;
  
         public UniversalTestWindow()
         {
             InitializeComponent();
-            
             _universalTestViewModel = new UniversalTestViewModel();
-
             CreateButtons();
             CreateNavButtons();
             UpdateWindow();
@@ -105,14 +102,12 @@ namespace MathYouCan.Views
         {
             ChangeBtnToPassive(buttons.Where(x => x.Content.ToString() == $"{prevQuestion}").First());
             ChangeNavQuestToPassive(navPanels.Where(x => x.Name.ToString() == $"questionNavStackPanel{prevQuestion}").First());
-            //questionTextBlock.Text = fakeList[currentQuestion - 1];
             UpdateWindowContent();
 
             //other window updates
             //....
             //...
             //changes the color of exact button which was chosen as current
-            //ChangeBtnToActive(buttons.Where(x => x.Content.ToString() == $"{currentQuestion}").First());
             ChangeNavQuestToActive(navPanels.Where(x => x.Name.ToString() == $"questionNavStackPanel{_universalTestViewModel.CurrentQuestionIndex + 1}").First());
             ChangeBtnToActive(buttons.Where(x => x.Content.ToString() == $"{_universalTestViewModel.CurrentQuestionIndex + 1}").First());
         }
@@ -123,11 +118,7 @@ namespace MathYouCan.Views
 
         private void changeQuestionButton_Click(object sender, RoutedEventArgs e)
         {
-            //ChangeBtnToPassive(buttons.Where(x => x.Content.ToString() == $"{currentQuestion}").First());
-            //currentQuestion = int.Parse((sender as Button).Content.ToString());
-
             prevQuestion = _universalTestViewModel.CurrentQuestionIndex + 1;
-            //ChangeBtnToPassive(buttons.Where(x => x.Content.ToString() == $"{_universalTestViewModel.CurrentQuestionIndex + 1}").First());
             _universalTestViewModel.CurrentQuestionIndex = int.Parse((sender as Button).Content.ToString()) - 1;
             
             //Save chosen answer
@@ -140,6 +131,7 @@ namespace MathYouCan.Views
             NavPanel.Visibility = Visibility.Collapsed; //no animation
             UpdateWindow();
         }
+
         private void ChangeBtnToActive(Button btn)
         {
             //changes color to red
@@ -170,6 +162,7 @@ namespace MathYouCan.Views
         #endregion
 
         #region prevButton and nextButton Clicks
+
         private void prevButton_Click(object sender, RoutedEventArgs e)
         {
             ChangeBtnToPassive(buttons.Where(x => x.Content.ToString() == $"{_universalTestViewModel.CurrentQuestionIndex + 1}").First());
@@ -182,14 +175,15 @@ namespace MathYouCan.Views
             _universalTestViewModel.CurrentQuestionIndex++;
             UpdateWindow();
         }
+
         #endregion
 
-        #region Method That are called only at the beginning once
+        #region Methods which are called only at the beginning once
+
         private void AssignImageSources()
         {
             actLogoImage.Source = new BitmapImage(new Uri("pack://application:,,,/Img/large.png"));
         }
-
         private void CreateButtons()
         {
             for (int i = 0; i < _universalTestViewModel.Questions.Count; i++)
@@ -277,9 +271,11 @@ namespace MathYouCan.Views
                 navBody.Children.Add(border);
             }
         }
+
         #endregion
 
         #region Methods for NAVIGATION PANEL
+
         private void navButton_Click(object sender, RoutedEventArgs e)
         {
             NavPanel.Visibility = Visibility.Visible;
