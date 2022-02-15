@@ -165,13 +165,13 @@ namespace MathYouCan.Views
 
         private void prevButton_Click(object sender, RoutedEventArgs e)
         {
-            ChangeBtnToPassive(buttons.Where(x => x.Content.ToString() == $"{_universalTestViewModel.CurrentQuestionIndex + 1}").First());
+            prevQuestion = _universalTestViewModel.CurrentQuestionIndex + 1;
             _universalTestViewModel.CurrentQuestionIndex--;
             UpdateWindow();
         }
         private void nextButton_Click(object sender, RoutedEventArgs e)
         {
-            ChangeBtnToPassive(buttons.Where(x => x.Content.ToString() == $"{_universalTestViewModel.CurrentQuestionIndex + 1}").First());
+            prevQuestion = _universalTestViewModel.CurrentQuestionIndex + 1;
             _universalTestViewModel.CurrentQuestionIndex++;
             UpdateWindow();
         }
