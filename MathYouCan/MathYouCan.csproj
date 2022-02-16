@@ -58,7 +58,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\Highlighter.cs" />
     <Compile Include="Converters\StackPanelConverter.cs" />
+    <Compile Include="Converters\TextToFlowDocumentConverter.cs" />
     <Compile Include="Models\Answer.cs" />
     <Compile Include="Models\Instruction.cs" />
     <Compile Include="Models\Question.cs" />

@@ -41,6 +41,9 @@ namespace MathYouCan.Views
             CreateButtons();
             CreateNavButtons();
             UpdateWindow();
+
+
+
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -93,8 +96,11 @@ namespace MathYouCan.Views
         /// </summary>
         private void FillQuestionPassage()
         {
-            StackPanelConverter converter = new StackPanelConverter("#00FFFF");
-            converter.FillStackPanel(questionPassageStackPanel, _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].QuestionContent, true);
+            //StackPanelConverter converter = new StackPanelConverter("#00FFFF");
+            //converter.FillStackPanel(questionPassageStackPanel, _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].QuestionContent, true);
+
+            TextToFlowDocumentConverter textTo = new TextToFlowDocumentConverter(Brushes.Yellow, Brushes.GreenYellow);
+            textTo.ConvertToParagraph(questionPassageParagraph, _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].QuestionContent, 16);
         }
 
         //этот метод вызывается вначале 1 раз и еще каждый раз когда пользователь меняет вопрос кликая на кнопки changeQuestionButton_Click

@@ -1,4 +1,5 @@
-﻿using MathYouCan.ViewModels;
+﻿using MathYouCan.Converters;
+using MathYouCan.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,6 @@ namespace MathYouCan.Views
             _instructionWindowViewModel = new InstructionWindowViewModel();
 
             InitializeComponent();
-
         }
 
         #region On Window Load
@@ -132,48 +132,9 @@ namespace MathYouCan.Views
         /// </summary>
         public void FillInstruction()
         {
-            instructionContent.Children.Clear();
-
-            String[] lines = _instructionWindowViewModel.Instructions[_instructionWindowViewModel.CurrentInstructionIndex].InstructionText.Split('\n');  // Getting lines
-
-            foreach (String line in lines)
-            {
-                StackPanel sp = new StackPanel();
-                sp.Orientation = Orientation.Horizontal;
-
-
-
-                String[] words = line.Split(' ');  // Getting all words in 1 line
-                foreach (String word in words)
-                {
-                    TextBlock tb = new TextBlock();
-                    tb.TextWrapping = TextWrapping.Wrap;
-
-
-                    if (word.StartsWith("|~B~|"))
-                    {
-                        string newWord = word.Replace("|~B~|", "");
-                        tb.Inlines.Add(new Bold(new Run(newWord + " ")));
-                    }
-
-                    else if (word.StartsWith("|~I~|"))
-                    {
-                        string newWord = word.Replace("|~I~|", "");
-                        tb.Inlines.Add(new Italic(new Run(newWord + " ")));
-                    }
-
-                    else
-                    {
-                        tb.Inlines.Add(new Run(word + " "));
-                    }
-
-                    sp.Children.Add(tb);  // Adding word to stack panel
-                }
-
-                instructionContent.Children.Add(sp);  // Adding line(Stack Panel) to instructionContent
-            }
+            TextToFlowDocumentConverter textTo = new TextToFlowDocumentConverter(Brushes.Yellow, Brushes.GreenYellow);
+            textTo.ConvertToParagraph(instructionContentParagraph, _instructionWindowViewModel.Instructions[_instructionWindowViewModel.CurrentInstructionIndex].InstructionText);
         }
-
 
 
         #region Lower Panel Buttons
@@ -239,7 +200,6 @@ namespace MathYouCan.Views
         #endregion
 
 
-
         #region Prev, Nav, Next Button Events
 
         private void nextButton_Click(object sender, RoutedEventArgs e)
@@ -274,7 +234,5 @@ namespace MathYouCan.Views
 
 
         #endregion
-
-
     }
 }

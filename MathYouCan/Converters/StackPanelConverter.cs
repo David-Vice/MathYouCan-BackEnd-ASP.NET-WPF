@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -46,7 +42,6 @@ namespace MathYouCan.Converters
             TextBlock l = sender as TextBlock;
 
             l.Background = _background;
-            ;
         }
 
         private void TextBlock_MouseEnter(object sender, MouseEventArgs e)
@@ -72,7 +67,7 @@ namespace MathYouCan.Converters
         {
             stackPanel.Children.Clear();
 
-            String[] lines = text.Split('\n');  // Getting lines
+            String[] lines = DivideByLines(text, (int)stackPanel.ActualWidth);  // Getting lines
 
             foreach (String line in lines)
             {
@@ -131,6 +126,53 @@ namespace MathYouCan.Converters
                 tb.MouseEnter += TextBlock_MouseEnter;
                 tb.MouseDown += TextBlock_MouseDown;
             }
+        }
+
+
+        private String[] DivideByLines(string text, int lineLength)
+        {
+            String[] lines;
+            int index = 0;
+
+            MessageBox.Show(lineLength.ToString() + " " + text.Length.ToString());
+
+
+            try
+            {
+                while (index < text.Length)  // To check
+                {
+                    if (!text.Substring(index, index + lineLength).Contains("\n"))  // doesn't have \n in linelength characters
+                    {
+                        int pos = index + lineLength - 1;
+                        while (text[pos] != ' ') pos--;
+                        //'pos' has index of free space
+
+                       //text = AddLineSeparator(text, lineLength - 1 + index);
+                       // index += lineLength - 1;
+                        text = AddLineSeparator(text, pos);
+                    }
+                    MessageBox.Show(text);
+                    index += lineLength - 1;
+                }
+
+
+
+            }
+            catch (Exception) { }
+
+            lines = text.Split('\n');
+            return lines;
+        }
+
+
+        private string AddLineSeparator(string text, int pos)
+        {
+            string newText = text.Substring(0, pos);
+            //MessageBox.Show(text.Substring(0, pos));
+
+            newText += "\n";
+            newText += text.Substring(pos, text.Length - pos);
+            return newText;
         }
 
 
