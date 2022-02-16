@@ -80,7 +80,7 @@ namespace MathYouCan.Services.Concrete
             "Select the |~B~|Next|~B~| button to proceed."
         };
 
-        private string MathInfo = "|~B~|Mathematics Test Directions|~B~|\n\n|~B~|You will have 60 minutes to complete this section.|~B~|\n" +
+        private string MathInfo = "|~B~|Mathematics|~B~| |~B~|Test|~B~| |~B~|Directions|~B~|\n\n|~B~|You|~B~| |~B~|will|~B~| |~B~|have|~B~| |~B~|60|~B~| |~B~|minutes|~B~| |~B~|to|~B~| |~B~|complete|~B~| |~B~|this|~B~| |~B~|section.|~B~|\n" +
             "SECTION DIRECTIONS: The first screen in this section contains instructions about the mathematics test." +
             " That screen is not part of the\n scored questions. You can return to the instructions at any time by selecting the \n" +
             "|~B~|Nav|~B~|button at the top of the screen and then selecting |~B~|Instr|~B~|. \n" +
@@ -111,7 +111,7 @@ namespace MathYouCan.Services.Concrete
             " 4.The word |~I~|average|~I~| indicates arithmetic mean\n\n" +
             "Select the |~B~|Next|~B~| button to proceed.\n"
         };
-        private string ScienceInfo = "|~B~|Science Test Directions|~B~|\n\n|~B~|You will have 35 minutes to complete this section.|~B~|\n" +
+        private string ScienceInfo = "|~B~|Science|~B~| |~B~|Test|~B~| |~B~|Directions|~B~|\n\n|~B~|You|~B~| will|~B~| |~B~|have|~B~| |~B~|35|~B~| |~B~|minutes|~B~| |~B~|to|~B~| |~B~|complete|~B~| |~B~|this|~B~| |~B~|section.|~B~|\n" +
             "SECTION DIRECTIONS: The first screen in this section contains instructions about the science test." +
             " That screen is not part of the\n scored questions. You can return to the instructions at any time by selecting the \n" +
             "|~B~|Nav|~B~|button at the top of the screen and then selecting |~B~|Instr|~B~|.\n\n" +
@@ -119,7 +119,7 @@ namespace MathYouCan.Services.Concrete
             "Select the |~B~|Next|~B~| button to proceed.\n";
         private Instruction ScienceInst = new Instruction() {
             Header =
-            "|~B~|Begin Science Test—35 minutes, 40 questions|~B~|\n\n",
+            "Begin Science Test—35 minutes, 40 questions",
             InstructionText =
             "There are several passages in this section. Each passage is followed by several questions. Read each passage through once, using the scroll bar to see" +
             " the entire passage, before you begin to answer the questions that accompany it. After reading a passage, choose the best answer to each question, select" +
@@ -127,19 +127,19 @@ namespace MathYouCan.Services.Concrete
             "You are NOT permitted to use a calculator on this section.\n" +
             "Select the |~B~|Next|~B~| button to proceed.\n"
         };
-        private string WritingInfo = "|~B~|Writing Test Directions|~B~|\n" +
+        private string WritingInfo = "|~B~|Writing|~B~| |~B~|Test|~B~| Directions|~B~|\n" +
             "You may now resume testing. Remember, if you are wearing a watch with an alarm or have any other alarm device, it must remain turned off. If you have" +
             " a cell phone or other electronic device, it must remain powered off and stored out of sight until you leave the test site.\n\n" +
             "Clear your workstation of everything except your testing computer, scratch paper, and pencil.\n" +
-            "|~B~|You will have 40 minutes to complete this section.|~B~|\n" +
+            "|~B~| You will have 40 minutes to complete this section.|~B~|\n" +
             "SECTION DIRECTIONS: The first screen in this section contains instructions about the writing test. The second screen contains the writing prompt and questions" +
             " to help you plan your essay. The third screen repeats the writing prompt and provides the text box where you will type your essay and select |~B~|Next|~B~| when complete." +
-            " You can return to the instructions or planning questions at any time by selecting the |~B~|Nav|~B~| button at the top of the screen and then selecting |~B~|Instr|~B~| or |~B~|Plan|~B~|.\n\n" +
+            " You can return to the instructions or planning questions at any time by selecting the |~B~|Nav|~B~| button at the top of the screen and then selecting |~B~|Instr|~B~| or |~B~|Plan|~B~|.\n\n " +
             "You will type your essay in the text box on the computer screen. Your essay in this box will be scored. You may use your scratch paper to plan your essay. Your work on the scratch paper will not be scored," +
             " but you will hand your scratch paper to your room supervisor at the end of testing.\n" +
             "Select the |~B~|Next|~B~| button to proceed.\n";
         private Instruction WritingInst = new Instruction() {
-            Header = "|~B~|Begin Writing Test—40 minutes|~B~|\n",
+            Header = "Begin Writing Test—40 minutes",
             InstructionText =
             "This is a test of your writing skills. You will have 40 minutes to read the prompt, plan your response, and write an essay in English. Before you begin working, read all material carefully to understand exactly" +
             " what you are being asked to do.\n" +

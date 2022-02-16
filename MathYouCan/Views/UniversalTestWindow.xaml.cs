@@ -117,18 +117,11 @@ namespace MathYouCan.Views
 
         #endregion
 
-        #region Methods To OPERATE BUTTONS
+        #region Methods To OPERATE BUTTONS (Click, Active Passive)
 
         private void changeQuestionButton_Click(object sender, RoutedEventArgs e)
         {
-            //for (int i=0;i< buttons.Count;i++)
-            //{
-            //    if ((sender as Button)==buttons[i])
-            //    {
-            //        _universalTestViewModel.CurrentQuestionIndex = i;
-            //    }
-            //}
-            // _universalTestViewModel.CurrentQuestionIndex = int.Parse((sender as Button).Content.ToString());
+            
             prevQuestion=_universalTestViewModel.CurrentQuestionIndex;
 
             int num;
@@ -145,18 +138,7 @@ namespace MathYouCan.Views
             
 
         }
-        private void navQuestion_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            
-            prevQuestion = _universalTestViewModel.CurrentQuestionIndex ;
-            
-            _universalTestViewModel.CurrentQuestionIndex = int.Parse((((sender as StackPanel).Children[0] as StackPanel).Children[0] as Label).Content.ToString()) ;
-            NavPanel.Visibility = Visibility.Collapsed; //no animation
-            UpdateWindow();
-
-            
-        }
-
+        
         private void ChangeBtnToActive(Button btn)
         {
             //changes color to red
@@ -257,6 +239,25 @@ namespace MathYouCan.Views
         #endregion
 
         #region Methods for NAVIGATION PANEL
+        private void navQuestion_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+            prevQuestion = _universalTestViewModel.CurrentQuestionIndex;
+            int num;
+            if (int.TryParse((((sender as StackPanel).Children[0] as StackPanel).Children[0] as Label).Content.ToString(), out num))
+            {
+                _universalTestViewModel.CurrentQuestionIndex = num;
+            }
+            else
+            {
+                _universalTestViewModel.CurrentQuestionIndex = 0;
+            }
+           
+            NavPanel.Visibility = Visibility.Collapsed; //no animation
+            UpdateWindow();
+
+
+        }
 
         private void navButton_Click(object sender, RoutedEventArgs e)
         {
