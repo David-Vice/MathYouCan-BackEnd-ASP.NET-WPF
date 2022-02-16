@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MathYouCan.Views"
         mc:Ignorable="d"
         Height="450" Width="800"
-        WindowStyle="None" ResizeMode="NoResize" WindowState="Maximized" Loaded="Window_Loaded">
+        WindowStyle="None" ResizeMode="NoResize" WindowState="Maximized">
     <Grid>
         <Grid.Resources>
             <Storyboard x:Key="navPanelOpening" Timeline.DesiredFrameRate="60">
@@ -47,7 +47,7 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="20,0,0,0"
                             Grid.Row="1">
 
-                    <Image Name="actLogoImage" RenderOptions.BitmapScalingMode="HighQuality"/>
+                    <Image Name="actLogoImage" Source="pack://application:,,,/Img/large.png" RenderOptions.BitmapScalingMode="HighQuality"/>
 
                     <Button Name="prevButton" Content="Prev" Margin="50,0,10,0"
                             Width="65" FontSize="15" FontWeight="Bold" Background="#F4F6F8"
@@ -59,7 +59,7 @@
                         </Button.Resources>
                     </Button>
 
-                    <Button Name="navButton" Content="Nav" Margin="10,0,10,0"
+                    <Button IsEnabled="False" Name="navButton" Content="Nav" Margin="10,0,10,0"
                             Width="65" FontSize="15" FontWeight="Bold" Background="#F4F6F8" Click="navButton_Click">
                         <Button.Resources>
                             <Style TargetType="Border">
@@ -172,7 +172,7 @@
                 <!-- Middle Left Part END -->
 
                 <!-- Middle Right Part -->
-                <ScrollViewer VerticalScrollBarVisibility="Auto" Focusable="False" Grid.Column="1">
+                <ScrollViewer x:Name="answersScrollView" VerticalScrollBarVisibility="Auto" Focusable="False" Grid.Column="1">
                     <Grid>
                         <Grid>
                             <Grid.RowDefinitions>
@@ -322,7 +322,13 @@
                 <ScrollViewer  Focusable="False" Grid.RowSpan="2" HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Auto">
 
                     <StackPanel x:Name="questionsStackPanel" Orientation="Horizontal">
-                        
+                        <Button x:Name="infoButton" Height="30" Width="27" Margin="3,0,0,0" Foreground="Black" Content="Info">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="3"/>
+                                </Style>
+                            </Button.Resources>
+                            </Button>
                     </StackPanel>
                 </ScrollViewer>
 
