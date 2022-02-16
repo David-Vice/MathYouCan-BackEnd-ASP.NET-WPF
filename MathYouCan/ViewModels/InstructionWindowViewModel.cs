@@ -69,8 +69,8 @@ namespace MathYouCan.ViewModels
                 "|~B~|Next|~B~| button to move to the next question. For the\nwriting test, type your essay into the " +
                 "text box below the writing prompt and select the |~B~|Next|~B~| button when finished.\n\nYour score on each multiple-choice test will be based only on " +
                 "the number of question you answered correctly during the time\nallowed for that test. You will |~B~|not|~B~| be penalized for guessing. " +
-                "|~B~|It|~B~| |~B~|is|~B~| |~B~|to|~B~| |~B~|your|~B~| |~B~|advantage|~B~| |~B~|to|~B~| |~B~|answer|~B~| |~B~|every|~B~| " +
-                "|~B~|question|~B~|. Your score on\nthe writing test is based on the essay you type into the text box.\n\n" +
+                "|~B~|It is to your advantage to answer every " +
+                "question|~B~|. Your score on\nthe writing test is based on the essay you type into the text box.\n\n" +
                 "Your computer will keep the official time for your examination. There will be a countdown timer that will tell you the time\n" +
                 "remaining for the test you are working on. When 5 minutes remain on each test, a message will appear on your screen to serve as\n" +
                 "a warning before time is up. When time runs out, submit your test according to the instructions on your screen.\n\n If you finish" +

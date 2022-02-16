@@ -8,7 +8,16 @@
         Height="450" Width="800"
         WindowStyle="None" ResizeMode="NoResize" Loaded="Window_Loaded"
         Background="#f2f2f2">
+
+    <Window.Resources>
+        <Style TargetType="{x:Type Window}">
+            <Setter Property="FontFamily" Value="Segoe UI" />
+        </Style>
+    </Window.Resources>
+    
     <Grid>
+
+        
 
         <Grid.RowDefinitions>
             <RowDefinition Height="11*"/>
@@ -123,8 +132,14 @@
                     
                     
                         <!--This Stack Panel Fills dynamically-->
-                    <StackPanel Name="instructionContent"></StackPanel>
-
+                    <FlowDocumentScrollViewer Name="instructionContent" VerticalScrollBarVisibility="Disabled" 
+                                              HorizontalScrollBarVisibility="Disabled"
+                                              >
+                        <FlowDocument>                
+                            <Paragraph Name="instructionContentParagraph" Margin="0">
+                            </Paragraph>
+                        </FlowDocument>
+                    </FlowDocumentScrollViewer>
                     
 
 
