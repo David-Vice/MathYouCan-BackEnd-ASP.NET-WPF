@@ -9,12 +9,6 @@
         WindowStyle="None" ResizeMode="NoResize" Loaded="Window_Loaded"
         Background="#f2f2f2">
 
-    <Window.Resources>
-        <Style TargetType="{x:Type Window}">
-            <Setter Property="FontFamily" Value="Segoe UI" />
-        </Style>
-    </Window.Resources>
-    
     <Grid>
 
         

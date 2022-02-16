@@ -30,20 +30,20 @@ namespace MathYouCan.Views
         //IEnumerable<Question> questions
         List<Button> buttons = new List<Button>();
         List<StackPanel> navPanels = new List<StackPanel>();
-        int prevQuestion = 1;
+        int prevQuestion = -1;
 
         private UniversalTestViewModel _universalTestViewModel;
  
         public UniversalTestWindow()
         {
+            string testType = "English";
             InitializeComponent();
-            _universalTestViewModel = new UniversalTestViewModel();
+            _universalTestViewModel = new UniversalTestViewModel(testType);
             CreateButtons();
             CreateNavButtons();
-          //  infoButton.IsEnabled = false;
             ChangeBtnToActive(infoButton);
             // UpdateWindow();
-            //LoadInfo("English");
+            LoadInfo(testType);
             
         }
 
@@ -104,14 +104,15 @@ namespace MathYouCan.Views
         //этот метод вызывается вначале 1 раз и еще каждый раз когда пользователь меняет вопрос кликая на кнопки changeQuestionButton_Click
         private void UpdateWindow()
         {
-
-            ChangeBtnToPassive(buttons.Where(x => x.Content.ToString() == $"{prevQuestion}").First());
-            ChangeNavQuestToPassive(navPanels.Where(x => x.Name.ToString() == $"questionNavStackPanel{prevQuestion}").First());
-            
+            if (prevQuestion >=0 )
+            {
+                ChangeBtnToPassive(buttons[prevQuestion]);
+                ChangeNavQuestToPassive(navPanels.Where(x => x.Name.ToString() == $"questionNavStackPanel{prevQuestion}").First());
+            }
             UpdateWindowContent();
 
-            ChangeNavQuestToActive(navPanels.Where(x => x.Name.ToString() == $"questionNavStackPanel{_universalTestViewModel.CurrentQuestionIndex + 1}").First());
-            ChangeBtnToActive(buttons.Where(x => x.Content.ToString() == $"{_universalTestViewModel.CurrentQuestionIndex + 1}").First());
+            ChangeNavQuestToActive(navPanels.Where(x => x.Name.ToString() == $"questionNavStackPanel{_universalTestViewModel.CurrentQuestionIndex }").First());
+            ChangeBtnToActive(buttons[_universalTestViewModel.CurrentQuestionIndex]);
         }
 
         #endregion
@@ -120,24 +121,40 @@ namespace MathYouCan.Views
 
         private void changeQuestionButton_Click(object sender, RoutedEventArgs e)
         {
-            prevQuestion = _universalTestViewModel.CurrentQuestionIndex + 1;
-            _universalTestViewModel.CurrentQuestionIndex = int.Parse((sender as Button).Content.ToString()) - 1;
+            //for (int i=0;i< buttons.Count;i++)
+            //{
+            //    if ((sender as Button)==buttons[i])
+            //    {
+            //        _universalTestViewModel.CurrentQuestionIndex = i;
+            //    }
+            //}
+            // _universalTestViewModel.CurrentQuestionIndex = int.Parse((sender as Button).Content.ToString());
+            prevQuestion=_universalTestViewModel.CurrentQuestionIndex;
 
-            //Save chosen answer
+            int num;
+            if (int.TryParse((sender as Button).Content.ToString(),out num))
+            {
+                _universalTestViewModel.CurrentQuestionIndex = num;
+            }
+            else
+            {
+                _universalTestViewModel.CurrentQuestionIndex = 0;
+            }
             UpdateWindow();
+            //Save chosen answer
             
 
         }
         private void navQuestion_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (_universalTestViewModel.CurrentQuestionIndex >= 0)
-            {
-                prevQuestion = _universalTestViewModel.CurrentQuestionIndex + 1;
-                _universalTestViewModel.CurrentQuestionIndex = int.Parse((((sender as StackPanel).Children[0] as StackPanel).Children[0] as Label).Content.ToString()) - 1;
-                NavPanel.Visibility = Visibility.Collapsed; //no animation
-                UpdateWindow();
+            
+            prevQuestion = _universalTestViewModel.CurrentQuestionIndex ;
+            
+            _universalTestViewModel.CurrentQuestionIndex = int.Parse((((sender as StackPanel).Children[0] as StackPanel).Children[0] as Label).Content.ToString()) ;
+            NavPanel.Visibility = Visibility.Collapsed; //no animation
+            UpdateWindow();
 
-            }
+            
         }
 
         private void ChangeBtnToActive(Button btn)
@@ -173,26 +190,29 @@ namespace MathYouCan.Views
 
         private void prevButton_Click(object sender, RoutedEventArgs e)
         {
-            prevQuestion = _universalTestViewModel.CurrentQuestionIndex + 1;
+            prevQuestion = _universalTestViewModel.CurrentQuestionIndex;
+
+
+
             _universalTestViewModel.CurrentQuestionIndex--;
             UpdateWindow();
         }
         private void nextButton_Click(object sender, RoutedEventArgs e)
         {
-            if (infoButton.Background == new SolidColorBrush((Color)ColorConverter.ConvertFromString("#e42a22")))
+            if (infoButton.IsEnabled)
             {
                 ChangeBtnToPassive(infoButton);
                 _universalTestViewModel.EnableButtons(buttons);
                 navButton.IsEnabled = true;
-                UpdateWindow();
+                infoButton.IsEnabled = false;
             }
             else
             {
-                prevQuestion = _universalTestViewModel.CurrentQuestionIndex + 1;
+                prevQuestion = _universalTestViewModel.CurrentQuestionIndex ;
                 _universalTestViewModel.CurrentQuestionIndex++;
 
-                UpdateWindow();
             }
+            UpdateWindow();
         }
 
         #endregion
@@ -204,8 +224,8 @@ namespace MathYouCan.Views
 
         private void LoadInfo(string testType)
         {
-            StackPanelConverter converter = new StackPanelConverter("#00FFFF");
-            converter.FillStackPanel(questionPassageStackPanel,_universalTestViewModel.GetInfo(testType));
+            TextToFlowDocumentConverter converter = new TextToFlowDocumentConverter(Brushes.Yellow, Brushes.GreenYellow);
+            converter.ConvertToParagraph(questionPassageParagraph, _universalTestViewModel.GetInfo(testType),17);
         }
         
         
@@ -252,7 +272,7 @@ namespace MathYouCan.Views
         }
         private void navQuestion_MouseLeave(object sender, MouseEventArgs e)
         {
-            if((sender as StackPanel).Name == $"questionNavStackPanel{_universalTestViewModel.CurrentQuestionIndex + 1}")
+            if((sender as StackPanel).Name == $"questionNavStackPanel{_universalTestViewModel.CurrentQuestionIndex}")
                 (sender as StackPanel).Background = new SolidColorBrush(Colors.SkyBlue);
             else
                 (sender as StackPanel).Background = new SolidColorBrush(Colors.LightGray);

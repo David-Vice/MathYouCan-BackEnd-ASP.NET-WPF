@@ -224,6 +224,7 @@ namespace MathYouCan.Views
         private void acceptButton_Click(object sender, RoutedEventArgs e)
         {
             UniversalTestWindow universalTestWindow = new UniversalTestWindow();
+            Close();
             universalTestWindow.ShowDialog();
         }
 

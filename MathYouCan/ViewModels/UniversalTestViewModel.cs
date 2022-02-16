@@ -17,16 +17,23 @@ namespace MathYouCan.ViewModels
 
         public int CurrentQuestionIndex { get; set; } = 0;
 
-        public UniversalTestViewModel()
+        //потом этот метод должен принимать IEnumerable<Question>
+        public UniversalTestViewModel(string testType)
         {
+
             Questions = new List<Question>();
 
-            InitializeList();
+            InitializeList( testType);
         }
 
-        private void InitializeList()
+        private void InitializeList(string testType)
         {
-            //потом этот метод должен принимать IEnumerable<Question>
+            Question instruction = new Question();
+            Instruction ins= GetInstrucitons(testType);
+            instruction.QuestionTitle = ins.Header;
+            instruction.QuestionContent = ins.InstructionText;
+
+            Questions.Add(instruction);
             for (int i = 0; i < 90; i++)
             {
                 Question question = new Question
@@ -72,7 +79,7 @@ namespace MathYouCan.ViewModels
             for (int i = 0; i < this.Questions.Count; i++)
             {
                 Button btn = new Button();
-                btn.Name = $"btn{i + 1}";
+                btn.Name = $"btn{i}";
                 btn.Height = 30;
                 btn.IsEnabled = false;
                 btn.Width = 27;
@@ -80,7 +87,7 @@ namespace MathYouCan.ViewModels
                 margin.Left = 3;
                 margin.Bottom = 0;
                 btn.Margin = margin;
-                btn.Content = $"{i + 1}";
+                _ = i == 0 ? btn.Content = "Instr" : btn.Content = $"{i}";
                 btn.Background = new SolidColorBrush(Colors.White);
                 btn.Foreground = new SolidColorBrush((Colors.Black));
                 btn.BorderBrush = new SolidColorBrush((Colors.Black));
@@ -104,40 +111,41 @@ namespace MathYouCan.ViewModels
             for (int i = 0; i < this.Questions.Count; i++)
             {
                 Border border = new Border();
-                border.Name = $"borderStackPanel{i + 1}";
+                border.Name = $"borderStackPanel{i }";
                 border.BorderThickness = new Thickness(0, 1, 0, 0);
                 border.BorderBrush = new SolidColorBrush(Colors.DarkGray);
 
                 StackPanel questionsNavStackPanel = new StackPanel();
-                questionsNavStackPanel.Name = $"questionNavStackPanel{i + 1}";
+                questionsNavStackPanel.Name = $"questionNavStackPanel{i }";
                 questionsNavStackPanel.HorizontalAlignment = HorizontalAlignment.Stretch;
                 questionsNavStackPanel.Orientation = Orientation.Horizontal;
                 questionsNavStackPanel.Background = new SolidColorBrush(Colors.LightGray);
                 
                 StackPanel numStackPanel = new StackPanel();
-                numStackPanel.Name = $"numStackPanel{i + 1}";
+                numStackPanel.Name = $"numStackPanel{i}";
                 numStackPanel.VerticalAlignment = VerticalAlignment.Stretch;
                 numStackPanel.Margin = new Thickness(0);
                 numStackPanel.Width = 70;
 
                 StackPanel stateStackPanel = new StackPanel();
-                stateStackPanel.Name = $"stateStackPanel{i + 1}";
+                stateStackPanel.Name = $"stateStackPanel{i }";
                 stateStackPanel.VerticalAlignment = VerticalAlignment.Stretch;
                 stateStackPanel.Margin = new Thickness(0);
                 stateStackPanel.Width = 200;
 
                 Label numQuestion = new Label();
-                numQuestion.Name = $"numQuestion{i + 1}";
+                numQuestion.Name = $"numQuestion{i }";
                 numQuestion.HorizontalAlignment = HorizontalAlignment.Center;
                 numQuestion.VerticalAlignment = VerticalAlignment.Center;
                 numQuestion.Padding = new Thickness(0, 2, 0, 2);
                 numQuestion.Margin = new Thickness(0);
                 numQuestion.FontSize = 22;
                 numQuestion.FontWeight = FontWeights.Light;
-                numQuestion.Content = $"{i + 1}";
+                _ = i == 0 ? numQuestion.Content = "Instr" : numQuestion.Content = $"{i}";
+             //   numQuestion.Content = $"{i + 1}";
 
                 Label stateQuestion = new Label();
-                stateQuestion.Name = $"stateQuestion{i + 1}";
+                stateQuestion.Name = $"stateQuestion{i}";
                 stateQuestion.HorizontalAlignment = HorizontalAlignment.Center;
                 stateQuestion.VerticalAlignment = VerticalAlignment.Center;
                 stateQuestion.Padding = new Thickness(0, 2, 0, 2);
@@ -163,7 +171,7 @@ namespace MathYouCan.ViewModels
             
         }
 
-        public string GetInstrucitons(string testType)
+        public Instruction GetInstrucitons(string testType)
         {
             InfosAndInstructions infosAndInstructions = new InfosAndInstructions(testType);
             return infosAndInstructions.GetInstructions();

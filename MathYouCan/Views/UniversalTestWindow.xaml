@@ -6,14 +6,8 @@
         xmlns:local="clr-namespace:MathYouCan.Views"
         mc:Ignorable="d"
         Height="450" Width="800"
-        WindowStyle="None" ResizeMode="NoResize" WindowState="Maximized" Loaded="Window_Loaded">
+        WindowStyle="None" ResizeMode="NoResize" WindowState="Maximized">
 
-    <Window.Resources>
-        <Style TargetType="{x:Type Window}">
-            <Setter Property="FontFamily" Value="Segoe UI" />
-        </Style>
-    </Window.Resources>
-    
     <Grid>
         <Grid.Resources>
             <Storyboard x:Key="navPanelOpening" Timeline.DesiredFrameRate="60">
@@ -145,7 +139,7 @@
                     <!-- Question Title END -->
 
                     <!-- Passage Section -->
-                    <FlowDocumentScrollViewer Name="questionPassageFlowDocument" Grid.Row="1">
+                    <FlowDocumentScrollViewer  Name="questionPassageFlowDocument" Grid.Row="1">
                         <FlowDocument>
                             <Paragraph Name="questionPassageParagraph">
                                 

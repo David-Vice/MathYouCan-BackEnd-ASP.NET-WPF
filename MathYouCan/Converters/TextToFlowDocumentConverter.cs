@@ -26,6 +26,7 @@ namespace MathYouCan.Converters
             foreach (String word in words)
             {
                 Span span = new Span();
+                span.FontFamily= new FontFamily("Segoe UI");
                 span.FontSize = fontSize;
                 string newWord = word;
 
