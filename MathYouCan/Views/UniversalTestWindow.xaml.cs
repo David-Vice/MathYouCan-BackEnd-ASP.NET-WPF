@@ -292,7 +292,6 @@ namespace MathYouCan.Views
 
         private void toolsButton_Click(object sender, RoutedEventArgs e)
         {
-            toolsPopUpPanel.HorizontalOffset = toolsButton.Width - toolsPanelMainStackPanel.Width;
             toolsPopUpPanel.IsOpen = !toolsPopUpPanel.IsOpen;
         }
 

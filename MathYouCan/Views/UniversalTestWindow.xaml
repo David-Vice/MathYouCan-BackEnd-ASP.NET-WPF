@@ -184,6 +184,42 @@
                         </Button.Resources>
                     </Button>
 
+
+                    <!--  Tools Panel  -->
+                    <Popup Name="toolsPopUpPanel" IsOpen="False"
+                           PlacementTarget="{Binding ElementName=toolsButton}" Placement="Bottom"
+                           VerticalOffset="5" PopupAnimation="Fade" AllowsTransparency="True">  
+
+                        <Border BorderThickness="1.2" BorderBrush="LightGray" CornerRadius="4" Background="White">
+                            <StackPanel Name="toolsPanelMainStackPanel" Background="Transparent" Width="170">
+                                <!--  Highlihgt  -->
+                                <StackPanel Name="highlightOption" Orientation="Horizontal" MouseDown="popUpOptionStackPanel_MouseDown"
+                                    Background="Transparent" MouseEnter="popUpOptionStackPanel_MouseEnter"
+                                    MouseLeave="popUpOptionStackPanel_MouseLeave">
+                                    <Label Visibility="Collapsed" Margin="10,0,-10,0" Content="✓" FontWeight="Bold" FontSize="18"/>
+                                    <Label Content="Highlighter" Margin="20,0,0,0" FontSize="18"/>
+                                </StackPanel>
+                                <!--  Highlihgt END -->
+
+                                <!--  Eliminator  -->
+                                <StackPanel Name="eliminatorOption" Orientation="Horizontal" MouseDown="popUpOptionStackPanel_MouseDown"
+                                    Background="Transparent" MouseEnter="popUpOptionStackPanel_MouseEnter"
+                                    MouseLeave="popUpOptionStackPanel_MouseLeave">
+                                    <Label Visibility="Collapsed" Margin="10,0,-10,0" Content="✓" FontWeight="Bold" FontSize="18"/>
+                                    <Label Content="Eliminator" Margin="20,0,0,0" FontSize="18"/>
+                                </StackPanel>
+                                <!--  Eliminator END -->
+                            </StackPanel>
+
+                            <Border.Effect>
+                                <DropShadowEffect Color="Black" BlurRadius="100" ShadowDepth="100" Opacity="0.4"/>
+                            </Border.Effect>
+
+                        </Border>
+                    </Popup>
+                    <!--  Tools Panel END -->
+
+
                     <Button Grid.Column="11" Name="clearHighlightsButton" Content="Clear Highlights" 
                             FontSize="14" FontWeight="Bold" Background="#F4F6F8" IsEnabled="False">
                         <Button.Resources>
@@ -195,8 +231,8 @@
                     <Button Grid.Column="13" Name="endSectionButton" Click="endSectionButton_Click" 
                             FontSize="14" FontWeight="Bold" Background="#F4F6F8" IsEnabled="False">
                         <TextBlock>
-                             <Image Name="closeIconImage" Height="10" Width="10" Margin="0,0,0,8.3" Source="pack://application:,,,/Img/close.png" RenderOptions.BitmapScalingMode="HighQuality"/>
-                             <Label>End Section</Label>
+                             <!--<Image Name="closeIconImage" Height="10" Width="10" Margin="0,0,0,8.3" Source="pack://application:,,,/Img/close.png" RenderOptions.BitmapScalingMode="HighQuality"/>-->
+                             <Label>✘  End Section</Label>
                         </TextBlock>
                         <Button.Resources>
                             <Style TargetType="Border">
@@ -480,46 +516,6 @@
             </Border>
         </Grid>
         <!-- Navigation Panel END -->
-
-
-
-
-        <!--  Tools Panel  -->
-        <Popup Name="toolsPopUpPanel" IsOpen="False"
-               PlacementTarget="{Binding ElementName=toolsButton}" Placement="Bottom"
-               VerticalOffset="5" PopupAnimation="Fade" AllowsTransparency="True">
-            
-                <Border BorderThickness="1.2" BorderBrush="LightGray" CornerRadius="4" Background="White">
-                    <StackPanel Name="toolsPanelMainStackPanel" Background="Transparent" Width="170">
-                        <!--  Highlihgt  -->
-                        <StackPanel Name="highlightOption" Orientation="Horizontal" MouseDown="popUpOptionStackPanel_MouseDown"
-                                    Background="Transparent" MouseEnter="popUpOptionStackPanel_MouseEnter"
-                                    MouseLeave="popUpOptionStackPanel_MouseLeave">
-                            <Label Visibility="Collapsed" Margin="10,0,-10,0" Content="✓" FontWeight="Bold" FontSize="18"/>
-                            <Label Content="Highlighter" Margin="20,0,0,0" FontSize="18"/>
-                        </StackPanel>
-                        <!--  Highlihgt END -->
-
-                        <!--  Eliminator  -->
-                        <StackPanel Name="eliminatorOption" Orientation="Horizontal" MouseDown="popUpOptionStackPanel_MouseDown"
-                                    Background="Transparent" MouseEnter="popUpOptionStackPanel_MouseEnter"
-                                    MouseLeave="popUpOptionStackPanel_MouseLeave">
-                            <Label Visibility="Collapsed" Margin="10,0,-10,0" Content="✓" FontWeight="Bold" FontSize="18"/>
-                            <Label Content="Eliminator" Margin="20,0,0,0" FontSize="18"/>
-                        </StackPanel>
-                        <!--  Eliminator END -->
-                    </StackPanel>
-
-                <Border.Effect>
-                    <DropShadowEffect Color="Black" BlurRadius="100" ShadowDepth="100" Opacity="0.4"/>
-                </Border.Effect>
-                    
-                </Border>
-        </Popup>
-        <!--  Tools Panel END -->
-
-
-
 
 
 
