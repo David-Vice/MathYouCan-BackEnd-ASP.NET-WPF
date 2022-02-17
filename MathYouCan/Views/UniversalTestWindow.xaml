@@ -25,6 +25,7 @@
                     Completed="navPanelClosing_Completed"
                     />
             </Storyboard>
+            
         </Grid.Resources>
 
         <Grid.RowDefinitions>
@@ -90,8 +91,10 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="20,0,0,0"
                             Grid.Row="1">
 
+
                     <Button Name="toolsButton" Content="Tools  ▼" Margin="10,0,10,0"
-                            Width="80" FontSize="14" FontWeight="Bold" Background="#F4F6F8">
+                            Width="80" FontSize="14" FontWeight="Bold" Background="#F4F6F8"
+                            Click="toolsButton_Click">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="4"/>
@@ -328,6 +331,7 @@
         </Border>
         <!-- Lower Panel END -->
 
+        
         <!-- Navigation Panel -->
         <Grid x:Name="NavPanel" Grid.Row="0" Grid.RowSpan="3" Panel.ZIndex="1" Visibility="Collapsed" Opacity="0">
             <Grid.Background>
@@ -381,6 +385,50 @@
             </Border>
         </Grid>
         <!-- Navigation Panel END -->
+
+
+
+
+        <!--  Tools Panel  -->
+        <Popup Name="toolsPopUpPanel" IsOpen="False" Grid.Row="1" 
+               PlacementTarget="{Binding ElementName=toolsButton}" Placement="Bottom"
+               VerticalOffset="5" PopupAnimation="Fade" AllowsTransparency="True">
+            
+                <Border BorderThickness="1.2" BorderBrush="LightGray" CornerRadius="4" Background="White">
+                    <StackPanel Name="toolsPanelMainStackPanel" Background="Transparent" Width="170">
+                        <!--  Highlihgt  -->
+                        <StackPanel Name="highlightOption" Orientation="Horizontal" MouseDown="popUpOptionStackPanel_MouseDown"
+                                    Background="Transparent" MouseEnter="popUpOptionStackPanel_MouseEnter"
+                                    MouseLeave="popUpOptionStackPanel_MouseLeave">
+                            <Label Visibility="Collapsed" Margin="10,0,-10,0" Content="✓" FontWeight="Bold" FontSize="18"/>
+                            <Label Content="Highlighter" Margin="20,0,0,0" FontSize="18"/>
+                        </StackPanel>
+                        <!--  Highlihgt END -->
+
+                        <!--  Eliminator  -->
+                        <StackPanel Name="eliminatorOption" Orientation="Horizontal" MouseDown="popUpOptionStackPanel_MouseDown"
+                                    Background="Transparent" MouseEnter="popUpOptionStackPanel_MouseEnter"
+                                    MouseLeave="popUpOptionStackPanel_MouseLeave">
+                            <Label Visibility="Collapsed" Margin="10,0,-10,0" Content="✓" FontWeight="Bold" FontSize="18"/>
+                            <Label Content="Eliminator" Margin="20,0,0,0" FontSize="18"/>
+                        </StackPanel>
+                        <!--  Eliminator END -->
+                    </StackPanel>
+
+                <Border.Effect>
+                    <DropShadowEffect Color="Black" BlurRadius="100" ShadowDepth="100" Opacity="0.4"/>
+                </Border.Effect>
+                    
+                </Border>
+        </Popup>
+        <!--  Tools Panel END -->
+
+
+
+
+
+
+
 
     </Grid>
 </Window>
