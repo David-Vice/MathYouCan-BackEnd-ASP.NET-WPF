@@ -18,7 +18,7 @@ namespace MathYouCan
         {
             try
             {
-                if (new Login().ShowDialog() == true)
+                if (new UniversalTestWindow().ShowDialog() == true)
                 {
                     new InstructionsWindow().ShowDialog();
                 }

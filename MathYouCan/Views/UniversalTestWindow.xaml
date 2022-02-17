@@ -7,6 +7,71 @@
         mc:Ignorable="d"
         Height="450" Width="800"
         WindowStyle="None" ResizeMode="NoResize" WindowState="Maximized">
+    <Window.Resources>
+        <SolidColorBrush x:Key="ProgressBar.Progress" Color="#FF06B025"/>
+        <SolidColorBrush x:Key="ProgressBar.Background" Color="#FFE6E6E6"/>
+        <SolidColorBrush x:Key="ProgressBar.Border" Color="#FFBCBCBC"/>
+        <Style x:Key="ProgressBarStyle1" TargetType="{x:Type ProgressBar}">
+            <Setter Property="Foreground" Value="{StaticResource ProgressBar.Progress}"/>
+            <Setter Property="Background" Value="{StaticResource ProgressBar.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource ProgressBar.Border}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ProgressBar}">
+                        <Grid x:Name="TemplateRoot">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Determinate"/>
+                                    <VisualState x:Name="Indeterminate">
+                                        <Storyboard RepeatBehavior="Forever">
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Animation" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
+                                                <EasingDoubleKeyFrame KeyTime="0" Value="0.25"/>
+                                                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0.25"/>
+                                                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0.25"/>
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <PointAnimationUsingKeyFrames Storyboard.TargetName="Animation" Storyboard.TargetProperty="(UIElement.RenderTransformOrigin)">
+                                                <EasingPointKeyFrame KeyTime="0" Value="-0.5,0.5"/>
+                                                <EasingPointKeyFrame KeyTime="0:0:1" Value="0.5,0.5"/>
+                                                <EasingPointKeyFrame KeyTime="0:0:2" Value="1.5,0.5"/>
+                                            </PointAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="4"/>
+                            <Rectangle x:Name="PART_Track" />
+                            <Grid x:Name="PART_Indicator" ClipToBounds="true" HorizontalAlignment="Left">
+                                <Rectangle x:Name="Indicator" Fill="{TemplateBinding Foreground}" RadiusX="4" RadiusY="4"/>
+                                <Rectangle x:Name="Animation" Fill="{TemplateBinding Foreground}" RenderTransformOrigin="0.5,0.5" RadiusX="4" RadiusY="4">
+                                    <Rectangle.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform/>
+                                            <SkewTransform/>
+                                            <RotateTransform/>
+                                            <TranslateTransform/>
+                                        </TransformGroup>
+                                    </Rectangle.RenderTransform>
+                                </Rectangle>
+                            </Grid>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Orientation" Value="Vertical">
+                                <Setter Property="LayoutTransform" TargetName="TemplateRoot">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsIndeterminate" Value="true">
+                                <Setter Property="Visibility" TargetName="Indicator" Value="Collapsed"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
 
     <Grid>
         <Grid.Resources>
@@ -46,13 +111,34 @@
                 </Grid.RowDefinitions>
 
 
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="20,0,0,0"
-                            Grid.Row="1">
+                <Grid  Grid.Row="1" HorizontalAlignment="Stretch" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.2*"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="0.2*"></ColumnDefinition>
+                        <!--prev-->
+                        <ColumnDefinition Width="0.4*"></ColumnDefinition>
+                        <ColumnDefinition Width="0.1*"></ColumnDefinition>
+                        <!--nav-->
+                        <ColumnDefinition Width="0.4*"></ColumnDefinition>
+                        <ColumnDefinition Width="0.1*"></ColumnDefinition>
+                        <!--next-->
+                        <ColumnDefinition Width="0.4*"></ColumnDefinition>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                        <!--tools-->
+                        <ColumnDefinition Width="0.6*"></ColumnDefinition>
+                        <ColumnDefinition Width="0.1*"></ColumnDefinition>
+                        <ColumnDefinition Width="0.7*"></ColumnDefinition>
+                        <ColumnDefinition Width="0.1*"></ColumnDefinition>
+                        <ColumnDefinition  Width="0.7*"></ColumnDefinition>
+                        <ColumnDefinition Width="0.1*"></ColumnDefinition>
+                        <ColumnDefinition  Width="0.6*"></ColumnDefinition>
+                        <ColumnDefinition Width="0.2*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="1" Name="actLogoImage" Source="pack://application:,,,/Img/large.png" RenderOptions.BitmapScalingMode="HighQuality"/>
 
-                    <Image Name="actLogoImage" Source="pack://application:,,,/Img/large.png" RenderOptions.BitmapScalingMode="HighQuality"/>
-
-                    <Button Name="prevButton" Content="Prev" Margin="50,0,10,0"
-                            Width="65" FontSize="15" FontWeight="Bold" Background="#F4F6F8"
+                    <Button Grid.Column="3" Name="prevButton" Content="Prev" 
+                            FontSize="15" FontWeight="Bold" Background="#F4F6F8"
                             IsEnabled="False" Click="prevButton_Click">
                         <Button.Resources>
                             <Style TargetType="Border">
@@ -61,8 +147,8 @@
                         </Button.Resources>
                     </Button>
 
-                    <Button IsEnabled="False" Name="navButton" Content="Nav" Margin="10,0,10,0"
-                            Width="65" FontSize="15" FontWeight="Bold" Background="#F4F6F8" Click="navButton_Click">
+                    <Button Grid.Column="5" IsEnabled="False" Name="navButton" Content="Nav"
+                           FontSize="15" FontWeight="Bold" Background="#F4F6F8" Click="navButton_Click">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="4"/>
@@ -75,8 +161,8 @@
                         </Button.Triggers>
                     </Button>
 
-                    <Button Name="nextButton" Content="Next" Margin="10,0,10,0"
-                            Width="65" FontSize="15" FontWeight="Bold" Background="#F4F6F8"
+                    <Button Grid.Column="7" Name="nextButton" Content="Next" 
+                             FontSize="15" FontWeight="Bold" Background="#F4F6F8"
                             Click="nextButton_Click">
                         <Button.Resources>
                             <Style TargetType="Border">
@@ -85,15 +171,11 @@
                         </Button.Resources>
                     </Button>
 
-                </StackPanel>
+                
 
-
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="20,0,0,0"
-                            Grid.Row="1">
-
-
-                    <Button Name="toolsButton" Content="Tools  ▼" Margin="10,0,10,0"
-                            Width="80" FontSize="14" FontWeight="Bold" Background="#F4F6F8"
+                
+                    <Button Grid.Column="9" Name="toolsButton" Content="Tools  ▼"
+                           FontSize="14" FontWeight="Bold" Background="#F4F6F8"
                             Click="toolsButton_Click" >
                         <Button.Resources>
                             <Style TargetType="Border">
@@ -102,16 +184,16 @@
                         </Button.Resources>
                     </Button>
 
-                    <Button Name="clearHighlightsButton" Content="Clear Highlights" Margin="10,0,20,0"
-                            Width="130" FontSize="14" FontWeight="Bold" Background="#F4F6F8" IsEnabled="False">
+                    <Button Grid.Column="11" Name="clearHighlightsButton" Content="Clear Highlights" 
+                            FontSize="14" FontWeight="Bold" Background="#F4F6F8" IsEnabled="False">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="4"/>
                             </Style>
                         </Button.Resources>
                     </Button>
-                    <Button Name="endSectionButton" Click="endSectionButton_Click"  Margin="0,0,0,0"
-                            Width="130" FontSize="14" FontWeight="Bold" Background="#F4F6F8" IsEnabled="False">
+                    <Button Grid.Column="13" Name="endSectionButton" Click="endSectionButton_Click" 
+                            FontSize="14" FontWeight="Bold" Background="#F4F6F8" IsEnabled="False">
                         <TextBlock>
                              <Image Name="closeIconImage" Height="10" Width="10" Margin="0,0,0,8.3" Source="pack://application:,,,/Img/close.png" RenderOptions.BitmapScalingMode="HighQuality"/>
                              <Label>End Section</Label>
@@ -122,18 +204,34 @@
                             </Style>
                         </Button.Resources>
                     </Button>
-                    <Grid Width="116" Margin="10,0,20,0" Height="60">
-                        <ProgressBar  Height="45" HorizontalAlignment="Center" VerticalAlignment="Top" Width="80" Name="timerProgressBar">
-                            <ProgressBar.Resources>
-                                <Style TargetType="Border">
-                                    <Setter Property="CornerRadius" Value="4"/>
-                                </Style>
-                            </ProgressBar.Resources>
-                        </ProgressBar>
-                        <TextBlock x:Name="timerTextBlock" FontSize="17" HorizontalAlignment="Center" Margin="0,0,0,20" VerticalAlignment="Center">
-                        </TextBlock>
-                    </Grid>
-                </StackPanel>
+                 
+                        <ProgressBar Style="{DynamicResource ProgressBarStyle1}" Grid.Column="15" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="timerProgressBar">
+                        <ProgressBar.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="4"/>
+                            </Style>
+                        </ProgressBar.Resources>
+                        <!--<ProgressBar.Style>
+                            <Style TargetType="{x:Type ProgressBar}">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type ProgressBar}">
+                                            <Grid Height="10" MinWidth="50">
+                                                <Border CornerRadius="4" BorderThickness="1" x:Name="PART_Indicator"
+                                        HorizontalAlignment="Left"  Margin="0,0,0,0">
+                                                </Border>
+                                            </Grid>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                            </ProgressBar.Style>-->
+                    </ProgressBar>
+                               
+                    <TextBlock Grid.Column="15" x:Name="timerTextBlock" FontSize="17" HorizontalAlignment="Center" VerticalAlignment="Center">--:--</TextBlock>
+                  
+                </Grid>
+
 
             </Grid>
 
@@ -401,7 +499,7 @@
 
 
         <!--  Tools Panel  -->
-        <Popup Name="toolsPopUpPanel" IsOpen="False" Grid.Row="1" 
+        <Popup Name="toolsPopUpPanel" IsOpen="False"
                PlacementTarget="{Binding ElementName=toolsButton}" Placement="Bottom"
                VerticalOffset="5" PopupAnimation="Fade" AllowsTransparency="True">
             

@@ -43,7 +43,6 @@ namespace MathYouCan.Views
             CreateButtons();
             CreateNavButtons();
             ChangeBtnToActive(infoButton);
-            // UpdateWindow();
             LoadInfo(testType);
             
         }
@@ -191,6 +190,7 @@ namespace MathYouCan.Views
                 endSectionButton.IsEnabled = true;
                 if (_universalTestViewModel.TestIsTimed())
                 {
+                   
                     _universalTestViewModel.SetTimer(timerTextBlock,this,timerProgressBar);
                 }
             }

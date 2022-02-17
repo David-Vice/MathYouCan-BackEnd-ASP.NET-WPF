@@ -198,18 +198,19 @@ namespace MathYouCan.ViewModels
         }
         public int GetTime()
         {
-            return 60*45;
+            return 45;
         }
         public void SetTimer(TextBlock timeLabel,UniversalTestWindow window,ProgressBar progressBar)
         {
             int time = GetTime();
             progressBar.Maximum = time;
             progressBar.Value = time;
+         
             TimeSpan _time=TimeSpan.FromSeconds(time);
-            DispatcherTimer dispatcherTimer = new DispatcherTimer();
+            DispatcherTimer dispatcherTimer= new DispatcherTimer();
             dispatcherTimer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
             {
-                timeLabel.Text = _time.ToString(@"hh\:mm\:ss");
+                timeLabel.Text = _time.ToString(@"mm\:ss");
                 progressBar.Value--;
                 if (_time == TimeSpan.Zero) { 
                     dispatcherTimer.Stop();
@@ -225,7 +226,7 @@ namespace MathYouCan.ViewModels
         //this method will be called when end_section_button clicked and when time is out
         public void SendResultAndExitWindow(UniversalTestWindow window)
         {
-
+            //
             window.Close();
             //
         }
