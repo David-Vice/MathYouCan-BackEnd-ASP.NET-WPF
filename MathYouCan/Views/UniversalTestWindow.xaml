@@ -11,7 +11,7 @@
     <Grid>
         <Grid.Resources>
             <Storyboard x:Key="navPanelOpening" Timeline.DesiredFrameRate="60">
-                    <DoubleAnimation
+                <DoubleAnimation
                     Storyboard.TargetName="NavPanel" 
                     Storyboard.TargetProperty="Opacity"
                     From="0.0" To="1.0" Duration="0:0:0.3" 
@@ -108,6 +108,17 @@
                         </Button.Resources>
                     </Button>
 
+                    <Grid Width="116" Margin="10,0,20,0" Height="60">
+                        <ProgressBar Visibility="Hidden" Height="45" HorizontalAlignment="Center" VerticalAlignment="Top" Width="80" Name="timerProgressBar">
+                            <ProgressBar.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="4"/>
+                                </Style>
+                            </ProgressBar.Resources>
+                        </ProgressBar>
+                        <TextBlock HorizontalAlignment="Center" Margin="0,0,0,20" VerticalAlignment="Center">
+                        </TextBlock>
+                    </Grid>
                 </StackPanel>
 
             </Grid>
@@ -142,7 +153,7 @@
                     <FlowDocumentScrollViewer  Name="questionPassageFlowDocument" Grid.Row="1">
                         <FlowDocument>
                             <Paragraph Name="questionPassageParagraph">
-                                
+
                             </Paragraph>
                         </FlowDocument>
                     </FlowDocumentScrollViewer>
@@ -308,7 +319,7 @@
                                     <Setter Property="CornerRadius" Value="3"/>
                                 </Style>
                             </Button.Resources>
-                            </Button>
+                        </Button>
                     </StackPanel>
                 </ScrollViewer>
 
@@ -329,7 +340,7 @@
                         <RowDefinition Height="83*"/>
                         <RowDefinition Height="9*"/>
                     </Grid.RowDefinitions>
-                    
+
                     <Border Grid.Row="0" BorderThickness="0,0,0,2" BorderBrush="DarkGray">
                         <StackPanel Margin="10,5,10,5" VerticalAlignment="Center">
                             <Label FontSize="22" Padding="0" HorizontalAlignment="Left" FontWeight="Bold" >Item Navigation</Label>

@@ -187,6 +187,7 @@ namespace MathYouCan.Views
                 _universalTestViewModel.EnableButtons(buttons);
                 navButton.IsEnabled = true;
                 infoButton.IsEnabled = false;
+
             }
             else
             {
