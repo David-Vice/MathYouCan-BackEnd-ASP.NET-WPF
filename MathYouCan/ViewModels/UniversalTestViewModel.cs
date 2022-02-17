@@ -1,11 +1,13 @@
 ﻿using MathYouCan.Models;
 using MathYouCan.Services.Concrete;
+using MathYouCan.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace MathYouCan.ViewModels
 {
@@ -164,6 +166,7 @@ namespace MathYouCan.ViewModels
             }
             return navPanels;
         }
+
         public string GetInfo(string testType)
         {
             InfosAndInstructions infosAndInstructions = new InfosAndInstructions(testType);
@@ -171,18 +174,60 @@ namespace MathYouCan.ViewModels
             
         }
 
+      
+
         public Instruction GetInstrucitons(string testType)
         {
             InfosAndInstructions infosAndInstructions = new InfosAndInstructions(testType);
             return infosAndInstructions.GetInstructions();
         }
 
-        internal void EnableButtons(List<Button> buttons)
+        public void EnableButtons(List<Button> buttons)
         {
             foreach (var button in buttons)
             {
                 button.IsEnabled = true;
             }
+        }
+        #region Timer Methods
+
+        //These 2 methods will work with api values
+        public bool TestIsTimed()
+        {
+            return true;
+        }
+        public int GetTime()
+        {
+            return 60*45;
+        }
+        public void SetTimer(TextBlock timeLabel,UniversalTestWindow window,ProgressBar progressBar)
+        {
+            int time = GetTime();
+            progressBar.Maximum = time;
+            progressBar.Value = time;
+            TimeSpan _time=TimeSpan.FromSeconds(time);
+            DispatcherTimer dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
+            {
+                timeLabel.Text = _time.ToString(@"hh\:mm\:ss");
+                progressBar.Value--;
+                if (_time == TimeSpan.Zero) { 
+                    dispatcherTimer.Stop();
+                    SendResultAndExitWindow(window);
+                }
+                _time = _time.Add(TimeSpan.FromSeconds(-1));
+            }, Application.Current.Dispatcher);
+
+            dispatcherTimer.Start();
+        }
+
+        #endregion
+        //this method will be called when end_section_button clicked and when time is out
+        public void SendResultAndExitWindow(UniversalTestWindow window)
+        {
+
+            window.Close();
+            //
         }
     }
 }

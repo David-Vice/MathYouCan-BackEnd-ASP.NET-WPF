@@ -16,6 +16,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Navigation;
+using System.Windows.Threading;
 
 namespace MathYouCan.Views
 {
@@ -187,7 +188,11 @@ namespace MathYouCan.Views
                 _universalTestViewModel.EnableButtons(buttons);
                 navButton.IsEnabled = true;
                 infoButton.IsEnabled = false;
-
+                endSectionButton.IsEnabled = true;
+                if (_universalTestViewModel.TestIsTimed())
+                {
+                    _universalTestViewModel.SetTimer(timerTextBlock,this,timerProgressBar);
+                }
             }
             else
             {
@@ -283,7 +288,7 @@ namespace MathYouCan.Views
         #endregion
 
 
-        #region Methods for TOOLS PANEL
+        #region Methods for TOOLS PANEL AND ENDSECTION
 
         private void toolsButton_Click(object sender, RoutedEventArgs e)
         {
@@ -326,11 +331,16 @@ namespace MathYouCan.Views
                 (sp.Children[i] as Label).Foreground = Brushes.Black;
             }
         }
-
+        private void endSectionButton_Click(object sender, RoutedEventArgs e)
+        {
+            _universalTestViewModel.SendResultAndExitWindow(this);
+        }
         #endregion
 
-
+       
         private void ClearHighlight() { }
+
+       
     }
 }
 

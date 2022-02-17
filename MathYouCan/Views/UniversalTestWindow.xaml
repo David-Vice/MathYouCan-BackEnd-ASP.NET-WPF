@@ -94,7 +94,7 @@
 
                     <Button Name="toolsButton" Content="Tools  ▼" Margin="10,0,10,0"
                             Width="80" FontSize="14" FontWeight="Bold" Background="#F4F6F8"
-                            Click="toolsButton_Click">
+                            Click="toolsButton_Click" >
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="4"/>
@@ -110,16 +110,27 @@
                             </Style>
                         </Button.Resources>
                     </Button>
-
+                    <Button Name="endSectionButton" Click="endSectionButton_Click"  Margin="0,0,0,0"
+                            Width="130" FontSize="14" FontWeight="Bold" Background="#F4F6F8" IsEnabled="False">
+                        <TextBlock>
+                             <Image Name="closeIconImage" Height="10" Width="10" Margin="0,0,0,8.3" Source="pack://application:,,,/Img/close.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+                             <Label>End Section</Label>
+                        </TextBlock>
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="4"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
                     <Grid Width="116" Margin="10,0,20,0" Height="60">
-                        <ProgressBar Visibility="Hidden" Height="45" HorizontalAlignment="Center" VerticalAlignment="Top" Width="80" Name="timerProgressBar">
+                        <ProgressBar  Height="45" HorizontalAlignment="Center" VerticalAlignment="Top" Width="80" Name="timerProgressBar">
                             <ProgressBar.Resources>
                                 <Style TargetType="Border">
                                     <Setter Property="CornerRadius" Value="4"/>
                                 </Style>
                             </ProgressBar.Resources>
                         </ProgressBar>
-                        <TextBlock HorizontalAlignment="Center" Margin="0,0,0,20" VerticalAlignment="Center">
+                        <TextBlock x:Name="timerTextBlock" FontSize="17" HorizontalAlignment="Center" Margin="0,0,0,20" VerticalAlignment="Center">
                         </TextBlock>
                     </Grid>
                 </StackPanel>
