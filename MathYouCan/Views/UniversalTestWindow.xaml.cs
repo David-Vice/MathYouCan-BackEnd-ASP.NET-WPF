@@ -280,6 +280,56 @@ namespace MathYouCan.Views
         }
 
         #endregion
+
+
+        #region Methods for TOOLS PANEL
+
+        private void toolsButton_Click(object sender, RoutedEventArgs e)
+        {
+            toolsPopUpPanel.HorizontalOffset = toolsButton.Width - toolsPanelMainStackPanel.Width;
+            toolsPopUpPanel.IsOpen = !toolsPopUpPanel.IsOpen;
+        }
+
+        private void popUpOptionStackPanel_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            StackPanel sp =  sender as StackPanel;
+            Label l = (sp.Children[0] as Label);
+            if (l.Visibility == Visibility.Visible) 
+            { 
+                l.Visibility = Visibility.Collapsed;
+                ClearHighlight();
+            }
+            else l.Visibility = Visibility.Visible;
+
+            toolsPopUpPanel.IsOpen = !toolsPopUpPanel.IsOpen;
+        }
+
+
+        private void popUpOptionStackPanel_MouseEnter(object sender, MouseEventArgs e)
+        {
+            StackPanel sp = sender as StackPanel;
+            sp.Background = new SolidColorBrush(Color.FromRgb(218, 37, 29));
+
+            for (int i = 0; i < sp.Children.Count; i++)
+            {
+                (sp.Children[i] as Label).Foreground = Brushes.White;
+            }
+        }
+        private void popUpOptionStackPanel_MouseLeave(object sender, MouseEventArgs e)
+        {
+            StackPanel sp = sender as StackPanel;
+            sp.Background = Brushes.Transparent;
+
+            for (int i = 0; i < sp.Children.Count; i++)
+            {
+                (sp.Children[i] as Label).Foreground = Brushes.Black;
+            }
+        }
+
+        #endregion
+
+
+        private void ClearHighlight() { }
     }
 }
 
