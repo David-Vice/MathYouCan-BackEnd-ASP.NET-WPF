@@ -198,7 +198,7 @@ namespace MathYouCan.ViewModels
         }
         public int GetTime()
         {
-            return 45;
+            return 45*60;
         }
         public void SetTimer(TextBlock timeLabel,UniversalTestWindow window,ProgressBar progressBar)
         {
