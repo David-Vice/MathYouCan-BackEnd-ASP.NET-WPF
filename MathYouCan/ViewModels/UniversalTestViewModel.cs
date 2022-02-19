@@ -18,6 +18,7 @@ namespace MathYouCan.ViewModels
         public IList<Question> Questions { get; set; }
 
         public int CurrentQuestionIndex { get; set; } = 0;
+        public int PrevQuestionIndex { get; set; } = -1;
 
         //потом этот метод должен принимать IEnumerable<Question>
         public UniversalTestViewModel(string testType)

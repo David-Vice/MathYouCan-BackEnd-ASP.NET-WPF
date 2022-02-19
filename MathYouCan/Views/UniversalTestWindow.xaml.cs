@@ -31,7 +31,6 @@ namespace MathYouCan.Views
         //IEnumerable<Question> questions
         List<Button> buttons = new List<Button>();
         List<StackPanel> navPanels = new List<StackPanel>();
-        int prevQuestion = -1;
 
         private UniversalTestViewModel _universalTestViewModel;
  
@@ -44,7 +43,6 @@ namespace MathYouCan.Views
             CreateNavButtons();
             ChangeBtnToActive(infoButton);
             LoadInfo(testType);
-            
         }
 
         #region Methods To UPDATE WINDOW
@@ -76,12 +74,9 @@ namespace MathYouCan.Views
                 prevButton.IsEnabled = true;
                 nextButton.IsEnabled = true;
             }
-
             
             FillQuestion();
             questionTitleLabel.Content = _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].QuestionTitle;
-            
-           
         }
         
         private void FillQuestion()
@@ -104,14 +99,14 @@ namespace MathYouCan.Views
         //этот метод вызывается вначале 1 раз и еще каждый раз когда пользователь меняет вопрос кликая на кнопки changeQuestionButton_Click
         private void UpdateWindow()
         {
-            if (prevQuestion >=0 )
+            if (_universalTestViewModel.PrevQuestionIndex >= 0 )
             {
-                ChangeBtnToPassive(buttons[prevQuestion]);
-                ChangeNavQuestToPassive(navPanels.Where(x => x.Name.ToString() == $"questionNavStackPanel{prevQuestion}").First());
+                ChangeBtnToPassive(buttons[_universalTestViewModel.PrevQuestionIndex]);
+                ChangeNavQuestToPassive(navPanels.Where(x => x.Name.ToString() == $"questionNavStackPanel{_universalTestViewModel.PrevQuestionIndex}").First());
             }
             UpdateWindowContent();
 
-            ChangeNavQuestToActive(navPanels.Where(x => x.Name.ToString() == $"questionNavStackPanel{_universalTestViewModel.CurrentQuestionIndex }").First());
+            ChangeNavQuestToActive(navPanels.Where(x => x.Name.ToString() == $"questionNavStackPanel{_universalTestViewModel.CurrentQuestionIndex}").First());
             ChangeBtnToActive(buttons[_universalTestViewModel.CurrentQuestionIndex]);
         }
 
@@ -121,8 +116,7 @@ namespace MathYouCan.Views
 
         private void changeQuestionButton_Click(object sender, RoutedEventArgs e)
         {
-            
-            prevQuestion=_universalTestViewModel.CurrentQuestionIndex;
+            _universalTestViewModel.PrevQuestionIndex = _universalTestViewModel.CurrentQuestionIndex;
 
             int num;
             if (int.TryParse((sender as Button).Content.ToString(),out num))
@@ -135,10 +129,7 @@ namespace MathYouCan.Views
             }
             UpdateWindow();
             //Save chosen answer
-            
-
         }
-        
         private void ChangeBtnToActive(Button btn)
         {
             //changes color to red
@@ -172,10 +163,7 @@ namespace MathYouCan.Views
 
         private void prevButton_Click(object sender, RoutedEventArgs e)
         {
-            prevQuestion = _universalTestViewModel.CurrentQuestionIndex;
-
-
-
+            _universalTestViewModel.PrevQuestionIndex = _universalTestViewModel.CurrentQuestionIndex;
             _universalTestViewModel.CurrentQuestionIndex--;
             UpdateWindow();
         }
@@ -190,23 +178,18 @@ namespace MathYouCan.Views
                 endSectionButton.IsEnabled = true;
                 if (_universalTestViewModel.TestIsTimed())
                 {
-                   
                     _universalTestViewModel.SetTimer(timerTextBlock,this,timerProgressBar);
                 }
             }
             else
             {
-                prevQuestion = _universalTestViewModel.CurrentQuestionIndex ;
+                _universalTestViewModel.PrevQuestionIndex = _universalTestViewModel.CurrentQuestionIndex ;
                 _universalTestViewModel.CurrentQuestionIndex++;
-
             }
             UpdateWindow();
         }
 
         #endregion
-
-        
-        
         
         #region Methods which are called only at the beginning once
 
@@ -216,7 +199,6 @@ namespace MathYouCan.Views
             converter.ConvertToParagraph(questionPassageParagraph, _universalTestViewModel.GetInfo(testType),17);
         }
         
-        
         private void CreateButtons()
         {
             buttons = _universalTestViewModel.CreateButtons();
@@ -225,7 +207,6 @@ namespace MathYouCan.Views
                 button.Click += changeQuestionButton_Click;
                 questionsStackPanel.Children.Add(button);
             }
-
         }
         private void CreateNavButtons()
         {
@@ -233,7 +214,6 @@ namespace MathYouCan.Views
             navPanels = _universalTestViewModel.CreateNavButtons(borders);
             for (int i = 0; i < navPanels.Count; i++)
             {
-
                 navPanels[i].MouseDown += navQuestion_MouseDown;
                 navPanels[i].MouseEnter += navQuestion_MouseEnter;
                 navPanels[i].MouseLeave += navQuestion_MouseLeave;
@@ -247,8 +227,7 @@ namespace MathYouCan.Views
         #region Methods for NAVIGATION PANEL
         private void navQuestion_MouseDown(object sender, MouseButtonEventArgs e)
         {
-
-            prevQuestion = _universalTestViewModel.CurrentQuestionIndex;
+            _universalTestViewModel.PrevQuestionIndex = _universalTestViewModel.CurrentQuestionIndex;
             int num;
             if (int.TryParse((((sender as StackPanel).Children[0] as StackPanel).Children[0] as Label).Content.ToString(), out num))
             {
@@ -261,8 +240,6 @@ namespace MathYouCan.Views
            
             NavPanel.Visibility = Visibility.Collapsed; //no animation
             UpdateWindow();
-
-
         }
 
         private void navButton_Click(object sender, RoutedEventArgs e)
@@ -287,7 +264,6 @@ namespace MathYouCan.Views
 
         #endregion
 
-
         #region Methods for TOOLS PANEL AND ENDSECTION
 
         private void toolsButton_Click(object sender, RoutedEventArgs e)
@@ -308,7 +284,6 @@ namespace MathYouCan.Views
 
             toolsPopUpPanel.IsOpen = !toolsPopUpPanel.IsOpen;
         }
-
 
         private void popUpOptionStackPanel_MouseEnter(object sender, MouseEventArgs e)
         {
@@ -335,11 +310,8 @@ namespace MathYouCan.Views
             _universalTestViewModel.SendResultAndExitWindow(this);
         }
         #endregion
-
        
         private void ClearHighlight() { }
-
-       
     }
 }
 
