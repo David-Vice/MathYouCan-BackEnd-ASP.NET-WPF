@@ -41,6 +41,7 @@ namespace MathYouCan.Views
             _universalTestViewModel = new UniversalTestViewModel(testType);
             CreateButtons();
             CreateNavButtons();
+            CreateAnswers(10);
             ChangeBtnToActive(infoButton);
             LoadInfo(testType);
         }
@@ -82,6 +83,7 @@ namespace MathYouCan.Views
         private void FillQuestion()
         {
             FillQuestionPassage();
+            FillAnswers();
         }
 
         /// <summary>
@@ -94,6 +96,11 @@ namespace MathYouCan.Views
 
             TextToFlowDocumentConverter textTo = new TextToFlowDocumentConverter(Brushes.Yellow, Brushes.GreenYellow);
             textTo.ConvertToParagraph(questionPassageParagraph, _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].QuestionContent, 16);
+        }
+
+        private void FillAnswers()
+        {
+
         }
 
         //этот метод вызывается вначале 1 раз и еще каждый раз когда пользователь меняет вопрос кликая на кнопки changeQuestionButton_Click
@@ -219,7 +226,51 @@ namespace MathYouCan.Views
                 navPanels[i].MouseLeave += navQuestion_MouseLeave;
                 navBody.Children.Add(borders[i]);
             }
+        }
+        private void CreateAnswers(int answersNum)
+        {
+            for (int i = 0; i < answersNum; i++)
+            {
+                RowDefinition row = new RowDefinition();
+                row.Height = GridLength.Auto;
+                AnswersGrid.RowDefinitions.Add(row);
+                Grid gridAns = new Grid();
+                gridAns.Name = $"GridAns{i + 1}";
+                gridAns.SetValue(Grid.RowProperty, i);
+                ColumnDefinition gridCol1 = new ColumnDefinition();
+                gridCol1.Width = GridLength.Auto;
+                ColumnDefinition gridCol2 = new ColumnDefinition();
+                gridCol2.Width = new GridLength(1, GridUnitType.Star);
+                gridAns.ColumnDefinitions.Add(gridCol1);
+                gridAns.ColumnDefinitions.Add(gridCol2);
 
+                RadioButton radioAns = new RadioButton();
+                radioAns.SetValue(Grid.ColumnProperty, 0);
+                radioAns.Name = $"RadioAns{i + 1}";
+                radioAns.GroupName = "RadioAnswers";
+                radioAns.VerticalContentAlignment = VerticalAlignment.Center;
+                radioAns.Margin = new Thickness(0, 10, 0, 10);
+                radioAns.FontSize = 17;
+                radioAns.FontWeight = FontWeights.DemiBold;
+                radioAns.Background = new SolidColorBrush(Colors.White);
+                radioAns.Content = $"{(char)(65 + i)}.";
+
+                TextBlock bodyAns = new TextBlock();
+                bodyAns.SetValue(Grid.ColumnProperty, 1);
+                bodyAns.Name = $"BodyAns{i+1}";
+                bodyAns.TextWrapping = TextWrapping.Wrap;
+                bodyAns.HorizontalAlignment = HorizontalAlignment.Stretch;
+                bodyAns.VerticalAlignment = VerticalAlignment.Center;
+                bodyAns.Margin = new Thickness(10);
+                bodyAns.FontSize = 17;
+                
+                // Will be used as answers[i] in the future
+                bodyAns.Text = $@"AnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswer";
+
+                gridAns.Children.Add(radioAns);
+                gridAns.Children.Add(bodyAns);
+                AnswersGrid.Children.Add(gridAns);
+            }
         }
 
         #endregion
