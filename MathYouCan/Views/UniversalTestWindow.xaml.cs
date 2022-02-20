@@ -79,14 +79,12 @@ namespace MathYouCan.Views
         }
 
         /// <summary>
-        /// Sets question text to questionContent(Stack Panel) according to current Question index(CurrentQuestionIndex) from view model
+        /// Sets question text to QuestionPassage(Stack Panel) according to current Question index(CurrentQuestionIndex) from view model
         /// </summary>
         private void FillQuestionPassage()
         {
-            //TextToFlowDocumentConverter textTo = new TextToFlowDocumentConverter(Brushes.Yellow, Brushes.GreenYellow);
-            //textTo.ConvertToParagraph(questionPassageParagraph, _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].QuestionContent, 16);
             _universalTestViewModel.Converter.ConvertToParagraph(questionPassageParagraph,
-                _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].QuestionContent, 16);
+                _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].QuestionPassage, 16);
         }
 
         private void FillAnswers()
