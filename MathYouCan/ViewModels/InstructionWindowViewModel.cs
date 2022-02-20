@@ -62,8 +62,8 @@ namespace MathYouCan.ViewModels
             string instructionText3 = "|~B~|IMPORTANT:|~B~| Read this information before selecting the |~B~|Next|~B~| button.\n\n" +
                 "nYou are about to take the ACT, which is composed of multiple-choice tests in English, " +
                 "mathematics, reading, and science,\nfollewed by a writing test, for which you will complete an essay written in English.\n\nThese tests" +
-                "measure skills and abilities highly related to high school course work and success in college. |~B~|Calculators|~B~| |~B~|may|~B~|" +
-                " |~B~|be|~B~|\n|~B~|used|~B~| |~B~|on|~B~| |~B~|the|~B~| |~B~|mathematics|~B~| |~B~|only|~B~|.\n\nFor each multiple-choice question, " +
+                "measure skills and abilities highly related to high school course work and success in college. |~B~|Calculators may " +
+                "be\nused on the mathematics only|~B~|.\n\nFor each multiple-choice question, " +
                 "choose the best answer by selecting the circle next to it. " +
                 "If you change your mind about an\nanswer, choose a different answer and select the circle next to it. Select the " +
                 "|~B~|Next|~B~| button to move to the next question. For the\nwriting test, type your essay into the " +

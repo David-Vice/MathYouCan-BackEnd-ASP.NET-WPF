@@ -3,20 +3,12 @@ using MathYouCan.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Windows.Navigation;
-using System.Windows.Threading;
 
 namespace MathYouCan.Views
 {
@@ -34,7 +26,7 @@ namespace MathYouCan.Views
         int prevQuestion = -1;
 
         private UniversalTestViewModel _universalTestViewModel;
- 
+
         public UniversalTestWindow()
         {
             string testType = "English";
@@ -44,7 +36,7 @@ namespace MathYouCan.Views
             CreateNavButtons();
             ChangeBtnToActive(infoButton);
             LoadInfo(testType);
-            
+
         }
 
         #region Methods To UPDATE WINDOW
@@ -77,13 +69,11 @@ namespace MathYouCan.Views
                 nextButton.IsEnabled = true;
             }
 
-            
+
             FillQuestion();
             questionTitleLabel.Content = _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].QuestionTitle;
-            
-           
         }
-        
+
         private void FillQuestion()
         {
             FillQuestionPassage();
@@ -94,17 +84,16 @@ namespace MathYouCan.Views
         /// </summary>
         private void FillQuestionPassage()
         {
-            //StackPanelConverter converter = new StackPanelConverter("#00FFFF");
-            //converter.FillStackPanel(questionPassageStackPanel, _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].QuestionContent, true);
-
-            TextToFlowDocumentConverter textTo = new TextToFlowDocumentConverter(Brushes.Yellow, Brushes.GreenYellow);
-            textTo.ConvertToParagraph(questionPassageParagraph, _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].QuestionContent, 16);
+            //TextToFlowDocumentConverter textTo = new TextToFlowDocumentConverter(Brushes.Yellow, Brushes.GreenYellow);
+            //textTo.ConvertToParagraph(questionPassageParagraph, _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].QuestionContent, 16);
+            _universalTestViewModel.Converter.ConvertToParagraph(questionPassageParagraph,
+                _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].QuestionContent, 16);
         }
 
         //этот метод вызывается вначале 1 раз и еще каждый раз когда пользователь меняет вопрос кликая на кнопки changeQuestionButton_Click
         private void UpdateWindow()
         {
-            if (prevQuestion >=0 )
+            if (prevQuestion >= 0)
             {
                 ChangeBtnToPassive(buttons[prevQuestion]);
                 ChangeNavQuestToPassive(navPanels.Where(x => x.Name.ToString() == $"questionNavStackPanel{prevQuestion}").First());
@@ -121,11 +110,11 @@ namespace MathYouCan.Views
 
         private void changeQuestionButton_Click(object sender, RoutedEventArgs e)
         {
-            
-            prevQuestion=_universalTestViewModel.CurrentQuestionIndex;
+
+            prevQuestion = _universalTestViewModel.CurrentQuestionIndex;
 
             int num;
-            if (int.TryParse((sender as Button).Content.ToString(),out num))
+            if (int.TryParse((sender as Button).Content.ToString(), out num))
             {
                 _universalTestViewModel.CurrentQuestionIndex = num;
             }
@@ -135,10 +124,10 @@ namespace MathYouCan.Views
             }
             UpdateWindow();
             //Save chosen answer
-            
+
 
         }
-        
+
         private void ChangeBtnToActive(Button btn)
         {
             //changes color to red
@@ -188,15 +177,15 @@ namespace MathYouCan.Views
                 navButton.IsEnabled = true;
                 infoButton.IsEnabled = false;
                 endSectionButton.IsEnabled = true;
+                toolsButton.IsEnabled = true;
                 if (_universalTestViewModel.TestIsTimed())
                 {
-                   
-                    _universalTestViewModel.SetTimer(timerTextBlock,this,timerProgressBar);
+                    _universalTestViewModel.SetTimer(timerTextBlock, this, timerProgressBar);
                 }
             }
             else
             {
-                prevQuestion = _universalTestViewModel.CurrentQuestionIndex ;
+                prevQuestion = _universalTestViewModel.CurrentQuestionIndex;
                 _universalTestViewModel.CurrentQuestionIndex++;
 
             }
@@ -205,18 +194,20 @@ namespace MathYouCan.Views
 
         #endregion
 
-        
-        
-        
+
+
+
         #region Methods which are called only at the beginning once
 
         private void LoadInfo(string testType)
         {
-            TextToFlowDocumentConverter converter = new TextToFlowDocumentConverter(Brushes.Yellow, Brushes.GreenYellow);
-            converter.ConvertToParagraph(questionPassageParagraph, _universalTestViewModel.GetInfo(testType),17);
+            //TextToFlowDocumentConverter converter = new TextToFlowDocumentConverter(Brushes.Yellow, Brushes.GreenYellow);
+            //converter.ConvertToParagraph(questionPassageParagraph, _universalTestViewModel.GetInfo(testType),17);
+
+            _universalTestViewModel.Converter.ConvertToParagraph(questionPassageParagraph, _universalTestViewModel.GetInfo(testType), 17);
         }
-        
-        
+
+
         private void CreateButtons()
         {
             buttons = _universalTestViewModel.CreateButtons();
@@ -229,7 +220,7 @@ namespace MathYouCan.Views
         }
         private void CreateNavButtons()
         {
-            List<Border> borders=new List<Border>();
+            List<Border> borders = new List<Border>();
             navPanels = _universalTestViewModel.CreateNavButtons(borders);
             for (int i = 0; i < navPanels.Count; i++)
             {
@@ -258,7 +249,7 @@ namespace MathYouCan.Views
             {
                 _universalTestViewModel.CurrentQuestionIndex = 0;
             }
-           
+
             NavPanel.Visibility = Visibility.Collapsed; //no animation
             UpdateWindow();
 
@@ -279,7 +270,7 @@ namespace MathYouCan.Views
         }
         private void navQuestion_MouseLeave(object sender, MouseEventArgs e)
         {
-            if((sender as StackPanel).Name == $"questionNavStackPanel{_universalTestViewModel.CurrentQuestionIndex}")
+            if ((sender as StackPanel).Name == $"questionNavStackPanel{_universalTestViewModel.CurrentQuestionIndex}")
                 (sender as StackPanel).Background = new SolidColorBrush(Colors.SkyBlue);
             else
                 (sender as StackPanel).Background = new SolidColorBrush(Colors.LightGray);
@@ -297,14 +288,26 @@ namespace MathYouCan.Views
 
         private void popUpOptionStackPanel_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            StackPanel sp =  sender as StackPanel;
+            StackPanel sp = sender as StackPanel;
             Label l = (sp.Children[0] as Label);
-            if (l.Visibility == Visibility.Visible) 
-            { 
+            if (l.Visibility == Visibility.Visible)
+            {
                 l.Visibility = Visibility.Collapsed;
                 ClearHighlight();
             }
             else l.Visibility = Visibility.Visible;
+
+
+            //==============================================================================================
+
+            // Enable and diable highlight
+            if (sp.Name == "highlightOption")
+            {
+                _universalTestViewModel.IsHighlightEnabled = !_universalTestViewModel.IsHighlightEnabled;
+                clearHighlightsButton.IsEnabled = !clearHighlightsButton.IsEnabled;
+            }
+            //==============================================================================================
+
 
             toolsPopUpPanel.IsOpen = !toolsPopUpPanel.IsOpen;
         }
@@ -336,10 +339,86 @@ namespace MathYouCan.Views
         }
         #endregion
 
-       
-        private void ClearHighlight() { }
 
-       
+
+
+
+
+
+
+
+
+
+
+
+        //==============================================================================================
+
+        //Reload the page
+        private void ClearHighlight()
+        {
+            UpdateWindowContent();
+        }
+
+        private void questionPassageFlowDocument_IsMouseCapturedChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (_universalTestViewModel.IsHighlightEnabled)
+            {
+                // Highlight the text
+
+                TextPointer potStart = questionPassageFlowDocument.Selection.Start;
+                TextPointer potEnd = questionPassageFlowDocument.Selection.End;
+                TextRange range = new TextRange(potStart, potEnd);
+                range.ApplyPropertyValue(TextElement.BackgroundProperty, _universalTestViewModel.HighLighteTextBrush);
+
+                //ThreadPool.QueueUserWorkItem((o) => { MessageBox.Show((_universalTestViewModel.DefaultFontSize + 1).ToString()); });
+                //range.ApplyPropertyValue(TextElement.FontSizeProperty, _universalTestViewModel.DefaultFontSize + 1);
+                //range.ApplyPropertyValue(TextElement.FontWeightProperty, FontWeights.Bold);
+
+            }
+        }
+
+        private void clearHighlightsButton_Click(object sender, RoutedEventArgs e)
+        {
+            ClearHighlight();
+        }
+
+        private void questionPassageFlowDocument_LostMouseCapture(object sender, MouseEventArgs e)
+        {
+            //if (_universalTestViewModel.IsHighlightEnabled && _universalTestViewModel.Converter.SelectedWords.Count != 0)
+            //{
+            //    foreach (string item in _universalTestViewModel.Converter.SelectedWords)
+            //    {
+            //        String search = item;
+
+            //        TextPointer text = questionPassageParagraph.ContentStart;
+            //        while (true)
+            //        {
+            //            TextPointer next = text.GetNextContextPosition(LogicalDirection.Forward);
+            //            if (next == null)
+            //            {
+            //                break;
+            //            }
+            //            TextRange txt = new TextRange(text, next);
+
+            //            int indx = txt.Text.IndexOf(search);
+            //            if (indx > 0)
+            //            {
+            //                TextPointer sta = text.GetPositionAtOffset(indx);
+            //                TextPointer end = text.GetPositionAtOffset(indx + search.Length);
+            //                TextRange textR = new TextRange(sta, end);
+            //                textR.ApplyPropertyValue(TextElement.BackgroundProperty, new SolidColorBrush(Colors.Yellow));
+            //            }
+            //            text = next;
+            //        }
+
+            //    }
+            //}
+
+        }
+
+        //==============================================================================================
+
+
     }
 }
 

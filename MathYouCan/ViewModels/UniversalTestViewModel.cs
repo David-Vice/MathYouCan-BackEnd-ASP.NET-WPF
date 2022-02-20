@@ -1,4 +1,5 @@
-﻿using MathYouCan.Models;
+﻿using MathYouCan.Converters;
+using MathYouCan.Models;
 using MathYouCan.Services.Concrete;
 using MathYouCan.Views;
 using System;
@@ -14,14 +15,28 @@ namespace MathYouCan.ViewModels
     public class UniversalTestViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        //first question is Instructions
-        public IList<Question> Questions { get; set; }
+        public IList<Question> Questions { get; set; }  //first question is Instructions
 
         public int CurrentQuestionIndex { get; set; } = 0;
+
+
+
+
+
+
+        public TextToFlowDocumentConverter Converter { get; set; }
+        public Brush SelectedTextBrush { get; set; }  // Color of selected part of text sent by API
+        public Brush HighLighteTextBrush { get; set; }  // Color of highlight
+        public bool IsHighlightEnabled { get; set; } = false;
+
 
         //потом этот метод должен принимать IEnumerable<Question>
         public UniversalTestViewModel(string testType)
         {
+            SelectedTextBrush = Brushes.Yellow;
+            HighLighteTextBrush = Brushes.GreenYellow;
+
+            Converter = new TextToFlowDocumentConverter(SelectedTextBrush, HighLighteTextBrush);
 
             Questions = new List<Question>();
 
@@ -58,7 +73,7 @@ namespace MathYouCan.ViewModels
             Question question2 = new Question
             {
                 QuestionContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tortor lacus, accumsan sed augue rhoncus," +
-                "sodales gravida dolor. Morbi felis augue, pretium non lectus et, porttitor tincidunt lorem. Duis eget odio" +
+                "sodales gravida dolor. Morbi |~C~|felis|~C~| |~C~|augue|~C~|, |~C~|pretium|~C~| non lectus et, porttitor tincidunt lorem. Duis eget odio" +
                 "tincidunt, congue sem gravida, maximus lorem. Integer at imperdiet est. Donec in dapibus diam. Phasellus sit" +
                 "amet tellus in neque suscipit commodo facilisis vitae lacus. Aliquam quis vestibulum ex. Nulla mattis, eros efficiturul lamcorper pretium, felis dolor congue lectus, a volutpat turpis mauris sed nunc. Donec in nibh sit amet nunc fringilla placerat eu dictum nibh. Nulla facilisi. Phasellus a massa porta, pulvinar ante eu, sodales augue.",
                 QuestionTitle = "Title",
@@ -189,6 +204,7 @@ namespace MathYouCan.ViewModels
                 button.IsEnabled = true;
             }
         }
+
         #region Timer Methods
 
         //These 2 methods will work with api values
@@ -198,7 +214,7 @@ namespace MathYouCan.ViewModels
         }
         public int GetTime()
         {
-            return 45;
+            return 400;
         }
         public void SetTimer(TextBlock timeLabel,UniversalTestWindow window,ProgressBar progressBar)
         {
@@ -223,6 +239,8 @@ namespace MathYouCan.ViewModels
         }
 
         #endregion
+        
+        
         //this method will be called when end_section_button clicked and when time is out
         public void SendResultAndExitWindow(UniversalTestWindow window)
         {

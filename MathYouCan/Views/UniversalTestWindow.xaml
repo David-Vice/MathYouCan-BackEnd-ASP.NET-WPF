@@ -176,7 +176,7 @@
                 
                     <Button Grid.Column="9" Name="toolsButton" Content="Tools  ▼"
                            FontSize="14" FontWeight="Bold" Background="#F4F6F8"
-                            Click="toolsButton_Click" >
+                            Click="toolsButton_Click" IsEnabled="False">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="4"/>
@@ -185,6 +185,15 @@
                     </Button>
 
 
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
                     <!--  Tools Panel  -->
                     <Popup Name="toolsPopUpPanel" IsOpen="False"
                            PlacementTarget="{Binding ElementName=toolsButton}" Placement="Bottom"
@@ -221,7 +230,8 @@
 
 
                     <Button Grid.Column="11" Name="clearHighlightsButton" Content="Clear Highlights" 
-                            FontSize="14" FontWeight="Bold" Background="#F4F6F8" IsEnabled="False">
+                            FontSize="14" FontWeight="Bold" Background="#F4F6F8" IsEnabled="False"
+                            Click="clearHighlightsButton_Click">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="4"/>
@@ -284,7 +294,9 @@
                     <!-- Question Title END -->
 
                     <!-- Passage Section -->
-                    <FlowDocumentScrollViewer  Name="questionPassageFlowDocument" Grid.Row="1">
+                    <FlowDocumentScrollViewer  Name="questionPassageFlowDocument" Grid.Row="1"
+                                               IsMouseCapturedChanged="questionPassageFlowDocument_IsMouseCapturedChanged"
+                                               LostMouseCapture="questionPassageFlowDocument_LostMouseCapture">
                         <FlowDocument>
                             <Paragraph Name="questionPassageParagraph">
 
