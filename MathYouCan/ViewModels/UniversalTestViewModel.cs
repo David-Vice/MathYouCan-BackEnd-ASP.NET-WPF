@@ -18,6 +18,7 @@ namespace MathYouCan.ViewModels
         public IList<Question> Questions { get; set; }  //first question is Instructions
 
         public int CurrentQuestionIndex { get; set; } = 0;
+        public int PrevQuestionIndex { get; set; } = -1;
 
 
 
@@ -214,7 +215,7 @@ namespace MathYouCan.ViewModels
         }
         public int GetTime()
         {
-            return 400;
+            return 45*60;
         }
         public void SetTimer(TextBlock timeLabel,UniversalTestWindow window,ProgressBar progressBar)
         {
