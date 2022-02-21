@@ -70,6 +70,11 @@ namespace MathYouCan
                                     {
                                         Text="Answer3",
                                         Type=AnswerType.C
+                                    },
+                                      new QuestionAnswer()
+                                    {
+                                        Text="Answer4",
+                                        Type=AnswerType.C
                                     }
                                 }
                             },
