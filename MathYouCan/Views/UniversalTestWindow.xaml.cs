@@ -15,6 +15,8 @@ using System.Windows.Threading;
 using MathYouCan.Models.Exams;
 using System.Windows.Media;
 using System.Windows.Input;
+using System.Windows.Documents;
+using Section = MathYouCan.Models.Exams.Section;
 
 namespace MathYouCan.Views
 {
@@ -100,12 +102,13 @@ namespace MathYouCan.Views
         private void FillAnswers()
         {
             List<QuestionAnswer> answers = (List<QuestionAnswer>)_universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].Question.Answers;
+
             for (int i=0;i<answers.Count;i++)
             {
                 var answerGrid = (Grid)this.FindName($"GridAns{i + 1}");
                 answerGrid.Visibility = Visibility.Visible;
-                var answer = (TextBlock)this.FindName($"BodyAns{i + 1}");
-                answer.Text = answers[i].Text;
+                var answer = (Paragraph)this.FindName($"BodyAns{i + 1}");
+                _universalTestViewModel.Converter.ConvertToParagraph(answer, (_universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].Question.Answers as List<QuestionAnswer>)[i].Text, 16);
             }
             for (int i = answers.Count; i < answersPerQuestion; i++)
             {
@@ -215,7 +218,6 @@ namespace MathYouCan.Views
         private void LoadInfo(Section section) { 
             TextToFlowDocumentConverter converter = new TextToFlowDocumentConverter(Brushes.Yellow, Brushes.GreenYellow);
             converter.ConvertToParagraph(questionPassageParagraph, _universalTestViewModel.GetInfo(section.Name),17);
-        
         }
         
         private void CreateButtons()
@@ -241,6 +243,17 @@ namespace MathYouCan.Views
         }
         private void CreateAnswers(int answersNum)
         {
+            /*
+            <FlowDocumentScrollViewer  Name="questionPassageFlowDocument" Grid.Row="1"
+                                       IsMouseCapturedChanged="questionPassageFlowDocument_IsMouseCapturedChanged"
+                                       LostMouseCapture="questionPassageFlowDocument_LostMouseCapture">
+                <FlowDocument>
+                    <Paragraph Name="questionPassageParagraph">
+
+                    </Paragraph>
+                </FlowDocument>
+            </FlowDocumentScrollViewer>
+            */
             for (int i = 0; i < answersNum; i++)
             {
                 RowDefinition row = new RowDefinition();
@@ -269,19 +282,30 @@ namespace MathYouCan.Views
                 radioAns.Background = new SolidColorBrush(Colors.White);
                 radioAns.Content = $"{(char)(65 + i)}.";
 
-                TextBlock bodyAns = new TextBlock();
-                bodyAns.SetValue(Grid.ColumnProperty, 1);
-                bodyAns.Name = $"BodyAns{i+1}";
-                bodyAns.TextWrapping = TextWrapping.Wrap;
-                bodyAns.HorizontalAlignment = HorizontalAlignment.Stretch;
-                bodyAns.VerticalAlignment = VerticalAlignment.Center;
-                bodyAns.Margin = new Thickness(10);
+                FlowDocumentScrollViewer bodyScroll = new FlowDocumentScrollViewer();
+                bodyScroll.Name = $"BodyScroll{i + 1}";
+                bodyScroll.SetValue(Grid.ColumnProperty, 1);
+                bodyScroll.IsMouseCapturedChanged += questionPassageFlowDocument_IsMouseCapturedChanged;
+                bodyScroll.LostMouseCapture += questionPassageFlowDocument_LostMouseCapture;
+                bodyScroll.HorizontalAlignment = HorizontalAlignment.Stretch;
+                bodyScroll.VerticalAlignment = VerticalAlignment.Center;
+                bodyScroll.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
+                bodyScroll.Margin = new Thickness(10);
+                RegisterName($"BodyScroll{i + 1}", bodyScroll);
+
+                FlowDocument bodyFlowDoc = new FlowDocument();
+                bodyFlowDoc.Name = $"BodyFlowDoc{i + 1}";
+                RegisterName($"BodyFlowDoc{i + 1}", bodyFlowDoc);
+
+                Paragraph bodyAns = new Paragraph();
+                bodyAns.Name = $"BodyAns{i + 1}";
                 bodyAns.FontSize = 17;
-                bodyAns.Text = "";
                 RegisterName($"BodyAns{i + 1}", bodyAns);
 
                 gridAns.Children.Add(radioAns);
-                gridAns.Children.Add(bodyAns);
+                bodyFlowDoc.Blocks.Add(bodyAns);
+                bodyScroll.Document = bodyFlowDoc;
+                gridAns.Children.Add(bodyScroll);
                 AnswersGrid.Children.Add(gridAns);
             }
         }
@@ -387,18 +411,6 @@ namespace MathYouCan.Views
         }
         #endregion
 
-
-
-
-
-
-
-
-
-
-
-
-
         //==============================================================================================
 
         //Reload the page
@@ -413,8 +425,8 @@ namespace MathYouCan.Views
             {
                 // Highlight the text
 
-                System.Windows.Documents.TextPointer potStart = questionPassageFlowDocument.Selection.Start;
-                System.Windows.Documents.TextPointer potEnd = questionPassageFlowDocument.Selection.End;
+                System.Windows.Documents.TextPointer potStart = (sender as FlowDocumentScrollViewer).Selection.Start;
+                System.Windows.Documents.TextPointer potEnd = (sender as FlowDocumentScrollViewer).Selection.End;
                 System.Windows.Documents.TextRange range = new System.Windows.Documents.TextRange(potStart, potEnd);
                 range.ApplyPropertyValue(System.Windows.Documents.TextElement.BackgroundProperty, _universalTestViewModel.HighLighteTextBrush);
 
