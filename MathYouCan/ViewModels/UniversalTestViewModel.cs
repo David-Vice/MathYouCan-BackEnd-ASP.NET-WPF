@@ -18,6 +18,8 @@ namespace MathYouCan.ViewModels
     public class UniversalTestViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+
+
         //first question is Instructions
         public IList<QuestionView> Questions { get; set; }
         public Section _section { get; set; }
@@ -56,6 +58,7 @@ namespace MathYouCan.ViewModels
             instruction.IsAnswered = true;
             
             instruction.Question = new Question();
+            instruction.Question.Answers = new List<QuestionAnswer>();
             instruction.Question.Text = ins.Header + "\n" + ins.InstructionText;
             Questions.Add(instruction);
 
