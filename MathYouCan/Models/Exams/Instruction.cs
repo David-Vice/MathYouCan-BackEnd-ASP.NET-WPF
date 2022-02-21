@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MathYouCan.Models
+namespace MathYouCan.Models.Exams
 {
     public class Instruction
     {

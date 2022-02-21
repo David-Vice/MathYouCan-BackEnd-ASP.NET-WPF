@@ -1,9 +1,11 @@
-﻿using MathYouCan.Models;
+﻿//using MathYouCan.Models;
+using MathYouCan.Models.Exams;
 using MathYouCan.Services.Concrete;
 using MathYouCan.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -15,70 +17,76 @@ namespace MathYouCan.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
         //first question is Instructions
-        public IList<Question> Questions { get; set; }
-
+     //   public IList<Question> Questions { get; set; }
+        public Section _section { get; set; }
         public int CurrentQuestionIndex { get; set; } = 0;
 
         //потом этот метод должен принимать IEnumerable<Question>
-        public UniversalTestViewModel(string testType)
+        public UniversalTestViewModel(Section section)
         {
+            _section = section;
+     //       Questions = new List<Question>();
 
-            Questions = new List<Question>();
-
-            InitializeList( testType);
+          //  InitializeList(section);
         }
-
-        private void InitializeList(string testType)
+        private void SetInstructions()
         {
+            Instruction ins = GetInstrucitons(_section.Name);
             Question instruction = new Question();
-            Instruction ins= GetInstrucitons(testType);
-            instruction.QuestionTitle = ins.Header;
-            instruction.QuestionContent = ins.InstructionText;
-
-            Questions.Add(instruction);
-            for (int i = 0; i < 90; i++)
-            {
-                Question question = new Question
-                {
-                    QuestionContent = $"What is 1 + {i}?",
-                    QuestionTitle = "Title",
-                    Answers = new List<Answer>()
-                    {
-                        new Answer { AnswerContent = $"{i + 1}" },
-                        new Answer { AnswerContent = $"{i + 4}" },
-                        new Answer { AnswerContent = $"{i + 2}" },
-                        new Answer { AnswerContent = $"{i + 3}" }
-                    }
-                };
-
-
-                Questions.Add(question);
-            }
-
-            Question question2 = new Question
-            {
-                QuestionContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tortor lacus, accumsan sed augue rhoncus," +
-                "sodales gravida dolor. Morbi felis augue, pretium non lectus et, porttitor tincidunt lorem. Duis eget odio" +
-                "tincidunt, congue sem gravida, maximus lorem. Integer at imperdiet est. Donec in dapibus diam. Phasellus sit" +
-                "amet tellus in neque suscipit commodo facilisis vitae lacus. Aliquam quis vestibulum ex. Nulla mattis, eros efficiturul lamcorper pretium, felis dolor congue lectus, a volutpat turpis mauris sed nunc. Donec in nibh sit amet nunc fringilla placerat eu dictum nibh. Nulla facilisi. Phasellus a massa porta, pulvinar ante eu, sodales augue.",
-                QuestionTitle = "Title",
-                Answers = new List<Answer>()
-                    {
-                        new Answer { AnswerContent = $"{1}" },
-                        new Answer { AnswerContent = $"{4}" },
-                        new Answer { AnswerContent = $"{2}" },
-                        new Answer { AnswerContent = $"{3}" }
-                    }
-            };
-
-
-            Questions.Add(question2);
-
+            instruction.Text = ins.Header + "\n" + ins.InstructionText;
+            (_section.Questions as List<Question>).Insert(0, instruction);
         }
+        //private void InitializeList(string section)
+        //{
+        //    Question instruction = new Question();
+        //    Instruction ins= GetInstrucitons(section);
+        //    //instruction.QuestionTitle = ins.Header;
+        //    //instruction.QuestionContent = ins.InstructionText;
+
+        //    //Questions.Add(instruction);
+        //    //for (int i = 0; i < 90; i++)
+        //    //{
+        //    //    Question question = new Question
+        //    //    {
+        //    //        QuestionContent = $"What is 1 + {i}?",
+        //    //        QuestionTitle = "Title",
+        //    //        Answers = new List<Answer>()
+        //    //        {
+        //    //            new Answer { AnswerContent = $"{i + 1}" },
+        //    //            new Answer { AnswerContent = $"{i + 4}" },
+        //    //            new Answer { AnswerContent = $"{i + 2}" },
+        //    //            new Answer { AnswerContent = $"{i + 3}" }
+        //    //        }
+        //    //    };
+
+
+        //    //    Questions.Add(question);
+        //    //}
+
+        //    //Question question2 = new Question
+        //    //{
+        //    //    QuestionContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tortor lacus, accumsan sed augue rhoncus," +
+        //    //    "sodales gravida dolor. Morbi felis augue, pretium non lectus et, porttitor tincidunt lorem. Duis eget odio" +
+        //    //    "tincidunt, congue sem gravida, maximus lorem. Integer at imperdiet est. Donec in dapibus diam. Phasellus sit" +
+        //    //    "amet tellus in neque suscipit commodo facilisis vitae lacus. Aliquam quis vestibulum ex. Nulla mattis, eros efficiturul lamcorper pretium, felis dolor congue lectus, a volutpat turpis mauris sed nunc. Donec in nibh sit amet nunc fringilla placerat eu dictum nibh. Nulla facilisi. Phasellus a massa porta, pulvinar ante eu, sodales augue.",
+        //    //    QuestionTitle = "Title",
+        //    //    Answers = new List<Answer>()
+        //    //        {
+        //    //            new Answer { AnswerContent = $"{1}" },
+        //    //            new Answer { AnswerContent = $"{4}" },
+        //    //            new Answer { AnswerContent = $"{2}" },
+        //    //            new Answer { AnswerContent = $"{3}" }
+        //    //        }
+        //    //};
+
+
+        //   // Questions.Add(question2);
+
+        //}
         public List<Button> CreateButtons()
         {
             List<Button> buttons=new List<Button>();
-            for (int i = 0; i < this.Questions.Count; i++)
+            for (int i = 0; i < _section.Questions.Count(); i++)
             {
                 Button btn = new Button();
                 btn.Name = $"btn{i}";
@@ -110,7 +118,7 @@ namespace MathYouCan.ViewModels
         public List<StackPanel> CreateNavButtons(List<Border> borders)
         {
             List<StackPanel> navPanels=new List<StackPanel>();
-            for (int i = 0; i < this.Questions.Count; i++)
+            for (int i = 0; i < _section.Questions.Count(); i++)
             {
                 Border border = new Border();
                 border.Name = $"borderStackPanel{i }";
@@ -176,9 +184,9 @@ namespace MathYouCan.ViewModels
 
       
 
-        public Instruction GetInstrucitons(string testType)
+        public Instruction GetInstrucitons(string section)
         {
-            InfosAndInstructions infosAndInstructions = new InfosAndInstructions(testType);
+            InfosAndInstructions infosAndInstructions = new InfosAndInstructions(section);
             return infosAndInstructions.GetInstructions();
         }
 

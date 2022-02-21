@@ -1,4 +1,5 @@
 ﻿using MathYouCan.Converters;
+using MathYouCan.Models.Exams;
 using MathYouCan.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -19,11 +20,11 @@ namespace MathYouCan.Views
     {
         private InstructionWindowViewModel _instructionWindowViewModel;
         private List<Button> _buttons = new List<Button>();
-
-        public InstructionsWindow()
+        private OfflineExam _exam;
+        public InstructionsWindow(OfflineExam exam)
         {
             _instructionWindowViewModel = new InstructionWindowViewModel();
-
+            _exam = exam;
             InitializeComponent();
         }
 
@@ -223,14 +224,16 @@ namespace MathYouCan.Views
 
         private void acceptButton_Click(object sender, RoutedEventArgs e)
         {
-            UniversalTestWindow universalTestWindow = new UniversalTestWindow();
+            Mainpage mainpage = new Mainpage(_exam);
             Close();
-            universalTestWindow.ShowDialog();
+            mainpage.ShowDialog();
+            
         }
 
         private void declineButton_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("d");
+         
+
         }
 
 

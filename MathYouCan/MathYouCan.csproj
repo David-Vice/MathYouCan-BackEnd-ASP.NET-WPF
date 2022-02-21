@@ -63,7 +63,13 @@
     <Compile Include="Converters\StackPanelConverter.cs" />
     <Compile Include="Converters\TextToFlowDocumentConverter.cs" />
     <Compile Include="Models\Answer.cs" />
-    <Compile Include="Models\Instruction.cs" />
+    <Compile Include="Models\Enums\AnswerType.cs" />
+    <Compile Include="Models\Enums\QuestionType.cs" />
+    <Compile Include="Models\Exams\OfflineExam.cs" />
+    <Compile Include="Models\Exams\Question.cs" />
+    <Compile Include="Models\Exams\QuestionAnswer.cs" />
+    <Compile Include="Models\Exams\Section.cs" />
+    <Compile Include="Models\Exams\Instruction.cs" />
     <Compile Include="Models\Question.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Services\Abstract\IAuthValidatorService.cs" />
@@ -147,5 +153,6 @@
   <ItemGroup>
     <Resource Include="Img\close.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

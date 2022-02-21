@@ -1,4 +1,4 @@
-﻿using MathYouCan.Models;
+﻿using MathYouCan.Models.Exams;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +9,10 @@ namespace MathYouCan.Services.Concrete
 {
     public class InfosAndInstructions
     {
-        public string TestType { get; set; }
-        public InfosAndInstructions(string testType)
+        public string Section { get; set; }
+        public InfosAndInstructions(string section)
         {
-            TestType = testType;
+            Section = section;
             getAllText();
         }
 
@@ -30,9 +30,9 @@ namespace MathYouCan.Services.Concrete
         private Instruction instText = null;
         private string getAllText()
         {
-            switch (TestType)
+            switch (Section)
             {
-                case "English":
+                case "English Practise Test":
                     infoText = EngInfo;
                     instText = EngInst;
                     break;

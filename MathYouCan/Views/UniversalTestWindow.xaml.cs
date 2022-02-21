@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
@@ -17,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Navigation;
 using System.Windows.Threading;
+using MathYouCan.Models.Exams;
 
 namespace MathYouCan.Views
 {
@@ -35,15 +35,15 @@ namespace MathYouCan.Views
 
         private UniversalTestViewModel _universalTestViewModel;
  
-        public UniversalTestWindow()
+        public UniversalTestWindow(Section section)
         {
-            string testType = "English";
+           
             InitializeComponent();
-            _universalTestViewModel = new UniversalTestViewModel(testType);
+            _universalTestViewModel = new UniversalTestViewModel(section);
             CreateButtons();
             CreateNavButtons();
             ChangeBtnToActive(infoButton);
-            LoadInfo(testType);
+            LoadInfo(section.Name);
             
         }
 
@@ -79,7 +79,7 @@ namespace MathYouCan.Views
 
             
             FillQuestion();
-            questionTitleLabel.Content = _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].QuestionTitle;
+            questionTitleLabel.Content = _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].Text;
             
            
         }
@@ -98,7 +98,7 @@ namespace MathYouCan.Views
             //converter.FillStackPanel(questionPassageStackPanel, _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].QuestionContent, true);
 
             TextToFlowDocumentConverter textTo = new TextToFlowDocumentConverter(Brushes.Yellow, Brushes.GreenYellow);
-            textTo.ConvertToParagraph(questionPassageParagraph, _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].QuestionContent, 16);
+            textTo.ConvertToParagraph(questionPassageParagraph, _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].Text, 16);
         }
 
         //этот метод вызывается вначале 1 раз и еще каждый раз когда пользователь меняет вопрос кликая на кнопки changeQuestionButton_Click
@@ -210,10 +210,10 @@ namespace MathYouCan.Views
         
         #region Methods which are called only at the beginning once
 
-        private void LoadInfo(string testType)
+        private void LoadInfo(string section)
         {
             TextToFlowDocumentConverter converter = new TextToFlowDocumentConverter(Brushes.Yellow, Brushes.GreenYellow);
-            converter.ConvertToParagraph(questionPassageParagraph, _universalTestViewModel.GetInfo(testType),17);
+            converter.ConvertToParagraph(questionPassageParagraph, _universalTestViewModel.GetInfo(section),17);
         }
         
         
