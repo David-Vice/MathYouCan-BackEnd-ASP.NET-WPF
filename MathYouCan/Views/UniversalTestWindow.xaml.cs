@@ -29,6 +29,8 @@ namespace MathYouCan.Views
         //IEnumerable<Question> questions
         List<Button> buttons = new List<Button>();
         List<StackPanel> navPanels = new List<StackPanel>();
+        int answersPerQuestion = 5;
+
         UniversalTestViewModel _universalTestViewModel;
         public UniversalTestWindow(Section section)
         {
@@ -39,8 +41,7 @@ namespace MathYouCan.Views
             CreateNavButtons();
             LoadInfo(section);
             ChangeBtnToActive(infoButton);
-          //  CreateAnswers(10);
-            
+            CreateAnswers(answersPerQuestion);
         }
 
         #region Methods To UPDATE WINDOW
@@ -80,7 +81,7 @@ namespace MathYouCan.Views
         private void FillQuestion()
         {
             FillQuestionPassage();
-         //   FillAnswers();
+            FillAnswers();
         }
 
         /// <summary>
@@ -94,6 +95,23 @@ namespace MathYouCan.Views
         //    textTo.ConvertToParagraph(questionPassageParagraph, _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].Text, 16);
         //    textTo.ConvertToParagraph(questionPassageParagraph, _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].QuestionContent, 16);
         //    textTo.ConvertToParagraph(questionPassageParagraph, _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].QuestionContent, 16);
+        }
+
+        private void FillAnswers()
+        {
+            List<QuestionAnswer> answers = (List<QuestionAnswer>)_universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].Question.Answers;
+            for (int i=0;i<answers.Count;i++)
+            {
+                var answerGrid = (Grid)this.FindName($"GridAns{i + 1}");
+                answerGrid.Visibility = Visibility.Visible;
+                var answer = (TextBlock)this.FindName($"BodyAns{i + 1}");
+                answer.Text = answers[i].Text;
+            }
+            for (int i = answers.Count; i < answersPerQuestion; i++)
+            {
+                var answerGrid = (Grid)this.FindName($"GridAns{i + 1}");
+                answerGrid.Visibility = Visibility.Collapsed;
+            }
         }
 
         //этот метод вызывается вначале 1 раз и еще каждый раз когда пользователь меняет вопрос кликая на кнопки changeQuestionButton_Click
@@ -237,6 +255,8 @@ namespace MathYouCan.Views
                 gridCol2.Width = new GridLength(1, GridUnitType.Star);
                 gridAns.ColumnDefinitions.Add(gridCol1);
                 gridAns.ColumnDefinitions.Add(gridCol2);
+                gridAns.Visibility = Visibility.Collapsed;
+                RegisterName($"GridAns{i + 1}", gridAns);
 
                 RadioButton radioAns = new RadioButton();
                 radioAns.SetValue(Grid.ColumnProperty, 0);
@@ -257,9 +277,8 @@ namespace MathYouCan.Views
                 bodyAns.VerticalAlignment = VerticalAlignment.Center;
                 bodyAns.Margin = new Thickness(10);
                 bodyAns.FontSize = 17;
-                
-                // Will be used as answers[i] in the future
-                bodyAns.Text = $@"AnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswer";
+                bodyAns.Text = "";
+                RegisterName($"BodyAns{i + 1}", bodyAns);
 
                 gridAns.Children.Add(radioAns);
                 gridAns.Children.Add(bodyAns);

@@ -58,6 +58,7 @@ namespace MathYouCan.ViewModels
             instruction.IsAnswered = true;
             
             instruction.Question = new Question();
+            instruction.Question.Answers = new List<QuestionAnswer>();
             instruction.Question.Text = ins.Header + "\n" + ins.InstructionText;
             Questions.Add(instruction);
 
