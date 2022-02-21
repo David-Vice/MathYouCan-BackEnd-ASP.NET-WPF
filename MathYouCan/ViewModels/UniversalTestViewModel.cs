@@ -18,6 +18,8 @@ namespace MathYouCan.ViewModels
     public class UniversalTestViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+
+
         //first question is Instructions
         public IList<QuestionView> Questions { get; set; }
         public Section _section { get; set; }
@@ -260,8 +262,12 @@ namespace MathYouCan.ViewModels
         //this method will be called when end_section_button clicked and when time is out
         public void SendResultAndExitWindow(UniversalTestWindow window)
         {
-            //send 45 api post requests
-            window.Close();
+            
+            if (MessageBox.Show("Do you want to finish this section?", "Exit", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                window.Close();
+            }
+            
         }
     }
 }

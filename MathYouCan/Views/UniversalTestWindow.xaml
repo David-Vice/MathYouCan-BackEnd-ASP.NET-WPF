@@ -326,6 +326,8 @@
                             <!-- Answer List -->
                             <Grid x:Name="AnswersGrid" Grid.Row="1" Margin="10">
                                 
+                                
+                                
                             </Grid>
                             <!-- Answer List END -->
                         </Grid>

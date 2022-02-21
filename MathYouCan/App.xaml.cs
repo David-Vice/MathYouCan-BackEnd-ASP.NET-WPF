@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
-using MathYouCan.Models.Enums;
+﻿using MathYouCan.Models.Enums;
 using MathYouCan.Models.Exams;
 using MathYouCan.Views;
+using System;
+using System.Collections.Generic;
+using System.Windows;
 
 namespace MathYouCan
 {
@@ -16,19 +12,20 @@ namespace MathYouCan
     /// </summary>
     public partial class App : Application
     {
-        
-        
+
+
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             try
             {
-                if (new Login().ShowDialog() == true)
-                {
-                      //api call and get the OfflineExam Object
-                      //now just for example I create it for mySelf
-                      OfflineExam exam=CreateExam();
-                      new InstructionsWindow(exam).ShowDialog();
-                }
+                //if (new Login().ShowDialog() == true)
+                //{
+                //    //api call and get the OfflineExam Object
+                //    //now just for example I create it for mySelf
+                //    OfflineExam exam = CreateExam();
+                //    new InstructionsWindow(exam).ShowDialog();
+                //}
+                new PauseWindow().ShowDialog();
             }
             finally
             {
@@ -38,7 +35,7 @@ namespace MathYouCan
         //MethodForTests
         private OfflineExam CreateExam()
         {
-            return  new OfflineExam()
+            return new OfflineExam()
             {
                 Date = DateTime.Now,
                 Name = "Practise Test 1",
