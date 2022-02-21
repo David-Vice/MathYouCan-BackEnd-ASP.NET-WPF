@@ -36,7 +36,7 @@ namespace MathYouCan.Services.Concrete
                     infoText = EngInfo;
                     instText = EngInst;
                     break;
-                case "Mathematics":
+                case "Mathematics Practise Test":
                     infoText = MathInfo;
                     instText = MathInst;
                     break;

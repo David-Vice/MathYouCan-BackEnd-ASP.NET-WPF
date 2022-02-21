@@ -47,7 +47,7 @@
         </Border>
         <!-- Top Panel END-->
         <Grid Grid.Row="1" >
-            <Label Margin="20 0 0 0" VerticalAlignment="Bottom" FontSize="30">ACT Practice Test - English - Timed</Label>
+            <Label Name="examName" Margin="20 0 0 0" VerticalAlignment="Bottom" FontSize="30">ACT Practice Test - English - Timed</Label>
             <Border BorderBrush="#e42a22" BorderThickness="0,0,0,2"></Border>
         </Grid>
         <Grid Grid.Row="2">

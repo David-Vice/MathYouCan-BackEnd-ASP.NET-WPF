@@ -7,16 +7,14 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Documents;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Navigation;
 using System.Windows.Threading;
 using MathYouCan.Models.Exams;
-using System.Windows.Threading;
-using System.Windows.Threading;
+using System.Windows.Media;
+using System.Windows.Input;
 
 namespace MathYouCan.Views
 {
@@ -31,19 +29,17 @@ namespace MathYouCan.Views
         //IEnumerable<Question> questions
         List<Button> buttons = new List<Button>();
         List<StackPanel> navPanels = new List<StackPanel>();
- 
+        UniversalTestViewModel _universalTestViewModel;
         public UniversalTestWindow(Section section)
-        public UniversalTestWindow()
-        public UniversalTestWindow()
         {
-           
+
             InitializeComponent();
             _universalTestViewModel = new UniversalTestViewModel(section);
             CreateButtons();
             CreateNavButtons();
-            LoadInfo(section.Name);
-            
-            
+            LoadInfo(section);
+            ChangeBtnToActive(infoButton);
+          //  CreateAnswers(10);
             
         }
 
@@ -76,17 +72,15 @@ namespace MathYouCan.Views
                 prevButton.IsEnabled = true;
                 nextButton.IsEnabled = true;
             }
-            questionTitleLabel.Content = _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].Text;
-            
-           
-           
-           
+            //questionTitleLabel.Content = _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].Question.;
+
+            FillQuestion();
         }
 
         private void FillQuestion()
         {
             FillQuestionPassage();
-            FillAnswers();
+         //   FillAnswers();
         }
 
         /// <summary>
@@ -95,11 +89,11 @@ namespace MathYouCan.Views
         private void FillQuestionPassage()
         {
             _universalTestViewModel.Converter.ConvertToParagraph(questionPassageParagraph,
-                _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].QuestionPassage, 16);
-            TextToFlowDocumentConverter textTo = new TextToFlowDocumentConverter(Brushes.Yellow, Brushes.GreenYellow);
-            textTo.ConvertToParagraph(questionPassageParagraph, _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].Text, 16);
-            textTo.ConvertToParagraph(questionPassageParagraph, _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].QuestionContent, 16);
-            textTo.ConvertToParagraph(questionPassageParagraph, _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].QuestionContent, 16);
+                _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].Question.Text, 16);
+        //    TextToFlowDocumentConverter textTo = new TextToFlowDocumentConverter(Brushes.Yellow, Brushes.GreenYellow);
+        //    textTo.ConvertToParagraph(questionPassageParagraph, _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].Text, 16);
+        //    textTo.ConvertToParagraph(questionPassageParagraph, _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].QuestionContent, 16);
+        //    textTo.ConvertToParagraph(questionPassageParagraph, _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].QuestionContent, 16);
         }
 
         //этот метод вызывается вначале 1 раз и еще каждый раз когда пользователь меняет вопрос кликая на кнопки changeQuestionButton_Click
@@ -114,6 +108,7 @@ namespace MathYouCan.Views
 
             ChangeNavQuestToActive(navPanels.Where(x => x.Name.ToString() == $"questionNavStackPanel{_universalTestViewModel.CurrentQuestionIndex}").First());
             ChangeBtnToActive(buttons[_universalTestViewModel.CurrentQuestionIndex]);
+
         }
 
         #endregion
@@ -199,11 +194,10 @@ namespace MathYouCan.Views
         #endregion
         
         #region Methods which are called only at the beginning once
-
+        private void LoadInfo(Section section) { 
             TextToFlowDocumentConverter converter = new TextToFlowDocumentConverter(Brushes.Yellow, Brushes.GreenYellow);
-            converter.ConvertToParagraph(questionPassageParagraph, _universalTestViewModel.GetInfo(section),17);
-            converter.ConvertToParagraph(questionPassageParagraph, _universalTestViewModel.GetInfo(testType),17);
-            converter.ConvertToParagraph(questionPassageParagraph, _universalTestViewModel.GetInfo(testType),17);
+            converter.ConvertToParagraph(questionPassageParagraph, _universalTestViewModel.GetInfo(section.Name),17);
+        
         }
         
         private void CreateButtons()
@@ -400,10 +394,10 @@ namespace MathYouCan.Views
             {
                 // Highlight the text
 
-                TextPointer potStart = questionPassageFlowDocument.Selection.Start;
-                TextPointer potEnd = questionPassageFlowDocument.Selection.End;
-                TextRange range = new TextRange(potStart, potEnd);
-                range.ApplyPropertyValue(TextElement.BackgroundProperty, _universalTestViewModel.HighLighteTextBrush);
+                System.Windows.Documents.TextPointer potStart = questionPassageFlowDocument.Selection.Start;
+                System.Windows.Documents.TextPointer potEnd = questionPassageFlowDocument.Selection.End;
+                System.Windows.Documents.TextRange range = new System.Windows.Documents.TextRange(potStart, potEnd);
+                range.ApplyPropertyValue(System.Windows.Documents.TextElement.BackgroundProperty, _universalTestViewModel.HighLighteTextBrush);
 
                 //ThreadPool.QueueUserWorkItem((o) => { MessageBox.Show((_universalTestViewModel.DefaultFontSize + 1).ToString()); });
                 //range.ApplyPropertyValue(TextElement.FontSizeProperty, _universalTestViewModel.DefaultFontSize + 1);

@@ -24,6 +24,8 @@ namespace MathYouCan.Views
         public Mainpage(OfflineExam exam)
         {
             InitializeComponent();
+            _exam = exam;
+            examName.Content=exam.Name;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -31,7 +33,7 @@ namespace MathYouCan.Views
             //time check and so on
             //
             List<UniversalTestWindow> windows = new List<UniversalTestWindow>();
-            
+            Close();
             for (int i = 0; i < _exam.Sections.Count(); i++)
             {
                 windows.Add( new UniversalTestWindow(_exam.Sections.ElementAt(i)));
@@ -41,6 +43,7 @@ namespace MathYouCan.Views
                 }
                 if(windows[i].ShowDialog()==true)
                 {
+                    
                     continue;
                 }
             }

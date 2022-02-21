@@ -143,6 +143,106 @@ namespace MathYouCan
                                 }
                             }
                         }
+                    },
+                    new Section()
+                    {
+                        Duration=30*60,
+                        Name="Mathematics Practise Test",
+                        Questions=new List<Question>()
+                        {
+                            new Question()
+                            {
+                                Text="Question1",
+                                Type=QuestionType.Close,
+                                Answers=new List<QuestionAnswer>()
+                                {
+                                    new QuestionAnswer()
+                                    {
+                                        Text="Answer1",
+                                        Type=AnswerType.A
+                                    },
+                                     new QuestionAnswer()
+                                    {
+                                        Text="Answer2",
+                                        Type=AnswerType.B
+                                    },
+                                      new QuestionAnswer()
+                                    {
+                                        Text="Answer3",
+                                        Type=AnswerType.C
+                                    }
+                                }
+                            },
+                             new Question()
+                            {
+                                Text="Question2",
+                                Type=QuestionType.Close,
+                                Answers=new List<QuestionAnswer>()
+                                {
+                                    new QuestionAnswer()
+                                    {
+                                        Text="Answer1",
+                                        Type=AnswerType.A
+                                    },
+                                     new QuestionAnswer()
+                                    {
+                                        Text="Answer2",
+                                        Type=AnswerType.B
+                                    },
+                                      new QuestionAnswer()
+                                    {
+                                        Text="Answer3",
+                                        Type=AnswerType.C
+                                    }
+                                }
+                            },
+                              new Question()
+                            {
+                                Text="Question3",
+                                Type=QuestionType.Close,
+                                Answers=new List<QuestionAnswer>()
+                                {
+                                    new QuestionAnswer()
+                                    {
+                                        Text="Answer1",
+                                        Type=AnswerType.A
+                                    },
+                                     new QuestionAnswer()
+                                    {
+                                        Text="Answer2",
+                                        Type=AnswerType.B
+                                    },
+                                      new QuestionAnswer()
+                                    {
+                                        Text="Answer3",
+                                        Type=AnswerType.C
+                                    }
+                                }
+                            },
+                               new Question()
+                            {
+                                Text="Question4",
+                                Type=QuestionType.Close,
+                                Answers=new List<QuestionAnswer>()
+                                {
+                                    new QuestionAnswer()
+                                    {
+                                        Text="Answer1",
+                                        Type=AnswerType.A
+                                    },
+                                     new QuestionAnswer()
+                                    {
+                                        Text="Answer2",
+                                        Type=AnswerType.B
+                                    },
+                                      new QuestionAnswer()
+                                    {
+                                        Text="Answer3",
+                                        Type=AnswerType.C
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
 
