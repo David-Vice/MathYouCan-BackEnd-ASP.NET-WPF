@@ -36,7 +36,7 @@ namespace MathYouCan.Converters
             _userHighlightColor = userHighlightColor;
         }
 
-        public void ConvertToParagraph(Paragraph paragraph, string text, double fontSize = 17)
+        public void ConvertToParagraph(Paragraph paragraph, string text, double fontSize = 12)
         {
             paragraph.Inlines.Clear();
             String[] words = text.Split(' ');

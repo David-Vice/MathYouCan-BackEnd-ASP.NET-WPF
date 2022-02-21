@@ -18,6 +18,8 @@ namespace MathYouCan.ViewModels
     public class UniversalTestViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+
+
         //first question is Instructions
         public IList<QuestionView> Questions { get; set; }
         public Section _section { get; set; }
