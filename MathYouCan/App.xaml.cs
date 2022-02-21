@@ -18,13 +18,14 @@ namespace MathYouCan
         {
             try
             {
-                if (new Login().ShowDialog() == true)
-                {
-                    //api call and get the OfflineExam Object
-                    //now just for example I create it for mySelf
-                    OfflineExam exam = CreateExam();
-                    new InstructionsWindow(exam).ShowDialog();
-                }
+                //if (new Login().ShowDialog() == true)
+                //{
+                //    //api call and get the OfflineExam Object
+                //    //now just for example I create it for mySelf
+                //    OfflineExam exam = CreateExam();
+                //    new InstructionsWindow(exam).ShowDialog();
+                //}
+                new PauseWindow().ShowDialog();
             }
             finally
             {

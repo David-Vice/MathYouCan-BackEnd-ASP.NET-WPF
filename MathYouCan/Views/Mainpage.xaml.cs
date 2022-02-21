@@ -34,19 +34,24 @@ namespace MathYouCan.Views
             //
             List<UniversalTestWindow> windows = new List<UniversalTestWindow>();
             Close();
-            for (int i = 0; i < _exam.Sections.Count(); i++)
-            {
-                windows.Add( new UniversalTestWindow(_exam.Sections.ElementAt(i)));
-                if (i==2)
+           // if (_exam.StartTime.Add(TimeSpan.FromMinutes(30))>=DateTime.Now. )
+           // {
+
+
+                for (int i = 0; i < _exam.Sections.Count(); i++)
                 {
-                    //open break-time window
+                    windows.Add(new UniversalTestWindow(_exam.Sections.ElementAt(i)));
+                    if (i == 2)
+                    {
+                        //open break-time window
+                    }
+                    if (windows[i].ShowDialog() == true)
+                    {
+
+                        continue;
+                    }
                 }
-                if(windows[i].ShowDialog()==true)
-                {
-                    
-                    continue;
-                }
-            }
+           // }
         }
     }
 }
