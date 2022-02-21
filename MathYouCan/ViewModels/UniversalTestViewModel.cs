@@ -20,6 +20,18 @@ namespace MathYouCan.ViewModels
      //   public IList<Question> Questions { get; set; }
         public Section _section { get; set; }
         public int CurrentQuestionIndex { get; set; } = 0;
+        public int PrevQuestionIndex { get; set; } = -1;
+
+
+
+
+
+
+        public TextToFlowDocumentConverter Converter { get; set; }
+        public Brush SelectedTextBrush { get; set; }  // Color of selected part of text sent by API
+        public Brush HighLighteTextBrush { get; set; }  // Color of highlight
+        public bool IsHighlightEnabled { get; set; } = false;
+
 
         //потом этот метод должен принимать IEnumerable<Question>
         public UniversalTestViewModel(Section section)
@@ -197,6 +209,7 @@ namespace MathYouCan.ViewModels
                 button.IsEnabled = true;
             }
         }
+
         #region Timer Methods
 
         //These 2 methods will work with api values
@@ -231,6 +244,8 @@ namespace MathYouCan.ViewModels
         }
 
         #endregion
+        
+        
         //this method will be called when end_section_button clicked and when time is out
         public void SendResultAndExitWindow(UniversalTestWindow window)
         {
