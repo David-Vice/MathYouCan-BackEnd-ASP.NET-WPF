@@ -140,7 +140,7 @@ namespace MathYouCan.ViewModels
             return buttons;
         }
 
-        public List<StackPanel> CreateNavButtons(List<Border> borders)
+        public List<StackPanel> CreateNavButtons(List<Border> borders,UniversalTestWindow window)
         {
             List<StackPanel> navPanels=new List<StackPanel>();
             for (int i = 0; i < Questions.Count; i++)
@@ -163,7 +163,7 @@ namespace MathYouCan.ViewModels
                 numStackPanel.Width = 70;
 
                 StackPanel stateStackPanel = new StackPanel();
-                stateStackPanel.Name = $"stateStackPanel{i }";
+                stateStackPanel.Name = $"stateStackPanel{i}";
                 stateStackPanel.VerticalAlignment = VerticalAlignment.Stretch;
                 stateStackPanel.Margin = new Thickness(0);
                 stateStackPanel.Width = 200;
@@ -188,6 +188,7 @@ namespace MathYouCan.ViewModels
                 stateQuestion.FontSize = 22;
                 stateQuestion.FontWeight = FontWeights.Light;
                 stateQuestion.Content = $"Unanswered";
+                window.RegisterName($"stateQuestion{i}", stateQuestion);
 
                 numStackPanel.Children.Add(numQuestion);
                 stateStackPanel.Children.Add(stateQuestion);

@@ -283,14 +283,14 @@
                 <!-- Middle Left Part -->
                 <Grid Grid.Column="0">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="0.05*"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
 
                     <!-- Question Title Label -->
-                    <!--<StackPanel Grid.Row="0"  VerticalAlignment="Center" >
+                    <StackPanel Grid.Row="0"  VerticalAlignment="Center" >
                         <Label Name="questionTitleLabel" HorizontalAlignment="Left" Padding="10,0,0,0" FontSize="17" FontWeight="Bold">Passage II</Label>
-                    </StackPanel>-->
+                    </StackPanel>
                     <!-- Question Title END -->
 
                     <!-- Passage Section -->

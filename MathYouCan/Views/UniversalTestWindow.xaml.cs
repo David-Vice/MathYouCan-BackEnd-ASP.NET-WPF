@@ -122,7 +122,14 @@ namespace MathYouCan.Views
         {
             if (_universalTestViewModel.PrevQuestionIndex >= 0 )
             {
-                ChangeBtnToPassive(buttons[_universalTestViewModel.PrevQuestionIndex]);
+                if(_universalTestViewModel.Questions[_universalTestViewModel.PrevQuestionIndex].IsAnswered)
+                {
+                    ChangeBtnToAnswered(buttons[_universalTestViewModel.PrevQuestionIndex]);
+                }
+                else
+                {
+                    ChangeBtnToPassive(buttons[_universalTestViewModel.PrevQuestionIndex]);
+                }
                 ChangeNavQuestToPassive(navPanels.Where(x => x.Name.ToString() == $"questionNavStackPanel{_universalTestViewModel.PrevQuestionIndex}").First());
             }
             UpdateWindowContent();
@@ -130,6 +137,7 @@ namespace MathYouCan.Views
             ChangeNavQuestToActive(navPanels.Where(x => x.Name.ToString() == $"questionNavStackPanel{_universalTestViewModel.CurrentQuestionIndex}").First());
             ChangeBtnToActive(buttons[_universalTestViewModel.CurrentQuestionIndex]);
 
+            SyncRadioAnswers();
         }
 
         #endregion
@@ -170,6 +178,15 @@ namespace MathYouCan.Views
             btn.FontWeight = FontWeights.Normal;
             btn.BorderThickness = new Thickness(1);
         }
+        private void ChangeBtnToAnswered(Button btn)
+        {
+            //changes color to white
+            btn.Background = new SolidColorBrush(Colors.DarkGray);
+            btn.Foreground = new SolidColorBrush((Colors.Black));
+            btn.BorderBrush = new SolidColorBrush((Colors.Black));
+            btn.FontWeight = FontWeights.Normal;
+            btn.BorderThickness = new Thickness(1);
+        }
         private void ChangeNavQuestToActive(StackPanel stack)
         {
             stack.Background = new SolidColorBrush(Colors.SkyBlue);
@@ -177,6 +194,34 @@ namespace MathYouCan.Views
         private void ChangeNavQuestToPassive(StackPanel stack)
         {
             stack.Background = new SolidColorBrush(Colors.LightGray);
+        }
+        private void SyncRadioAnswers()
+        {
+            bool isAnswered = _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].IsAnswered;
+            int answerId = _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].ChosenAnswerId;
+
+            for (int i = 0; i < answersPerQuestion; i++)
+            {
+                var answerRadio = (RadioButton)this.FindName($"RadioAns{i + 1}");
+                answerRadio.IsChecked = false;
+            }
+            if (isAnswered)
+            {
+                var answeredRadio = (RadioButton)this.FindName($"RadioAns{answerId + 1}");
+                answeredRadio.IsChecked = true;
+            }
+        }
+
+        private void Answer_Checked(object sender, RoutedEventArgs e)
+        {
+            var answerState = (Label)this.FindName($"stateQuestion{_universalTestViewModel.CurrentQuestionIndex}");
+            answerState.Content = "Answered";
+            _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].IsAnswered = true;
+            _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].ChosenAnswerId = (int)(sender as RadioButton).Content.ToString()[0] - 65;
+        }
+        private void Answer_Unchecked(object sender, RoutedEventArgs e)
+        {
+
         }
 
         #endregion
@@ -232,7 +277,7 @@ namespace MathYouCan.Views
         private void CreateNavButtons()
         {
             List<Border> borders = new List<Border>();
-            navPanels = _universalTestViewModel.CreateNavButtons(borders);
+            navPanels = _universalTestViewModel.CreateNavButtons(borders, this);
             for (int i = 0; i < navPanels.Count; i++)
             {
                 navPanels[i].MouseDown += navQuestion_MouseDown;
@@ -243,17 +288,6 @@ namespace MathYouCan.Views
         }
         private void CreateAnswers(int answersNum)
         {
-            /*
-            <FlowDocumentScrollViewer  Name="questionPassageFlowDocument" Grid.Row="1"
-                                       IsMouseCapturedChanged="questionPassageFlowDocument_IsMouseCapturedChanged"
-                                       LostMouseCapture="questionPassageFlowDocument_LostMouseCapture">
-                <FlowDocument>
-                    <Paragraph Name="questionPassageParagraph">
-
-                    </Paragraph>
-                </FlowDocument>
-            </FlowDocumentScrollViewer>
-            */
             for (int i = 0; i < answersNum; i++)
             {
                 RowDefinition row = new RowDefinition();
@@ -280,7 +314,10 @@ namespace MathYouCan.Views
                 radioAns.FontSize = 17;
                 radioAns.FontWeight = FontWeights.DemiBold;
                 radioAns.Background = new SolidColorBrush(Colors.White);
+                radioAns.Checked += Answer_Checked;
+                radioAns.Unchecked += Answer_Unchecked;
                 radioAns.Content = $"{(char)(65 + i)}.";
+                RegisterName($"RadioAns{i + 1}", radioAns);
 
                 FlowDocumentScrollViewer bodyScroll = new FlowDocumentScrollViewer();
                 bodyScroll.Name = $"BodyScroll{i + 1}";
@@ -300,7 +337,7 @@ namespace MathYouCan.Views
                 Paragraph bodyAns = new Paragraph();
                 bodyAns.Name = $"BodyAns{i + 1}";
                 bodyAns.FontSize = 17;
-                RegisterName($"BodyAns{i + 1}", bodyAns);
+                this.RegisterName($"BodyAns{i + 1}", bodyAns);
 
                 gridAns.Children.Add(radioAns);
                 bodyFlowDoc.Blocks.Add(bodyAns);
