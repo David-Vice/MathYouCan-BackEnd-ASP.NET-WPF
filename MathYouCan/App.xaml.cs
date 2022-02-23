@@ -55,21 +55,26 @@ namespace MathYouCan
                                 {
                                     new QuestionAnswer()
                                     {
+                                        Id=12,
                                         Text="a young boy with a passion for opera.",
                                         Type=AnswerType.A
+
                                     },
                                      new QuestionAnswer()
                                     {
+                                         Id=43,
                                         Text="the daughter of an extremely busy father.",
                                         Type=AnswerType.B
                                     },
                                       new QuestionAnswer()
                                     {
+                                          Id=7,
                                         Text="an omniscient narrator, who knows the thoughts of the characters.",
                                         Type=AnswerType.C
                                     },
                                       new QuestionAnswer()
                                     {
+                                          Id=6,
                                         Text="an unnamed narrator who relates events from Mr. Hosokawa’s perspective.",
                                         Type=AnswerType.D
                                     }
@@ -83,22 +88,26 @@ namespace MathYouCan
                                 {
                                       new QuestionAnswer()
                                     {
+                                        Id=15,
                                         Text="heard his first opera on his eleventh birthday.",
                                         Type=AnswerType.A
                                     },
                                      new QuestionAnswer()
                                     {
+                                         Id=16,
                                         Text="appreciated Eugene Onegin.",
                                         Type=AnswerType.B
                                     },
                                       new QuestionAnswer()
                                     {
+                                          Id=17,
                                         Text="rarely went out into the world.",
 
                                         Type=AnswerType.C
                                     },
                                       new QuestionAnswer()
                                     {
+                                        Id=18,
                                         Text="didn’t understand the plot of Rigoletto when he saw the opera performed.",
                                         Type=AnswerType.D
                                     }
@@ -112,22 +121,26 @@ namespace MathYouCan
                                 {
                                     new QuestionAnswer()
                                     {
+                                        Id=115,
                                         Text="She wants to please him.",
                                         Type=AnswerType.A
                                     },
                                      new QuestionAnswer()
                                     {
+                                         Id=17,
                                         Text="She shares his fondness for opera.",
                                         Type=AnswerType.B
                                     },
                                       new QuestionAnswer()
                                     {
+                                          Id=145,
                                         Text="She feels increasingly distant from him.",
 
                                         Type=AnswerType.C
                                     },
                                       new QuestionAnswer()
                                     {
+                                          Id=19,
                                         Text="She enjoys spending time with him.",
                                         Type=AnswerType.D
                                     }
@@ -141,21 +154,25 @@ namespace MathYouCan
                                 {
                                     new QuestionAnswer()
                                     {
+                                        Id=25,
                                         Text="suggest that the opera was overshadowed by unpleasant weather and bad seats.",
                                         Type=AnswerType.A
                                     },
                                      new QuestionAnswer()
                                     {
+                                         Id=16,
                                         Text="describe the typical, rainy October weather in Tokyo in the mid-1950s.",
                                         Type=AnswerType.B
                                     },
                                       new QuestionAnswer()
                                     {
+                                          Id=115,
                                         Text="offer sensory details that help set the stage for the important experience to be related.",
                                         Type=AnswerType.C
                                     },
                                      new QuestionAnswer()
                                     {
+                                         Id=251,
                                         Text="imply that for Mr. Hosokawa, the train trip was more memorable than the opera.",
                                         Type=AnswerType.D
                                     }
@@ -169,21 +186,25 @@ namespace MathYouCan
                                 {
                                     new QuestionAnswer()
                                     {
+                                        Id=152,
                                         Text="“climbed the long set of stairs to their row” (see highlighted text).",
                                         Type=AnswerType.A
                                     },
                                      new QuestionAnswer()
                                     {
+                                         Id=153,
                                         Text="“bowed and begged to be excused by every person who stood to let them pass into their seats” (see highlighted text).",
                                         Type=AnswerType.B
                                     },
                                       new QuestionAnswer()
                                     {
+                                          Id=154,
                                         Text="“waited . . . without speaking” (see highlighted text).",
                                         Type=AnswerType.C
                                     },
                                      new QuestionAnswer()
                                     {
+                                         Id=155,
                                         Text="“reached out for his father’s hand” (see highlighted text).",
                                         Type=AnswerType.D
                                     }

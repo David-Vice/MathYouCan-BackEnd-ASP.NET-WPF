@@ -10,8 +10,10 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Threading;
+using Section = MathYouCan.Models.Exams.Section;
 
 namespace MathYouCan.ViewModels
 {
@@ -22,8 +24,8 @@ namespace MathYouCan.ViewModels
 
         //first question is Instructions
         public IList<QuestionView> Questions { get; set; }
-        public Section _section { get; set; }
-        public int CurrentQuestionIndex { get; set; } = 0;
+        public  Section _section { get; set; }
+        public int CurrentQuestionIndex { get; set; } = -1;
         public int PrevQuestionIndex { get; set; } = -1;
         public TextToFlowDocumentConverter Converter { get; set; }
         public Brush SelectedTextBrush { get; set; }  // Color of selected part of text sent by API
@@ -59,6 +61,7 @@ namespace MathYouCan.ViewModels
             
             instruction.Question = new Question();
             instruction.Question.Answers = new List<QuestionAnswer>();
+          
             instruction.Question.Text = ins.Header + "\n" + ins.InstructionText;
             Questions.Add(instruction);
 
@@ -68,44 +71,6 @@ namespace MathYouCan.ViewModels
                 Questions.Add(new QuestionView() { Question = item  });
 
             }
-
-            //for (int i = 0; i < 90; i++)
-            //{
-            //    Question question = new Question
-            //    {
-            //        QuestionContent = $"What is 1 + {i}?",
-            //        QuestionTitle = "Title",
-            //        Answers = new List<Answer>()
-            //        {
-            //            new Answer { AnswerContent = $"{i + 1}" },
-            //            new Answer { AnswerContent = $"{i + 4}" },
-            //            new Answer { AnswerContent = $"{i + 2}" },
-            //            new Answer { AnswerContent = $"{i + 3}" }
-            //        }
-            //    };
-
-
-            //    Questions.Add(question);
-            //}
-
-            //Question question2 = new Question
-            //{
-            //    QuestionContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tortor lacus, accumsan sed augue rhoncus," +
-            //    "sodales gravida dolor. Morbi felis augue, pretium non lectus et, porttitor tincidunt lorem. Duis eget odio" +
-            //    "tincidunt, congue sem gravida, maximus lorem. Integer at imperdiet est. Donec in dapibus diam. Phasellus sit" +
-            //    "amet tellus in neque suscipit commodo facilisis vitae lacus. Aliquam quis vestibulum ex. Nulla mattis, eros efficiturul lamcorper pretium, felis dolor congue lectus, a volutpat turpis mauris sed nunc. Donec in nibh sit amet nunc fringilla placerat eu dictum nibh. Nulla facilisi. Phasellus a massa porta, pulvinar ante eu, sodales augue.",
-            //    QuestionTitle = "Title",
-            //    Answers = new List<Answer>()
-            //        {
-            //            new Answer { AnswerContent = $"{1}" },
-            //            new Answer { AnswerContent = $"{4}" },
-            //            new Answer { AnswerContent = $"{2}" },
-            //            new Answer { AnswerContent = $"{3}" }
-            //        }
-            //};
-
-
-            //Questions.Add(question2);
 
         }
         public List<Button> CreateButtons()
@@ -270,5 +235,69 @@ namespace MathYouCan.ViewModels
             }
             
         }
+
+
+        #region Filling 
+        public void FillQuestionPassage(Paragraph questionPassageParagraph)
+        {
+            Converter.ConvertToParagraph(questionPassageParagraph,
+                Questions[CurrentQuestionIndex].Question.Text, 16);
+        }
+
+        public void FillAnswers(UniversalTestWindow window,int answersPerQuestion)
+        {
+            List<QuestionAnswer> answers = (List<QuestionAnswer>)Questions[CurrentQuestionIndex].Question.Answers;
+
+            for (int i = 0; i < answers.Count; i++)
+            {
+                var answerGrid = (Grid)window.FindName($"GridAns{i + 1}");
+                answerGrid.Visibility = Visibility.Visible;
+                var answer = (Paragraph)window.FindName($"BodyAns{i + 1}");
+                Converter.ConvertToParagraph(answer, (Questions[CurrentQuestionIndex].Question.Answers as List<QuestionAnswer>)[i].Text, 16);
+            }
+            for (int i = answers.Count; i < answersPerQuestion; i++)
+            {
+                var answerGrid = (Grid)window.FindName($"GridAns{i + 1}");
+                answerGrid.Visibility = Visibility.Collapsed;
+            }
+        }
+        #endregion
+        #region Buttons Conditions
+        public void ChangeBtnToActive(Button btn)
+        {
+            //changes color to red
+            btn.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#e42a22"));
+            btn.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#f2f2f2"));
+            btn.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#f2f2f2"));
+            btn.FontWeight = FontWeights.Bold;
+            btn.BorderThickness = new Thickness(2);
+        }
+        public void ChangeBtnToPassive(Button btn)
+        {
+            //changes color to white
+            btn.Background = new SolidColorBrush(Colors.White);
+            btn.Foreground = new SolidColorBrush((Colors.Black));
+            btn.BorderBrush = new SolidColorBrush((Colors.Black));
+            btn.FontWeight = FontWeights.Normal;
+            btn.BorderThickness = new Thickness(1);
+        }
+        public void ChangeBtnToAnswered(Button btn)
+        {
+            //changes color to white
+            btn.Background = new SolidColorBrush(Colors.DarkGray);
+            btn.Foreground = new SolidColorBrush((Colors.Black));
+            btn.BorderBrush = new SolidColorBrush((Colors.Black));
+            btn.FontWeight = FontWeights.Normal;
+            btn.BorderThickness = new Thickness(1);
+        }
+        public void ChangeNavQuestToActive(StackPanel stack)
+        {
+            stack.Background = new SolidColorBrush(Colors.SkyBlue);
+        }
+        public void ChangeNavQuestToPassive(StackPanel stack)
+        {
+            stack.Background = new SolidColorBrush(Colors.LightGray);
+        }
+        #endregion
     }
 }

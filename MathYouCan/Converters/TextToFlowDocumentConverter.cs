@@ -20,7 +20,7 @@ namespace MathYouCan.Converters
           |~I~|text|~I~|     -->  Italic text
           |~U~|text|~U~|     -->  UnderLine text
           |~C~|text|~C~|     -->  Selected text
-          |~H~|text|~H~|     -->  Highlighted text
+          |~H~|text|~H~|     -->  Highlighted text (Not used yet)
 
 
         */
@@ -79,37 +79,6 @@ namespace MathYouCan.Converters
                 {
                     span.Background = _selectedTextColor;
                     newWord = newWord.Replace("|~C~|", "");
-                    //span.IsEnabled = false;
-
-                    //Style style = new Style(typeof(Span), span.Style);
-
-                    //var trigger = new EventTrigger();
-                    //trigger.RoutedEvent = Span.Lost;
-                    //trigger.A
-
-                    //var trigger = new MultiTrigger();
-                    //Condition c1 = new Condition();
-                    //c1.Property = Span.IsMouseCapturedProperty;
-                    //c1.Value = true;
-                    //trigger.Conditions.Add(c1);
-                    //Setter setter = new Setter();
-                    //setter.Property = Span.BackgroundProperty;
-                    //setter.Value = _selectedTextColor;
-                    //trigger.Setters.Add(setter);
-                    //MessageBox.Show((setter.Value.ToString()) );
-
-                    //var trigger = new Trigger();
-                    //trigger.Property = Span.FontWeightProperty;
-                    //trigger.Value = FontWeights.Bold;
-                    //Setter setter = new Setter();
-                    //setter.Property = Span.ForegroundProperty;
-                    //setter.Value = Brushes.Aqua;
-                    //trigger.Setters.Add(setter);
-
-                    //style.Triggers.Add(trigger);
-                    //MessageBox.Show(trigger.Value.ToString());
-
-                    //span.Style = style;
                 }
 
                 newWord += " ";
@@ -118,17 +87,5 @@ namespace MathYouCan.Converters
                 paragraph.Inlines.Add(span);
             }
         }
-
-
-        private void SetSelectedTextIndexes()
-        {
-
-        }
-
-        public void ColorSelectedText(TextRange selectedTextRange)
-        {
-            selectedTextRange.ApplyPropertyValue(TextElement.BackgroundProperty, _selectedTextColor);
-        }
-
     }
 }

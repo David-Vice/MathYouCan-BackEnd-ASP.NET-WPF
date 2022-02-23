@@ -295,8 +295,7 @@
 
                     <!-- Passage Section -->
                     <FlowDocumentScrollViewer  Name="questionPassageFlowDocument" Grid.Row="1"
-                                               IsMouseCapturedChanged="questionPassageFlowDocument_IsMouseCapturedChanged"
-                                               LostMouseCapture="questionPassageFlowDocument_LostMouseCapture">
+                                               IsMouseCapturedChanged="questionPassageFlowDocument_IsMouseCapturedChanged">
                         <FlowDocument>
                             <Paragraph Name="questionPassageParagraph">
 

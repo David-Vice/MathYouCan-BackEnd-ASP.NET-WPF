@@ -42,7 +42,7 @@ namespace MathYouCan.Views
             CreateButtons();
             CreateNavButtons();
             LoadInfo(section);
-            ChangeBtnToActive(infoButton);
+           _universalTestViewModel.ChangeBtnToActive(infoButton);
             CreateAnswers(answersPerQuestion);
         }
 
@@ -82,40 +82,14 @@ namespace MathYouCan.Views
 
         private void FillQuestion()
         {
-            FillQuestionPassage();
-            FillAnswers();
+           _universalTestViewModel.FillQuestionPassage(questionPassageParagraph);
+           _universalTestViewModel.FillAnswers(this,answersPerQuestion);
         }
 
         /// <summary>
         /// Sets question text to QuestionPassage(Stack Panel) according to current Question index(CurrentQuestionIndex) from view model
         /// </summary>
-        private void FillQuestionPassage()
-        {
-            _universalTestViewModel.Converter.ConvertToParagraph(questionPassageParagraph,
-                _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].Question.Text, 16);
-        //    TextToFlowDocumentConverter textTo = new TextToFlowDocumentConverter(Brushes.Yellow, Brushes.GreenYellow);
-        //    textTo.ConvertToParagraph(questionPassageParagraph, _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].Text, 16);
-        //    textTo.ConvertToParagraph(questionPassageParagraph, _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].QuestionContent, 16);
-        //    textTo.ConvertToParagraph(questionPassageParagraph, _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].QuestionContent, 16);
-        }
-
-        private void FillAnswers()
-        {
-            List<QuestionAnswer> answers = (List<QuestionAnswer>)_universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].Question.Answers;
-
-            for (int i=0;i<answers.Count;i++)
-            {
-                var answerGrid = (Grid)this.FindName($"GridAns{i + 1}");
-                answerGrid.Visibility = Visibility.Visible;
-                var answer = (Paragraph)this.FindName($"BodyAns{i + 1}");
-                _universalTestViewModel.Converter.ConvertToParagraph(answer, (_universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].Question.Answers as List<QuestionAnswer>)[i].Text, 16);
-            }
-            for (int i = answers.Count; i < answersPerQuestion; i++)
-            {
-                var answerGrid = (Grid)this.FindName($"GridAns{i + 1}");
-                answerGrid.Visibility = Visibility.Collapsed;
-            }
-        }
+       
 
         //этот метод вызывается вначале 1 раз и еще каждый раз когда пользователь меняет вопрос кликая на кнопки changeQuestionButton_Click
         private void UpdateWindow()
@@ -124,18 +98,18 @@ namespace MathYouCan.Views
             {
                 if(_universalTestViewModel.Questions[_universalTestViewModel.PrevQuestionIndex].IsAnswered)
                 {
-                    ChangeBtnToAnswered(buttons[_universalTestViewModel.PrevQuestionIndex]);
+                   _universalTestViewModel.ChangeBtnToAnswered(buttons[_universalTestViewModel.PrevQuestionIndex]);
                 }
                 else
                 {
-                    ChangeBtnToPassive(buttons[_universalTestViewModel.PrevQuestionIndex]);
+                    _universalTestViewModel.ChangeBtnToPassive(buttons[_universalTestViewModel.PrevQuestionIndex]);
                 }
-                ChangeNavQuestToPassive(navPanels.Where(x => x.Name.ToString() == $"questionNavStackPanel{_universalTestViewModel.PrevQuestionIndex}").First());
+                _universalTestViewModel.ChangeNavQuestToPassive(navPanels.Where(x => x.Name.ToString() == $"questionNavStackPanel{_universalTestViewModel.PrevQuestionIndex}").First());
             }
             UpdateWindowContent();
 
-            ChangeNavQuestToActive(navPanels.Where(x => x.Name.ToString() == $"questionNavStackPanel{_universalTestViewModel.CurrentQuestionIndex}").First());
-            ChangeBtnToActive(buttons[_universalTestViewModel.CurrentQuestionIndex]);
+            _universalTestViewModel.ChangeNavQuestToActive(navPanels.Where(x => x.Name.ToString() == $"questionNavStackPanel{_universalTestViewModel.CurrentQuestionIndex}").First());
+            _universalTestViewModel.ChangeBtnToActive(buttons[_universalTestViewModel.CurrentQuestionIndex]);
 
             SyncRadioAnswers();
         }
@@ -160,55 +134,31 @@ namespace MathYouCan.Views
             UpdateWindow();
             //Save chosen answer
         }
-        private void ChangeBtnToActive(Button btn)
-        {
-            //changes color to red
-            btn.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#e42a22"));
-            btn.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#f2f2f2"));
-            btn.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#f2f2f2"));
-            btn.FontWeight = FontWeights.Bold;
-            btn.BorderThickness = new Thickness(2);
-        }
-        private void ChangeBtnToPassive(Button btn)
-        {
-            //changes color to white
-            btn.Background = new SolidColorBrush(Colors.White);
-            btn.Foreground = new SolidColorBrush((Colors.Black));
-            btn.BorderBrush = new SolidColorBrush((Colors.Black));
-            btn.FontWeight = FontWeights.Normal;
-            btn.BorderThickness = new Thickness(1);
-        }
-        private void ChangeBtnToAnswered(Button btn)
-        {
-            //changes color to white
-            btn.Background = new SolidColorBrush(Colors.DarkGray);
-            btn.Foreground = new SolidColorBrush((Colors.Black));
-            btn.BorderBrush = new SolidColorBrush((Colors.Black));
-            btn.FontWeight = FontWeights.Normal;
-            btn.BorderThickness = new Thickness(1);
-        }
-        private void ChangeNavQuestToActive(StackPanel stack)
-        {
-            stack.Background = new SolidColorBrush(Colors.SkyBlue);
-        }
-        private void ChangeNavQuestToPassive(StackPanel stack)
-        {
-            stack.Background = new SolidColorBrush(Colors.LightGray);
-        }
+      
         private void SyncRadioAnswers()
         {
             bool isAnswered = _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].IsAnswered;
-            int answerId = _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].ChosenAnswerId;
-
+            
             for (int i = 0; i < answersPerQuestion; i++)
             {
                 var answerRadio = (RadioButton)this.FindName($"RadioAns{i + 1}");
-                answerRadio.IsChecked = false;
-            }
-            if (isAnswered)
-            {
-                var answeredRadio = (RadioButton)this.FindName($"RadioAns{answerId + 1}");
-                answeredRadio.IsChecked = true;
+                if(isAnswered  && answerRadio.IsVisible)
+                {
+                    if (((List<QuestionAnswer>)_universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].Question.Answers)[i].Id == _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].ChosenAnswerId)
+                    {
+                        answerRadio.IsChecked = true;
+                    }
+                }
+                else if (_universalTestViewModel.CurrentQuestionIndex == 0)
+                {
+                    var answerState = (Label)this.FindName($"stateQuestion{_universalTestViewModel.CurrentQuestionIndex}");
+                    answerState.Content = "Answered";
+
+                }
+                else
+                {
+                    answerRadio.IsChecked = false;
+                }
             }
         }
 
@@ -217,7 +167,7 @@ namespace MathYouCan.Views
             var answerState = (Label)this.FindName($"stateQuestion{_universalTestViewModel.CurrentQuestionIndex}");
             answerState.Content = "Answered";
             _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].IsAnswered = true;
-            _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].ChosenAnswerId = (int)(sender as RadioButton).Content.ToString()[0] - 65;
+            _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].ChosenAnswerId = ((List<QuestionAnswer>)_universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].Question.Answers)[(int)(sender as RadioButton).Content.ToString()[0] - 65].Id;   //(int)(sender as RadioButton).Content.ToString()[0] - 65;
         }
         private void Answer_Unchecked(object sender, RoutedEventArgs e)
         {
@@ -236,12 +186,13 @@ namespace MathYouCan.Views
         }
         private void nextButton_Click(object sender, RoutedEventArgs e)
         {
-            if (infoButton.IsEnabled)
+            if (_universalTestViewModel.CurrentQuestionIndex==-1)
             {
-                ChangeBtnToPassive(infoButton);
+                _universalTestViewModel.ChangeBtnToAnswered(infoButton);
                 _universalTestViewModel.EnableButtons(buttons);
+                infoButton.Click -= changeQuestionButton_Click;
                 navButton.IsEnabled = true;
-                infoButton.IsEnabled = false;
+               // infoButton.IsEnabled = false;
                 endSectionButton.IsEnabled = true;
                 toolsButton.IsEnabled = true;
                 if (_universalTestViewModel.TestIsTimed())
@@ -249,11 +200,11 @@ namespace MathYouCan.Views
                     _universalTestViewModel.SetTimer(timerTextBlock,this,timerProgressBar);
                 }
             }
-            else
-            {
+          //  else
+          //  {
                 _universalTestViewModel.PrevQuestionIndex = _universalTestViewModel.CurrentQuestionIndex ;
                 _universalTestViewModel.CurrentQuestionIndex++;
-            }
+         //   }
             UpdateWindow();
         }
 
@@ -261,8 +212,7 @@ namespace MathYouCan.Views
         
         #region Methods which are called only at the beginning once
         private void LoadInfo(Section section) { 
-            TextToFlowDocumentConverter converter = new TextToFlowDocumentConverter(Brushes.Yellow, Brushes.GreenYellow);
-            converter.ConvertToParagraph(questionPassageParagraph, _universalTestViewModel.GetInfo(section.Name),17);
+             _universalTestViewModel.Converter.ConvertToParagraph(questionPassageParagraph, _universalTestViewModel.GetInfo(section.Name),17);
         }
         
         private void CreateButtons()
@@ -288,6 +238,7 @@ namespace MathYouCan.Views
         }
         private void CreateAnswers(int answersNum)
         {
+
             for (int i = 0; i < answersNum; i++)
             {
                 RowDefinition row = new RowDefinition();
@@ -323,7 +274,7 @@ namespace MathYouCan.Views
                 bodyScroll.Name = $"BodyScroll{i + 1}";
                 bodyScroll.SetValue(Grid.ColumnProperty, 1);
                 bodyScroll.IsMouseCapturedChanged += questionPassageFlowDocument_IsMouseCapturedChanged;
-                bodyScroll.LostMouseCapture += questionPassageFlowDocument_LostMouseCapture;
+               
                 bodyScroll.HorizontalAlignment = HorizontalAlignment.Stretch;
                 bodyScroll.VerticalAlignment = VerticalAlignment.Center;
                 bodyScroll.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
@@ -479,39 +430,7 @@ namespace MathYouCan.Views
             ClearHighlight();
         }
 
-        private void questionPassageFlowDocument_LostMouseCapture(object sender, MouseEventArgs e)
-        {
-            //if (_universalTestViewModel.IsHighlightEnabled && _universalTestViewModel.Converter.SelectedWords.Count != 0)
-            //{
-            //    foreach (string item in _universalTestViewModel.Converter.SelectedWords)
-            //    {
-            //        String search = item;
-
-            //        TextPointer text = questionPassageParagraph.ContentStart;
-            //        while (true)
-            //        {
-            //            TextPointer next = text.GetNextContextPosition(LogicalDirection.Forward);
-            //            if (next == null)
-            //            {
-            //                break;
-            //            }
-            //            TextRange txt = new TextRange(text, next);
-
-            //            int indx = txt.Text.IndexOf(search);
-            //            if (indx > 0)
-            //            {
-            //                TextPointer sta = text.GetPositionAtOffset(indx);
-            //                TextPointer end = text.GetPositionAtOffset(indx + search.Length);
-            //                TextRange textR = new TextRange(sta, end);
-            //                textR.ApplyPropertyValue(TextElement.BackgroundProperty, new SolidColorBrush(Colors.Yellow));
-            //            }
-            //            text = next;
-            //        }
-
-            //    }
-            //}
-
-        }
+      
 
         //==============================================================================================
 
