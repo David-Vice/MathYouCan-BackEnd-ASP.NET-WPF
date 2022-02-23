@@ -60,7 +60,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\TextToFlowDocumentConverter.cs" />
-    <Compile Include="Models\Answer.cs" />
     <Compile Include="Models\Enums\AnswerType.cs" />
     <Compile Include="Models\Enums\QuestionType.cs" />
     <Compile Include="Models\Exams\OfflineExam.cs" />
