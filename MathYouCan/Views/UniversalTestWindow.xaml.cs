@@ -46,7 +46,7 @@ namespace MathYouCan.Views
             CreateAnswers(answersPerQuestion);
         }
 
-        #region Methods To UPDATE WINDOW
+        #region Methods to UPDATE WINDOW
 
         /// <summary>
         ///     -- Enables/Disables (nextButton), (prevButton)  depending on current question number (_universalTestViewModel.CurrentQuestionIndex)
@@ -117,7 +117,7 @@ namespace MathYouCan.Views
 
         #endregion
 
-        #region Methods To OPERATE BUTTONS (Click, Active Passive)
+        #region Methods to OPERATE BUTTONS (Click, Active Passive)
 
         private void changeQuestionButton_Click(object sender, RoutedEventArgs e)
         {
@@ -175,7 +175,7 @@ namespace MathYouCan.Views
 
         #endregion
 
-        #region prevButton and nextButton Clicks
+        #region Methods prevButton and nextButton
 
         private void prevButton_Click(object sender, RoutedEventArgs e)
         {
