@@ -133,9 +133,7 @@ namespace MathYouCan.Views
                 _universalTestViewModel.CurrentQuestionIndex = 0;
             }
             UpdateWindow();
-            //Save chosen answer
         }
-      
         private void SyncRadioAnswers()
         {
             bool isAnswered = _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].IsAnswered;
@@ -172,7 +170,7 @@ namespace MathYouCan.Views
         }
         private void Answer_Unchecked(object sender, RoutedEventArgs e)
         {
-
+            // for future
         }
 
         #endregion
@@ -401,9 +399,6 @@ namespace MathYouCan.Views
 
             //==============================================================================================
 
-
-
-
             toolsPopUpPanel.IsOpen = !toolsPopUpPanel.IsOpen;
         }
 
@@ -431,9 +426,10 @@ namespace MathYouCan.Views
         {
             _universalTestViewModel.SendResultAndExitWindow(this);
         }
+
         #endregion
 
-        //==============================================================================================
+        #region Methods Highlighter
 
         //Reload the page
         private void ClearHighlight()
@@ -455,7 +451,6 @@ namespace MathYouCan.Views
                 //ThreadPool.QueueUserWorkItem((o) => { MessageBox.Show((_universalTestViewModel.DefaultFontSize + 1).ToString()); });
                 //range.ApplyPropertyValue(TextElement.FontSizeProperty, _universalTestViewModel.DefaultFontSize + 1);
                 //range.ApplyPropertyValue(TextElement.FontWeightProperty, FontWeights.Bold);
-
             }
         }
 
@@ -464,11 +459,13 @@ namespace MathYouCan.Views
             ClearHighlight();
         }
 
+        #endregion
+
+        #region Methods Eliminator
         private void eliminatedAnswer_MouseDown(object sender, MouseButtonEventArgs e)
         {
             (sender as Border).Visibility = Visibility.Collapsed;
         }
-
         private void notEliminatedAnswer_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if(_universalTestViewModel.IsEliminatorEnabled)
@@ -486,7 +483,6 @@ namespace MathYouCan.Views
                 eliminatedAnswer.Visibility = Visibility.Visible;
             }
         }
-
         private void EliminateAll()
         {
             for(int i=0;i<answersPerQuestion;i++)
@@ -495,7 +491,6 @@ namespace MathYouCan.Views
                 eliminatedAnswer.Visibility = Visibility.Visible;
             }
         }
-
         private void UnEliminateAll()
         {
             for (int i = 0; i < answersPerQuestion; i++)
@@ -504,12 +499,7 @@ namespace MathYouCan.Views
                 eliminatedAnswer.Visibility = Visibility.Collapsed;
             }
         }
-
-
-
-        //==============================================================================================
-
-
+        #endregion
     }
 }
 
