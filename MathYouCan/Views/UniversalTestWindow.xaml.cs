@@ -112,6 +112,7 @@ namespace MathYouCan.Views
             _universalTestViewModel.ChangeBtnToActive(buttons[_universalTestViewModel.CurrentQuestionIndex]);
 
             SyncRadioAnswers();
+            if (_universalTestViewModel.IsEliminatorEnabled) UnEliminateAll();
         }
 
         #endregion
@@ -238,12 +239,12 @@ namespace MathYouCan.Views
         }
         private void CreateAnswers(int answersNum)
         {
-
             for (int i = 0; i < answersNum; i++)
             {
                 RowDefinition row = new RowDefinition();
                 row.Height = GridLength.Auto;
                 AnswersGrid.RowDefinitions.Add(row);
+
                 Grid gridAns = new Grid();
                 gridAns.Name = $"GridAns{i + 1}";
                 gridAns.SetValue(Grid.RowProperty, i);
@@ -255,6 +256,20 @@ namespace MathYouCan.Views
                 gridAns.ColumnDefinitions.Add(gridCol2);
                 gridAns.Visibility = Visibility.Collapsed;
                 RegisterName($"GridAns{i + 1}", gridAns);
+
+                Border gridEliminator = new Border();
+                Panel.SetZIndex(gridEliminator, 1);
+                gridEliminator.BorderBrush=new SolidColorBrush(Colors.Black);
+                gridEliminator.BorderThickness = new Thickness(1,1,1,1);
+                gridEliminator.CornerRadius = new CornerRadius(10);
+                gridEliminator.Name = $"GridEliminator{i + 1}";
+                gridEliminator.SetValue(Grid.ColumnProperty, 1);
+                gridEliminator.Background = new SolidColorBrush(Colors.DarkGray);
+                gridEliminator.Opacity = 0.96;
+                gridEliminator.Margin = new Thickness(8);
+                gridEliminator.Visibility = Visibility.Collapsed;
+                gridEliminator.MouseDown += eliminatedAnswer_MouseDown;
+                RegisterName($"GridEliminator{i + 1}", gridEliminator);
 
                 RadioButton radioAns = new RadioButton();
                 radioAns.SetValue(Grid.ColumnProperty, 0);
@@ -273,8 +288,8 @@ namespace MathYouCan.Views
                 FlowDocumentScrollViewer bodyScroll = new FlowDocumentScrollViewer();
                 bodyScroll.Name = $"BodyScroll{i + 1}";
                 bodyScroll.SetValue(Grid.ColumnProperty, 1);
+                Panel.SetZIndex(bodyScroll, 0);
                 bodyScroll.IsMouseCapturedChanged += questionPassageFlowDocument_IsMouseCapturedChanged;
-               
                 bodyScroll.HorizontalAlignment = HorizontalAlignment.Stretch;
                 bodyScroll.VerticalAlignment = VerticalAlignment.Center;
                 bodyScroll.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
@@ -282,18 +297,21 @@ namespace MathYouCan.Views
                 RegisterName($"BodyScroll{i + 1}", bodyScroll);
 
                 FlowDocument bodyFlowDoc = new FlowDocument();
+                bodyFlowDoc.MouseDown += notEliminatedAnswer_MouseDown;
                 bodyFlowDoc.Name = $"BodyFlowDoc{i + 1}";
                 RegisterName($"BodyFlowDoc{i + 1}", bodyFlowDoc);
 
                 Paragraph bodyAns = new Paragraph();
                 bodyAns.Name = $"BodyAns{i + 1}";
                 bodyAns.FontSize = 17;
+                bodyAns.MouseDown += notEliminatedAnswer_MouseDown;
                 this.RegisterName($"BodyAns{i + 1}", bodyAns);
 
                 gridAns.Children.Add(radioAns);
                 bodyFlowDoc.Blocks.Add(bodyAns);
                 bodyScroll.Document = bodyFlowDoc;
                 gridAns.Children.Add(bodyScroll);
+                gridAns.Children.Add(gridEliminator);
                 AnswersGrid.Children.Add(gridAns);
             }
         }
@@ -361,13 +379,29 @@ namespace MathYouCan.Views
 
             //==============================================================================================
 
-            // Enable and diable highlight
+            // Enable and Disable Highlight
             if (sp.Name == "highlightOption")
             {
                 _universalTestViewModel.IsHighlightEnabled = !_universalTestViewModel.IsHighlightEnabled;
                 clearHighlightsButton.IsEnabled = !clearHighlightsButton.IsEnabled;
             }
+            // Enable and Disable Eliminator
+            else if (sp.Name == "eliminatorOption")
+            {
+                _universalTestViewModel.IsEliminatorEnabled = !_universalTestViewModel.IsEliminatorEnabled;
+                if(_universalTestViewModel.IsEliminatorEnabled)
+                {
+                    EliminateAll();
+                }
+                else
+                {
+                    UnEliminateAll();
+                }
+            }
+
             //==============================================================================================
+
+
 
 
             toolsPopUpPanel.IsOpen = !toolsPopUpPanel.IsOpen;
@@ -430,7 +464,48 @@ namespace MathYouCan.Views
             ClearHighlight();
         }
 
-      
+        private void eliminatedAnswer_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            (sender as Border).Visibility = Visibility.Collapsed;
+        }
+
+        private void notEliminatedAnswer_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if(_universalTestViewModel.IsEliminatorEnabled)
+            {
+                string num = String.Empty;
+                if (sender.GetType().Name == "Paragraph")
+                {
+                    num = (sender as Paragraph).Name.ToString();
+                }
+                else if (sender.GetType().Name == "FlowDocument")
+                {
+                    num = (sender as FlowDocument).Name.ToString();
+                }
+                var eliminatedAnswer = (Border)this.FindName($"GridEliminator{num[num.Length - 1]}");
+                eliminatedAnswer.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void EliminateAll()
+        {
+            for(int i=0;i<answersPerQuestion;i++)
+            {
+                var eliminatedAnswer = (Border)this.FindName($"GridEliminator{i+1}");
+                eliminatedAnswer.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void UnEliminateAll()
+        {
+            for (int i = 0; i < answersPerQuestion; i++)
+            {
+                var eliminatedAnswer = (Border)this.FindName($"GridEliminator{i + 1}");
+                eliminatedAnswer.Visibility = Visibility.Collapsed;
+            }
+        }
+
+
 
         //==============================================================================================
 
