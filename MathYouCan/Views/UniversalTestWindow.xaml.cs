@@ -370,7 +370,7 @@ namespace MathYouCan.Views
             if (l.Visibility == Visibility.Visible)
             {
                 l.Visibility = Visibility.Collapsed;
-                ClearHighlight();
+                if((sp.Children[1] as Label).Content.ToString() == "Highlighter") ClearHighlight();
             }
             else l.Visibility = Visibility.Visible;
 
