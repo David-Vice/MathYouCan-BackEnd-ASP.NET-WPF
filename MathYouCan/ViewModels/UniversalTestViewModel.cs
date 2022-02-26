@@ -31,6 +31,7 @@ namespace MathYouCan.ViewModels
         public Brush SelectedTextBrush { get; set; }  // Color of selected part of text sent by API
         public Brush HighLighteTextBrush { get; set; }  // Color of highlight
         public bool IsHighlightEnabled { get; set; } = false;
+        public bool IsEliminatorEnabled { get; set; } = false;
 
 
         //потом этот метод должен принимать IEnumerable<Question>
