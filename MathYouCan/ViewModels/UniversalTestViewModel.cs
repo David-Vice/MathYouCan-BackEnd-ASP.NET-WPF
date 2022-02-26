@@ -12,6 +12,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using Section = MathYouCan.Models.Exams.Section;
 
@@ -244,7 +245,10 @@ namespace MathYouCan.ViewModels
             Converter.ConvertToParagraph(questionPassageParagraph,
                 Questions[CurrentQuestionIndex].Question.Text, 16);
         }
-
+        public void FillImage(BlockUIContainer imageContainer)
+        {
+            imageContainer.Child = CreateImage(Questions[CurrentQuestionIndex].Question.PhotoName);
+        }
         public void FillAnswers(UniversalTestWindow window,int answersPerQuestion)
         {
             List<QuestionAnswer> answers = (List<QuestionAnswer>)Questions[CurrentQuestionIndex].Question.Answers;
@@ -255,6 +259,8 @@ namespace MathYouCan.ViewModels
                 answerGrid.Visibility = Visibility.Visible;
                 var answer = (Paragraph)window.FindName($"BodyAns{i + 1}");
                 Converter.ConvertToParagraph(answer, (Questions[CurrentQuestionIndex].Question.Answers as List<QuestionAnswer>)[i].Text, 16);
+                var imageContainer = (BlockUIContainer)window.FindName($"imageContainer{i + 1}");
+                imageContainer.Child = CreateImage((Questions[CurrentQuestionIndex].Question.Answers as List<QuestionAnswer>)[i].PhotoName);
             }
             for (int i = answers.Count; i < answersPerQuestion; i++)
             {
@@ -262,6 +268,32 @@ namespace MathYouCan.ViewModels
                 answerGrid.Visibility = Visibility.Collapsed;
             }
         }
+        //Method is user by FillImage and FillAnswers
+        Image CreateImage(string photoName)
+        {
+            if (photoName != null)
+            {
+
+                BitmapImage bitmapImage = new BitmapImage(new Uri(photoName, UriKind.Absolute));
+
+                Image image = new Image()
+                {
+                    Source = bitmapImage,
+
+                    Stretch = Stretch.Fill
+                };
+
+                return image;
+
+
+            }
+            else
+            {
+                return null;
+            }
+        }
+      
+
         #endregion
         #region Buttons Conditions
         public void ChangeBtnToActive(Button btn)

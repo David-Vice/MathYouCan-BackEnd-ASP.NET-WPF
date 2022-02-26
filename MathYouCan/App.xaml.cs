@@ -221,23 +221,28 @@ namespace MathYouCan
                             new Question()
                             {
                                 Text="Question1",
+                                PhotoName="https://i.ytimg.com/vi/0e39N_n94Lo/maxresdefault.jpg",
+
                                 Type=QuestionType.Close,
                                 Answers=new List<QuestionAnswer>()
                                 {
                                     new QuestionAnswer()
                                     {
-                                        Text="Answer1",
-                                        Type=AnswerType.A
+                                     
+                                        Type=AnswerType.A,
+                                        PhotoName="https://atlascloud-us.psionline.com/phoenix/s/lw/59b8496e-d12f-44f2-bac3-413f21a2fac3/17603/qdata2.do"
                                     },
                                      new QuestionAnswer()
                                     {
-                                        Text="Answer2",
-                                        Type=AnswerType.B
+                                       
+                                        Type=AnswerType.B,
+                                        PhotoName="https://atlascloud-us.psionline.com/phoenix/s/lw/59b8496e-d12f-44f2-bac3-413f21a2fac3/17603/qdata2.do"
                                     },
                                       new QuestionAnswer()
                                     {
-                                        Text="Answer3",
-                                        Type=AnswerType.C
+                                    
+                                        Type=AnswerType.C,
+                                        PhotoName="https://atlascloud-us.psionline.com/phoenix/s/lw/59b8496e-d12f-44f2-bac3-413f21a2fac3/17603/qdata2.do"
                                     }
                                 }
                             },
