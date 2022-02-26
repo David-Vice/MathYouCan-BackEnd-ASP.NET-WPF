@@ -194,11 +194,11 @@ namespace MathYouCan.ViewModels
         //These 2 methods will work with api values
         public bool TestIsTimed()
         {
-            return true;
+            return _section.Duration!=null;
         }
         public int GetTime()
         {
-            return 45*60;
+            return (int)_section.Duration;
         }
         public void SetTimer(TextBlock timeLabel,UniversalTestWindow window,ProgressBar progressBar)
         {
