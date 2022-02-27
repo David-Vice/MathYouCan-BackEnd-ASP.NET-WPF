@@ -48,7 +48,6 @@ namespace MathYouCan.Views
         private void SetWindowDefaultSettings()
         {
             this.WindowState = WindowState.Maximized;
-            clearHighlightsButton.IsEnabled = false;
         }
 
         #endregion
