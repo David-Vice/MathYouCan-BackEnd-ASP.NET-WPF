@@ -291,10 +291,10 @@ namespace MathYouCan.ViewModels
                     bitmapImage.DownloadCompleted += (e, arg) =>
                     {
                  
-                        if (bitmapImage.PixelWidth > 200 && bitmapImage.PixelHeight > 200)
+                        if (bitmapImage.PixelWidth > 150 && bitmapImage.PixelHeight > 150)
                         {
-                            image.Width = bitmapImage.PixelWidth / (bitmapImage.PixelWidth / 200);
-                            image.Height = bitmapImage.PixelHeight / (bitmapImage.PixelHeight / 200);
+                            image.Width = bitmapImage.PixelWidth / (bitmapImage.PixelHeight / 150);
+                            image.Height = bitmapImage.PixelHeight / (bitmapImage.PixelHeight / 150);
                         }
                     };
                 }
