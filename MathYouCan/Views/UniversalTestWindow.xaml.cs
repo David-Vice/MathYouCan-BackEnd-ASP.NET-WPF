@@ -454,16 +454,15 @@ namespace MathYouCan.Views
                 System.Windows.Documents.TextPointer potEnd = (sender as FlowDocumentScrollViewer).Selection.End;
                 System.Windows.Documents.TextRange range = new System.Windows.Documents.TextRange(potStart, potEnd);
                 range.ApplyPropertyValue(System.Windows.Documents.TextElement.BackgroundProperty, _universalTestViewModel.HighLighteTextBrush);
-
-                //ThreadPool.QueueUserWorkItem((o) => { MessageBox.Show((_universalTestViewModel.DefaultFontSize + 1).ToString()); });
-                //range.ApplyPropertyValue(TextElement.FontSizeProperty, _universalTestViewModel.DefaultFontSize + 1);
-                //range.ApplyPropertyValue(TextElement.FontWeightProperty, FontWeights.Bold);
             }
         }
 
         private void clearHighlightsButton_Click(object sender, RoutedEventArgs e)
         {
             ClearHighlight();
+            clearHighlightsButton.IsEnabled = !clearHighlightsButton.IsEnabled;
+            highlightIdentifierLabel.Visibility = Visibility.Collapsed;
+            _universalTestViewModel.IsHighlightEnabled = false;
         }
 
         #endregion

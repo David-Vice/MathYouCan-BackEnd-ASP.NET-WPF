@@ -242,8 +242,10 @@ namespace MathYouCan.ViewModels
         #region Filling 
         public void FillQuestionPassage(Paragraph questionPassageParagraph)
         {
+            //=====================================================================
             Converter.ConvertToParagraph(questionPassageParagraph,
                 Questions[CurrentQuestionIndex].Question.Text, 16);
+            //=====================================================================
         }
         public void FillImage(BlockUIContainer imageContainer)
         {

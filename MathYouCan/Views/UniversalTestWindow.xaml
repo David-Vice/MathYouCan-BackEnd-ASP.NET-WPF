@@ -205,7 +205,7 @@
                                 <StackPanel Name="highlightOption" Orientation="Horizontal" MouseDown="popUpOptionStackPanel_MouseDown"
                                     Background="Transparent" MouseEnter="popUpOptionStackPanel_MouseEnter"
                                     MouseLeave="popUpOptionStackPanel_MouseLeave">
-                                    <Label Visibility="Collapsed" Margin="10,0,-10,0" Content="✓" FontWeight="Bold" FontSize="18"/>
+                                    <Label Name="highlightIdentifierLabel" Visibility="Collapsed" Margin="10,0,-10,0" Content="✓" FontWeight="Bold" FontSize="18"/>
                                     <Label Content="Highlighter" Margin="20,0,0,0" FontSize="18"/>
                                 </StackPanel>
                                 <!--  Highlihgt END -->

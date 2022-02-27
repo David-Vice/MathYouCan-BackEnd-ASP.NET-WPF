@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace MathYouCan.Converters
 {
@@ -36,7 +38,7 @@ namespace MathYouCan.Converters
             _userHighlightColor = userHighlightColor;
         }
 
-        public void ConvertToParagraph(Paragraph paragraph, string text, double fontSize = 12)
+        public void ConvertToParagraph(Paragraph paragraph, string text ,double fontSize = 12)
         {
             paragraph.Inlines.Clear();
             try
