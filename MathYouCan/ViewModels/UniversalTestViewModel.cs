@@ -249,7 +249,7 @@ namespace MathYouCan.ViewModels
         }
         public void FillImage(BlockUIContainer imageContainer)
         {
-            imageContainer.Child = CreateImage(Questions[CurrentQuestionIndex].Question.PhotoName);
+            imageContainer.Child = CreateImage(Questions[CurrentQuestionIndex].Question.PhotoName,false);
         }
         public void FillAnswers(UniversalTestWindow window,int answersPerQuestion)
         {
@@ -264,7 +264,7 @@ namespace MathYouCan.ViewModels
                 var imageContainer = (BlockUIContainer)window.FindName($"imageContainer{i + 1}");
                 _ = imageContainer.Child == null ? answer.Margin = new Thickness(0, 5, 0, 0) : answer.Margin = new Thickness(0, 0, 0, 0);
                 
-                imageContainer.Child = CreateImage((Questions[CurrentQuestionIndex].Question.Answers as List<QuestionAnswer>)[i].PhotoName);
+                imageContainer.Child = CreateImage((Questions[CurrentQuestionIndex].Question.Answers as List<QuestionAnswer>)[i].PhotoName,true);
                 
             }
             for (int i = answers.Count; i < answersPerQuestion; i++)
@@ -274,7 +274,7 @@ namespace MathYouCan.ViewModels
             }
         }
         //Method is user by FillImage and FillAnswers
-        Image CreateImage(string photoName)
+        Image CreateImage(string photoName,bool isAnswer)
         {
             if (photoName != null)
             {
@@ -291,7 +291,7 @@ namespace MathYouCan.ViewModels
                     bitmapImage.DownloadCompleted += (e, arg) =>
                     {
                  
-                        if (bitmapImage.PixelWidth > 150 && bitmapImage.PixelHeight > 150)
+                        if (bitmapImage.PixelWidth > 150 && bitmapImage.PixelHeight > 150&&isAnswer)
                         {
                             image.Width = bitmapImage.PixelWidth / (bitmapImage.PixelHeight / 150);
                             image.Height = bitmapImage.PixelHeight / (bitmapImage.PixelHeight / 150);
