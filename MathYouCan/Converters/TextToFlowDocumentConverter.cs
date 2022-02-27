@@ -41,8 +41,10 @@ namespace MathYouCan.Converters
         public void ConvertToParagraph(Paragraph paragraph, string text ,double fontSize = 12)
         {
             paragraph.Inlines.Clear();
-            try
+            if (text != null)
             {
+
+            
 
                 String[] words = text.Split(' ');
            
@@ -93,11 +95,7 @@ namespace MathYouCan.Converters
                 }
 
             }
-            catch (Exception)
-            {
-
             
-            }
         }
     }
 }

@@ -263,6 +263,7 @@ namespace MathYouCan.ViewModels
                 Converter.ConvertToParagraph(answer, (Questions[CurrentQuestionIndex].Question.Answers as List<QuestionAnswer>)[i].Text, 16);
                 var imageContainer = (BlockUIContainer)window.FindName($"imageContainer{i + 1}");
                 _ = imageContainer.Child == null ? answer.Margin = new Thickness(0, 5, 0, 0) : answer.Margin = new Thickness(0, 0, 0, 0);
+                
                 imageContainer.Child = CreateImage((Questions[CurrentQuestionIndex].Question.Answers as List<QuestionAnswer>)[i].PhotoName);
                 
             }
@@ -277,16 +278,29 @@ namespace MathYouCan.ViewModels
         {
             if (photoName != null)
             {
-
                 BitmapImage bitmapImage = new BitmapImage(new Uri(photoName, UriKind.Absolute));
-
                 Image image = new Image()
                 {
                     Source = bitmapImage,
 
                     Stretch = Stretch.Fill
-                };
 
+                };
+                if (bitmapImage.IsDownloading)
+                {
+                    bitmapImage.DownloadCompleted += (e, arg) =>
+                    {
+                 
+                        if (bitmapImage.PixelWidth > 200 && bitmapImage.PixelHeight > 200)
+                        {
+                            image.Width = bitmapImage.PixelWidth / (bitmapImage.PixelWidth / 200);
+                            image.Height = bitmapImage.PixelHeight / (bitmapImage.PixelHeight / 200);
+                        }
+                    };
+                }
+                
+                
+                image.HorizontalAlignment = HorizontalAlignment.Left;
                 return image;
 
 

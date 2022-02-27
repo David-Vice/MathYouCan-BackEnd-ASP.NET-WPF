@@ -235,19 +235,19 @@ namespace MathYouCan
                                     {
                                      
                                         Type=AnswerType.A,
-                                        PhotoName="https://atlascloud-us.psionline.com/phoenix/s/lw/59b8496e-d12f-44f2-bac3-413f21a2fac3/17603/qdata2.do"
+                                        PhotoName="https://i.ytimg.com/vi/0e39N_n94Lo/maxresdefault.jpg"
                                     },
                                      new QuestionAnswer()
                                     {
                                        
                                         Type=AnswerType.B,
-                                        PhotoName="https://atlascloud-us.psionline.com/phoenix/s/lw/59b8496e-d12f-44f2-bac3-413f21a2fac3/17603/qdata2.do"
+                                        PhotoName="https://i.ytimg.com/vi/0e39N_n94Lo/maxresdefault.jpg"
                                     },
                                       new QuestionAnswer()
                                     {
                                     
                                         Type=AnswerType.C,
-                                        PhotoName="https://atlascloud-us.psionline.com/phoenix/s/lw/59b8496e-d12f-44f2-bac3-413f21a2fac3/17603/qdata2.do"
+                                        PhotoName="https://i.ytimg.com/vi/0e39N_n94Lo/maxresdefault.jpg"
                                     }
                                 }
                             },
