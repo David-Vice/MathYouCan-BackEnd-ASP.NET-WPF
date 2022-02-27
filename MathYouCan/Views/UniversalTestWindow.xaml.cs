@@ -83,6 +83,7 @@ namespace MathYouCan.Views
         private void FillQuestion()
         {
            _universalTestViewModel.FillQuestionPassage(questionPassageParagraph);
+            _universalTestViewModel.FillImage(imageContainer);
            _universalTestViewModel.FillAnswers(this,answersPerQuestion);
         }
 
@@ -303,10 +304,17 @@ namespace MathYouCan.Views
                 bodyAns.Name = $"BodyAns{i + 1}";
                 bodyAns.FontSize = 17;
                 bodyAns.MouseDown += notEliminatedAnswer_MouseDown;
-                this.RegisterName($"BodyAns{i + 1}", bodyAns);
+                RegisterName($"BodyAns{i + 1}", bodyAns);
+                //added image container to each answer
+                BlockUIContainer imageContainer = new BlockUIContainer();
+                
+                imageContainer.Name = $"imageContainer{i + 1}";
+                RegisterName($"imageContainer{i + 1}", imageContainer);
+
 
                 gridAns.Children.Add(radioAns);
                 bodyFlowDoc.Blocks.Add(bodyAns);
+                bodyFlowDoc.Blocks.Add(imageContainer);
                 bodyScroll.Document = bodyFlowDoc;
                 gridAns.Children.Add(bodyScroll);
                 gridAns.Children.Add(gridEliminator);

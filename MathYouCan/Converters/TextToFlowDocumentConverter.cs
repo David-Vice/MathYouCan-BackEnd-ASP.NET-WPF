@@ -41,52 +41,62 @@ namespace MathYouCan.Converters
         public void ConvertToParagraph(Paragraph paragraph, string text ,double fontSize = 12)
         {
             paragraph.Inlines.Clear();
-            String[] words = text.Split(' ');
-           
-            foreach (String word in words)
+            try
             {
-                Span span = new Span();
-                span.FontFamily = new FontFamily("Segoe UI");
-                span.FontSize = fontSize;
-                string newWord = word;
 
-
-                if (word.Contains("|~B~|"))
+                String[] words = text.Split(' ');
+           
+                foreach (String word in words)
                 {
-                    span.FontWeight = FontWeights.Bold;
-                    newWord = newWord.Replace("|~B~|", "");
+                    Span span = new Span();
+                    span.FontFamily = new FontFamily("Segoe UI");
+                    span.FontSize = fontSize;
+                    string newWord = word;
+
+
+                    if (word.Contains("|~B~|"))
+                    {
+                        span.FontWeight = FontWeights.Bold;
+                        newWord = newWord.Replace("|~B~|", "");
+                    }
+
+                    if (word.Contains("|~I~|"))
+                    {
+                        span.FontStyle = FontStyles.Italic;
+                        newWord = newWord.Replace("|~I~|", "");
+                    }
+
+                    if (word.Contains("|~U~|"))
+                    {
+                        span.TextDecorations = TextDecorations.Underline;
+                        newWord = newWord.Replace("|~U~|", "");
+                    }
+
+
+                    // 'H' (highlight) must be before 'C' (color)
+                    if (word.Contains("|~H~|"))
+                    {
+                        span.Background = _userHighlightColor;
+                        newWord = newWord.Replace("|~H~|", "");
+                    }
+
+                    if (word.Contains("|~C~|"))
+                    {
+                        span.Background = _selectedTextColor;
+                        newWord = newWord.Replace("|~C~|", "");
+                    }
+
+                    newWord += " ";
+
+                    span.Inlines.Add(newWord);
+                    paragraph.Inlines.Add(span);
                 }
 
-                if (word.Contains("|~I~|"))
-                {
-                    span.FontStyle = FontStyles.Italic;
-                    newWord = newWord.Replace("|~I~|", "");
-                }
+            }
+            catch (Exception)
+            {
 
-                if (word.Contains("|~U~|"))
-                {
-                    span.TextDecorations = TextDecorations.Underline;
-                    newWord = newWord.Replace("|~U~|", "");
-                }
-
-
-                // 'H' (highlight) must be before 'C' (color)
-                if (word.Contains("|~H~|"))
-                {
-                    span.Background = _userHighlightColor;
-                    newWord = newWord.Replace("|~H~|", "");
-                }
-
-                if (word.Contains("|~C~|"))
-                {
-                    span.Background = _selectedTextColor;
-                    newWord = newWord.Replace("|~C~|", "");
-                }
-
-                newWord += " ";
-
-                span.Inlines.Add(newWord);
-                paragraph.Inlines.Add(span);
+            
             }
         }
     }

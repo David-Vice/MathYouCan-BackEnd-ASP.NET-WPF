@@ -11,8 +11,8 @@ namespace MathYouCan.Models.Exams
     {
         public int Id { get; set; }
         public QuestionType Type { get; set; }
-        public string Text { get; set; } = "";
-        public string PhotoName { get; set; } = "";
+        public string Text { get; set; } = null;
+        public string PhotoName { get; set; } = null;
         public IEnumerable<QuestionAnswer> Answers { get; set; }
     
     }

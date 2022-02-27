@@ -299,6 +299,9 @@
                             <Paragraph Name="questionPassageParagraph">
 
                             </Paragraph>
+                            <BlockUIContainer Name="imageContainer">
+                                
+                            </BlockUIContainer>
                         </FlowDocument>
                     </FlowDocumentScrollViewer>
                     <!-- Passage END-->
@@ -317,7 +320,7 @@
 
                             <!-- Question Part -->
                             <TextBlock x:Name="questionTextBlock" HorizontalAlignment="Stretch" Height="Auto" TextWrapping="Wrap" Padding="10,20,10,20" FontSize="17" Grid.Row="0">
-                                The data in Figure 2 for time = 140 days are best shown by which of the following graphs?
+                              
                             </TextBlock>
                             <!-- Question Part END -->
 
