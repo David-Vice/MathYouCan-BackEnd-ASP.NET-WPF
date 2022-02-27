@@ -262,7 +262,9 @@ namespace MathYouCan.ViewModels
                 var answer = (Paragraph)window.FindName($"BodyAns{i + 1}");
                 Converter.ConvertToParagraph(answer, (Questions[CurrentQuestionIndex].Question.Answers as List<QuestionAnswer>)[i].Text, 16);
                 var imageContainer = (BlockUIContainer)window.FindName($"imageContainer{i + 1}");
+                _ = imageContainer.Child == null ? answer.Margin = new Thickness(0, 5, 0, 0) : answer.Margin = new Thickness(0, 0, 0, 0);
                 imageContainer.Child = CreateImage((Questions[CurrentQuestionIndex].Question.Answers as List<QuestionAnswer>)[i].PhotoName);
+                
             }
             for (int i = answers.Count; i < answersPerQuestion; i++)
             {
@@ -291,6 +293,7 @@ namespace MathYouCan.ViewModels
             }
             else
             {
+
                 return null;
             }
         }

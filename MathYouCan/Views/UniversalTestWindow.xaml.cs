@@ -307,6 +307,7 @@ namespace MathYouCan.Views
                 RegisterName($"BodyAns{i + 1}", bodyAns);
                 //added image container to each answer
                 BlockUIContainer imageContainer = new BlockUIContainer();
+                
                 imageContainer.Name = $"imageContainer{i + 1}";
                 RegisterName($"imageContainer{i + 1}", imageContainer);
 
