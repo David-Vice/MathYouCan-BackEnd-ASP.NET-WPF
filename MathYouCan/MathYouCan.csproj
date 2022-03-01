@@ -69,9 +69,7 @@
     <Compile Include="Models\Exams\Section.cs" />
     <Compile Include="Models\Exams\Instruction.cs" />
     <Compile Include="Models\QuestionView.cs" />
-    <Compile Include="Services\Abstract\IAuthValidatorService.cs" />
-    <Compile Include="Services\Concrete\AuthUserConverterService.cs" />
-    <Compile Include="Services\Concrete\AuthValidatorService.cs" />
+    <Compile Include="Services\Concrete\DataHandlerService.cs" />
     <Compile Include="Services\Concrete\InfosAndInstructions.cs" />
     <Compile Include="ViewModels\InstructionWindowViewModel.cs" />
     <Compile Include="ViewModels\UniversalTestViewModel.cs" />
@@ -157,6 +155,8 @@
   <ItemGroup>
     <Resource Include="Img\close.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Services\Abstract\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

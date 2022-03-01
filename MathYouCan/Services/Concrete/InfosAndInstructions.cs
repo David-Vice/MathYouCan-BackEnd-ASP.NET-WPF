@@ -28,30 +28,24 @@ namespace MathYouCan.Services.Concrete
 
         private string infoText = "";
         private Instruction instText = null;
-        private string getAllText()
+        private void getAllText()
         {
-            switch (Section)
+            if (Section.Contains("English"))
             {
-                case "English Practise Test":
-                    infoText = EngInfo;
-                    instText = EngInst;
-                    break;
-                case "Mathematics Practise Test":
-                    infoText = MathInfo;
-                    instText = MathInst;
-                    break;
-                case "Science":
-                    infoText = ScienceInfo;
-                    instText = ScienceInst;
-                    break;
-                case "Writing":
-                    infoText = WritingInfo;
-                    instText = WritingInst;
-                    break;
-                default:
-                    break;
+                infoText = EngInfo;
+                instText = EngInst;
             }
-            return null;
+            else if (Section.Contains("Math"))
+            {
+                infoText = MathInfo;
+                instText = MathInst;
+            }
+
+            else if (Section.Contains("Science"))
+            {
+                infoText = ScienceInfo;
+                instText = ScienceInst;
+            }
         }
 
         private string EngInfo = "|~B~|English|~B~| |~B~|Test|~B~| |~B~|Directions|~B~|\n\n|~B~|You|~B~| |~B~|will|~B~| |~B~|have|~B~| |~B~|45|~B~| |~B~|minutes|~B~| |~B~|to|~B~| |~B~|complete|~B~| |~B~|this|~B~| |~B~|section.|~B~| \n " +
@@ -98,7 +92,7 @@ namespace MathYouCan.Services.Concrete
         private Instruction MathInst = new Instruction()
         {
             Header =
-            "Begin Mathematics Test—60 minutes, 60 questions|~B~|",
+            "Begin Mathematics Test—60 minutes, 60 questions",
             InstructionText =
             "Solve each problem, choose the correct answer, and then select your answer. Select the |~B~|Next|~B~| button.\n\n" +
             "Do not linger over problems that take too much time. Solve as many as you can; then return to the others in the time you have " +
@@ -149,5 +143,6 @@ namespace MathYouCan.Services.Concrete
             " • Organize your ideas clearly and logically\n" +
             " • Communicate your ideas effectively in standard written English\n"
        };
+
     }
 }

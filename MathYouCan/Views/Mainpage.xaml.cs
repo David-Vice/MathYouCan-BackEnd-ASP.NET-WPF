@@ -43,7 +43,15 @@ namespace MathYouCan.Views
                     windows.Add(new UniversalTestWindow(_exam.Sections.ElementAt(i)));
                     if (i == 2)
                     {
-                        //open break-time window
+                        PauseWindow pauseWindow=new PauseWindow();
+                        if (pauseWindow.ShowDialog() == true)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+
+                        }
                     }
                     if (windows[i].ShowDialog() == true)
                     {

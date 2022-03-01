@@ -321,7 +321,112 @@ namespace MathYouCan
                                 }
                             }
                         }
-                    }
+                    },
+                    //  new Section()
+                    //{
+                    //    Duration=30*60,
+                    //    Name="Science Practise Test",
+                    //    Questions=new List<Question>()
+                    //    {
+                    //        new Question()
+                    //        {
+                    //            Text="Question1",
+                    //            PhotoName="https://i.ytimg.com/vi/0e39N_n94Lo/maxresdefault.jpg",
+
+                    //            Type=QuestionType.Close,
+                    //            Answers=new List<QuestionAnswer>()
+                    //            {
+                    //                new QuestionAnswer()
+                    //                {
+
+                    //                    Type=AnswerType.A,
+                    //                    PhotoName="https://i.ytimg.com/vi/0e39N_n94Lo/maxresdefault.jpg"
+                    //                },
+                    //                 new QuestionAnswer()
+                    //                {
+
+                    //                    Type=AnswerType.B,
+                    //                    PhotoName="https://i.ytimg.com/vi/0e39N_n94Lo/maxresdefault.jpg"
+                    //                },
+                    //                  new QuestionAnswer()
+                    //                {
+
+                    //                    Type=AnswerType.C,
+                    //                    PhotoName="https://i.ytimg.com/vi/0e39N_n94Lo/maxresdefault.jpg"
+                    //                }
+                    //            }
+                    //        },
+                    //         new Question()
+                    //        {
+                    //            Text="Question2",
+                    //            Type=QuestionType.Close,
+                    //            Answers=new List<QuestionAnswer>()
+                    //            {
+                    //                new QuestionAnswer()
+                    //                {
+                    //                    Text="Answer1",
+                    //                    Type=AnswerType.A
+                    //                },
+                    //                 new QuestionAnswer()
+                    //                {
+                    //                    Text="Answer2",
+                    //                    Type=AnswerType.B
+                    //                },
+                    //                  new QuestionAnswer()
+                    //                {
+                    //                    Text="Answer3",
+                    //                    Type=AnswerType.C
+                    //                }
+                    //            }
+                    //        },
+                    //          new Question()
+                    //        {
+                    //            Text="Question3",
+                    //            Type=QuestionType.Close,
+                    //            Answers=new List<QuestionAnswer>()
+                    //            {
+                    //                new QuestionAnswer()
+                    //                {
+                    //                    Text="Answer1",
+                    //                    Type=AnswerType.A
+                    //                },
+                    //                 new QuestionAnswer()
+                    //                {
+                    //                    Text="Answer2",
+                    //                    Type=AnswerType.B
+                    //                },
+                    //                  new QuestionAnswer()
+                    //                {
+                    //                    Text="Answer3",
+                    //                    Type=AnswerType.C
+                    //                }
+                    //            }
+                    //        },
+                    //           new Question()
+                    //        {
+                    //            Text="Question4",
+                    //            Type=QuestionType.Close,
+                    //            Answers=new List<QuestionAnswer>()
+                    //            {
+                    //                new QuestionAnswer()
+                    //                {
+                    //                    Text="Answer1",
+                    //                    Type=AnswerType.A
+                    //                },
+                    //                 new QuestionAnswer()
+                    //                {
+                    //                    Text="Answer2",
+                    //                    Type=AnswerType.B
+                    //                },
+                    //                  new QuestionAnswer()
+                    //                {
+                    //                    Text="Answer3",
+                    //                    Type=AnswerType.C
+                    //                }
+                    //            }
+                    //        }
+                    //    }
+                    //}
                 }
 
             };

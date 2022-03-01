@@ -1,5 +1,4 @@
-﻿using MathYouCan.Services.Abstract;
-using MathYouCan.Services.Concrete;
+﻿using MathYouCan.Services.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -19,12 +18,11 @@ namespace MathYouCan.Views
     /// </summary>
     public partial class Login : Window
     {
-        IAuthValidatorService _authValidatorService;
-
+       
         public Login()
         {
             InitializeComponent();
-            _authValidatorService = new AuthValidatorService();
+           
         }
        
         private void Label_MouseEnter(object sender, MouseEventArgs e)
@@ -50,7 +48,8 @@ namespace MathYouCan.Views
         {
             //string jsonData=_authValidatorService.AreValidCredentials(mailTextBox.Text, passwordBox.Password);
             //AuthUserConverterService.GetData(jsonData);
-
+            DataHandlerService dataHandlerService = new DataHandlerService();
+            dataHandlerService.GetLoginResult(mailTextBox.Text, passwordBox.Password);
             this.DialogResult = true;
             this.Close();
         }

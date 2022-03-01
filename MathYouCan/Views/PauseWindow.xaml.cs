@@ -40,5 +40,12 @@ namespace MathYouCan.Views
             dispatcherTimer.Start();
         }
 
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (_time>TimeSpan.FromSeconds(60))
+            {
+                DialogResult = false;
+            }
+        }
     }
 }

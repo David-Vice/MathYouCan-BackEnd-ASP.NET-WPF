@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MathYouCan.Views"
         mc:Ignorable="d"
-        Title="PauseWindow" Height="450" Width="800" WindowState="Maximized" WindowStyle="None">
+        Title="PauseWindow" Closing="Window_Closing" Height="450" Width="800" WindowState="Maximized" WindowStyle="None">
     <Grid>
 
         <Grid.RowDefinitions>
