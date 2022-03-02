@@ -104,14 +104,14 @@ namespace MathYouCan.Views
             if (_instructionWindowViewModel.CurrentInstructionIndex == _instructionWindowViewModel.Instructions.Count - 1)
             {
                 acceptButton.Click += acceptButton_Click;
-                declineButton.Click += declineButton_Click;
+             
 
                 acceptDeclineStackPanel.Visibility = Visibility.Visible;
             }
             else
             {
                 acceptButton.Click -= acceptButton_Click;
-                declineButton.Click -= declineButton_Click;
+         
 
                 acceptDeclineStackPanel.Visibility = Visibility.Hidden;
             }
@@ -229,11 +229,7 @@ namespace MathYouCan.Views
             
         }
 
-        private void declineButton_Click(object sender, RoutedEventArgs e)
-        {
-         
-
-        }
+       
 
 
         #endregion

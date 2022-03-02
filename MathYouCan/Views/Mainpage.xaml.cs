@@ -38,27 +38,22 @@ namespace MathYouCan.Views
            // {
 
 
-                for (int i = 0; i < _exam.Sections.Count(); i++)
+            for (int i = 0; i < _exam.Sections.Count(); i++)
+            {
+                windows.Add(new UniversalTestWindow(_exam.Sections.ElementAt(i)));
+                if (i == 2)
                 {
-                    windows.Add(new UniversalTestWindow(_exam.Sections.ElementAt(i)));
-                    if (i == 2)
-                    {
-                        PauseWindow pauseWindow=new PauseWindow();
-                        if (pauseWindow.ShowDialog() == true)
-                        {
-                            continue;
-                        }
-                        else
-                        {
-
-                        }
-                    }
-                    if (windows[i].ShowDialog() == true)
-                    {
-
-                        continue;
-                    }
+                    PauseWindow pauseWindow=new PauseWindow();
+                    pauseWindow.ShowDialog();
+                    
                 }
+                windows[i].ShowDialog();
+                if (windows[i].ExamEnded)
+                {
+                    break;
+                }
+                    
+            }
            // }
         }
     }

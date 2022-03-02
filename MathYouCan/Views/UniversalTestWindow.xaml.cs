@@ -34,6 +34,7 @@ namespace MathYouCan.Views
         int answersPerQuestion = 5;
 
         UniversalTestViewModel _universalTestViewModel;
+        public bool ExamEnded { get; set; } = false;
         public UniversalTestWindow(Section section)
         {
 
@@ -432,7 +433,12 @@ namespace MathYouCan.Views
         }
         private void endSectionButton_Click(object sender, RoutedEventArgs e)
         {
-            _universalTestViewModel.SendResultAndExitWindow(this);
+            ExamEnded = true;
+            if (MessageBox.Show("Do you want to finish the exam?", "Exit", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                _universalTestViewModel.SendResultAndExitWindow(this);
+               
+            }
         }
 
         #endregion

@@ -230,11 +230,8 @@ namespace MathYouCan.ViewModels
         //this method will be called when end_section_button clicked and when time is out
         public void SendResultAndExitWindow(UniversalTestWindow window)
         {
+            window.Close();
             
-            if (MessageBox.Show("Do you want to finish this section?", "Exit", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-            {
-                window.Close();
-            }
             
         }
 

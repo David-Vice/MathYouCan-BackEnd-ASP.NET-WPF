@@ -111,15 +111,7 @@
                             </Button.Resources>
                         </Button>
 
-                        <Button Name="declineButton" Width="75" Height="23" Content="Decline"
-                                Margin="20,0,0,0">
-                            <Button.Resources>
-                                <Style TargetType="Border">
-                                    <Setter Property="CornerRadius" Value="5"/>
-                                </Style>
-                            </Button.Resources>
-                        </Button>
-
+                        
                     </StackPanel>
 
                 </StackPanel>

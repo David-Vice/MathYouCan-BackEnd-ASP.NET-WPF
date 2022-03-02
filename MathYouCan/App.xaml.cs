@@ -43,7 +43,7 @@ namespace MathYouCan
                 {
                     new Section()
                     {
-                        Duration=45*60,
+                        Duration=45,
                         Name="English Practise Test",
                         Questions=new List<Question>()
                         {
