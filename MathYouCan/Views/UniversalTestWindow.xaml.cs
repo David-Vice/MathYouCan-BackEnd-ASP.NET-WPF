@@ -252,24 +252,13 @@ namespace MathYouCan.Views
                 gridCol1.Width = GridLength.Auto;
                 ColumnDefinition gridCol2 = new ColumnDefinition();
                 gridCol2.Width = new GridLength(1, GridUnitType.Star);
+                ColumnDefinition gridCol3 = new ColumnDefinition();
+                gridCol3.Width = GridLength.Auto;
                 gridAns.ColumnDefinitions.Add(gridCol1);
                 gridAns.ColumnDefinitions.Add(gridCol2);
+                gridAns.ColumnDefinitions.Add(gridCol3);
                 gridAns.Visibility = Visibility.Collapsed;
                 RegisterName($"GridAns{i + 1}", gridAns);
-
-                Border gridEliminator = new Border();
-                Panel.SetZIndex(gridEliminator, 1);
-                gridEliminator.BorderBrush=new SolidColorBrush(Colors.Black);
-                gridEliminator.BorderThickness = new Thickness(1,1,1,1);
-                gridEliminator.CornerRadius = new CornerRadius(10);
-                gridEliminator.Name = $"GridEliminator{i + 1}";
-                gridEliminator.SetValue(Grid.ColumnProperty, 1);
-                gridEliminator.Background = new SolidColorBrush(Colors.DarkGray);
-                gridEliminator.Opacity = 0.96;
-                gridEliminator.Margin = new Thickness(8);
-                gridEliminator.Visibility = Visibility.Collapsed;
-                gridEliminator.MouseDown += eliminatedAnswer_MouseDown;
-                RegisterName($"GridEliminator{i + 1}", gridEliminator);
 
                 RadioButton radioAns = new RadioButton();
                 radioAns.SetValue(Grid.ColumnProperty, 0);
@@ -284,6 +273,40 @@ namespace MathYouCan.Views
                 radioAns.Unchecked += Answer_Unchecked;
                 radioAns.Content = $"{(char)(65 + i)}.";
                 RegisterName($"RadioAns{i + 1}", radioAns);
+
+                Button elimButton = new Button();
+                elimButton.SetValue(Grid.ColumnProperty, 2);
+                elimButton.Name = $"ElimButton{i + 1}";
+                elimButton.VerticalContentAlignment = VerticalAlignment.Center;
+                elimButton.Margin = new Thickness(5);
+                elimButton.Height = 30;
+                elimButton.Width = 30;
+                elimButton.FontSize = 17;
+                elimButton.FontWeight = FontWeights.DemiBold;
+                elimButton.Background = new SolidColorBrush(Colors.DarkRed);
+                elimButton.Visibility = Visibility.Collapsed;
+                elimButton.Click += EliminatorButtonClick;
+                var elimButtonStyle = new Style
+                {
+                    TargetType = typeof(Border),
+                    Setters = { new Setter { Property = Border.CornerRadiusProperty, Value = new CornerRadius(5) } }
+                };
+                elimButton.Resources.Add(elimButtonStyle.TargetType, elimButtonStyle);
+                RegisterName($"ElimButton{i + 1}", elimButton);
+
+                Border gridEliminator = new Border();
+                Panel.SetZIndex(gridEliminator, 1);
+                gridEliminator.BorderBrush=new SolidColorBrush(Colors.Black);
+                gridEliminator.BorderThickness = new Thickness(1,1,1,1);
+                gridEliminator.CornerRadius = new CornerRadius(10);
+                gridEliminator.Name = $"GridEliminator{i + 1}";
+                gridEliminator.SetValue(Grid.ColumnProperty, 1);
+                gridEliminator.Background = new SolidColorBrush(Colors.DarkGray);
+                gridEliminator.Opacity = 0.96;
+                gridEliminator.Margin = new Thickness(8);
+                gridEliminator.Visibility = Visibility.Collapsed;
+                gridEliminator.MouseDown += eliminatedAnswer_MouseDown;
+                RegisterName($"GridEliminator{i + 1}", gridEliminator);
 
                 FlowDocumentScrollViewer bodyScroll = new FlowDocumentScrollViewer();
                 bodyScroll.Name = $"BodyScroll{i + 1}";
@@ -312,13 +335,13 @@ namespace MathYouCan.Views
                 imageContainer.Name = $"imageContainer{i + 1}";
                 RegisterName($"imageContainer{i + 1}", imageContainer);
 
-
                 gridAns.Children.Add(radioAns);
                 bodyFlowDoc.Blocks.Add(bodyAns);
                 bodyFlowDoc.Blocks.Add(imageContainer);
                 bodyScroll.Document = bodyFlowDoc;
                 gridAns.Children.Add(bodyScroll);
                 gridAns.Children.Add(gridEliminator);
+                gridAns.Children.Add(elimButton);
                 AnswersGrid.Children.Add(gridAns);
             }
         }
@@ -397,10 +420,12 @@ namespace MathYouCan.Views
                 _universalTestViewModel.IsEliminatorEnabled = !_universalTestViewModel.IsEliminatorEnabled;
                 if(_universalTestViewModel.IsEliminatorEnabled)
                 {
-                    EliminateAll();
+                    ShowEliminatorButtons();
+                    UnEliminateAll();
                 }
                 else
                 {
+                    HideEliminatorButtons();
                     UnEliminateAll();
                 }
             }
@@ -495,6 +520,23 @@ namespace MathYouCan.Views
                 eliminatedAnswer.Visibility = Visibility.Visible;
             }
         }
+        void EliminatorButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (_universalTestViewModel.IsEliminatorEnabled)
+            {
+                string num = (sender as Button).Name.ToString();
+                var eliminatedAnswer = (Border)this.FindName($"GridEliminator{num[num.Length - 1]}");
+                
+                if(eliminatedAnswer.Visibility == Visibility.Visible)
+                {
+                    eliminatedAnswer.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    eliminatedAnswer.Visibility = Visibility.Visible;
+                }
+            }
+        }
         private void EliminateAll()
         {
             for(int i=0;i<answersPerQuestion;i++)
@@ -509,6 +551,22 @@ namespace MathYouCan.Views
             {
                 var eliminatedAnswer = (Border)this.FindName($"GridEliminator{i + 1}");
                 eliminatedAnswer.Visibility = Visibility.Collapsed;
+            }
+        }
+        private void ShowEliminatorButtons()
+        {
+            for (int i = 0; i < answersPerQuestion; i++)
+            {
+                var eliminatorButton = (Button)this.FindName($"ElimButton{i + 1}");
+                eliminatorButton.Visibility = Visibility.Visible;
+            }
+        }
+        private void HideEliminatorButtons()
+        {
+            for (int i = 0; i < answersPerQuestion; i++)
+            {
+                var eliminatorButton = (Button)this.FindName($"ElimButton{i + 1}");
+                eliminatorButton.Visibility = Visibility.Collapsed;
             }
         }
         #endregion
