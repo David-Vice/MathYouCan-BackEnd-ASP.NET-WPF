@@ -73,7 +73,7 @@
         </Style>
     </Window.Resources>
 
-    <Grid>
+    <Grid x:Name="mainGrid">
         <Grid.Resources>
             <Storyboard x:Key="navPanelOpening" Timeline.DesiredFrameRate="60">
                 <DoubleAnimation

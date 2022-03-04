@@ -328,6 +328,7 @@ namespace MathYouCan.Views
         #region Methods for NAVIGATION PANEL
         private void navQuestion_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            (mainGrid.FindResource("navPanelClosing") as Storyboard).Begin();
             _universalTestViewModel.PrevQuestionIndex = _universalTestViewModel.CurrentQuestionIndex;
             int num;
             if (int.TryParse((((sender as StackPanel).Children[0] as StackPanel).Children[0] as Label).Content.ToString(), out num))
@@ -338,8 +339,6 @@ namespace MathYouCan.Views
             {
                 _universalTestViewModel.CurrentQuestionIndex = 0;
             }
-
-            NavPanel.Visibility = Visibility.Collapsed; //no animation
             UpdateWindow();
         }
 
