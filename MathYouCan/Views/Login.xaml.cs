@@ -22,7 +22,6 @@ namespace MathYouCan.Views
         public Login()
         {
             InitializeComponent();
-           
         }
        
         private void Label_MouseEnter(object sender, MouseEventArgs e)
@@ -38,7 +37,7 @@ namespace MathYouCan.Views
 
         private void Label_MouseUp(object sender, MouseButtonEventArgs e)
         {
-             if(MessageBox.Show("Do you really want to exit MathYouCan?", "Exit", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+             if(MessageBox.Show("Do you want to exit MathYouCan?", "Exit", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
              {
                 Close();
              }
@@ -48,10 +47,18 @@ namespace MathYouCan.Views
         {
             //string jsonData=_authValidatorService.AreValidCredentials(mailTextBox.Text, passwordBox.Password);
             //AuthUserConverterService.GetData(jsonData);
-            DataHandlerService dataHandlerService = new DataHandlerService();
-            dataHandlerService.GetLoginResult(mailTextBox.Text, passwordBox.Password);
-            this.DialogResult = true;
-            this.Close();
+            if (mailTextBox.Text!=""&&passwordBox.Password!="")
+            {
+                DataHandlerService dataHandlerService = new DataHandlerService();
+
+                dataHandlerService.GetLoginResult(mailTextBox.Text, passwordBox.Password);
+                this.DialogResult = true;
+                this.Close();
+            }
+            else
+            {
+                System.Windows.Forms.MessageBox.Show("Email or password is not provided","Error",System.Windows.Forms.MessageBoxButtons.OK);
+            }
         }
 
         //private void ins_Click(object sender, RoutedEventArgs e)

@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathYouCan", "MathYouCan\MathYouCan.csproj", "{8AA3E549-118D-43D5-9209-78A11B7AB5F3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActAPI", "ActAPI\ActAPI.csproj", "{F80A6845-A764-4415-A499-ED776239C5A2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{8AA3E549-118D-43D5-9209-78A11B7AB5F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8AA3E549-118D-43D5-9209-78A11B7AB5F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8AA3E549-118D-43D5-9209-78A11B7AB5F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F80A6845-A764-4415-A499-ED776239C5A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F80A6845-A764-4415-A499-ED776239C5A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F80A6845-A764-4415-A499-ED776239C5A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F80A6845-A764-4415-A499-ED776239C5A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
