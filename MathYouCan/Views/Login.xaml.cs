@@ -51,7 +51,7 @@ namespace MathYouCan.Views
             {
                 DataHandlerService dataHandlerService = new DataHandlerService();
 
-                dataHandlerService.GetLoginResult(mailTextBox.Text, passwordBox.Password);
+                //dataHandlerService.GetLoginResult(mailTextBox.Text, passwordBox.Password);
                 this.DialogResult = true;
                 this.Close();
             }
