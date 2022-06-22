@@ -1,19 +1,23 @@
 ﻿using ActAPI.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace ActAPI.Data
 {
-    public partial class ACTContext : DbContext
+    public partial class DataContext : DbContext, IDataContext
     {
-        public ACTContext()
+        private readonly string? _connectionString;
+        public DataContext()
         {
         }
-
-        public ACTContext(DbContextOptions<ACTContext> options)
+        public DataContext(DbContextOptions<DataContext> options)
             : base(options)
         {
         }
-
+        public DataContext(IOptions<DbConnectionInfo> dbConnectionInfo)
+        {
+            _connectionString = dbConnectionInfo.Value.SqlContext;
+        }
         public virtual DbSet<OfflineExam> OfflineExams { get; set; } = null!;
         public virtual DbSet<Question> Questions { get; set; } = null!;
         public virtual DbSet<QuestionAnswer> QuestionAnswers { get; set; } = null!;
@@ -21,10 +25,10 @@ namespace ActAPI.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=sql.bsite.net\\MSSQL2016;Database=kanan02_actdb;User ID=kanan02_actdb;Password=12345");
+                optionsBuilder.UseSqlServer(_connectionString);
             }
         }
 
