@@ -7,5 +7,6 @@ namespace ActAPI.Controllers
     [ApiController]
     public class OfflineExamController : ControllerBase
     {
+
     }
 }
