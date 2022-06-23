@@ -9,6 +9,7 @@ namespace ActAPI.Models
         public int Type { get; set; }
         public string? Text { get; set; }
         public string? PhotoName { get; set; }
+        public bool IsCorrect { get; set; }
         public int? QuestionId { get; set; }
 
         public virtual Question? Question { get; set; }

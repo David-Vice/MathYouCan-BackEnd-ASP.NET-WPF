@@ -25,7 +25,7 @@ namespace ActAPI.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            
+
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder.UseSqlServer(_connectionString);
@@ -44,7 +44,7 @@ namespace ActAPI.Data
                 entity.HasOne(d => d.Section)
                     .WithMany(p => p.Questions)
                     .HasForeignKey(d => d.SectionId)
-                    .HasConstraintName("FK__Questions__Secti__286302EC");
+                    .HasConstraintName("FK__Questions__Secti__4E88ABD4");
             });
 
             modelBuilder.Entity<QuestionAnswer>(entity =>
@@ -52,7 +52,7 @@ namespace ActAPI.Data
                 entity.HasOne(d => d.Question)
                     .WithMany(p => p.QuestionAnswers)
                     .HasForeignKey(d => d.QuestionId)
-                    .HasConstraintName("FK__QuestionA__Quest__2B3F6F97");
+                    .HasConstraintName("FK__QuestionA__Quest__5165187F");
             });
 
             modelBuilder.Entity<Section>(entity =>
@@ -62,7 +62,7 @@ namespace ActAPI.Data
                 entity.HasOne(d => d.OfflineExam)
                     .WithMany(p => p.Sections)
                     .HasForeignKey(d => d.OfflineExamId)
-                    .HasConstraintName("FK__Sections__Offlin__25869641");
+                    .HasConstraintName("FK__Sections__Offlin__4BAC3F29");
             });
 
             OnModelCreatingPartial(modelBuilder);
