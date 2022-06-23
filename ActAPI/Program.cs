@@ -1,4 +1,6 @@
 using ActAPI.Data;
+using ActAPI.Services;
+using ActAPI.Services.Abstract;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.Configure<DbConnectionInfo>(settings => builder.Configuration.GetSection("ConnectionStrings").Bind(settings));
 builder.Services.AddScoped<IDataContext, DataContext>();
+builder.Services.AddScoped<IOfflineExamService,OfflineExamService>();
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
