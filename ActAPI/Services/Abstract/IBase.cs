@@ -6,6 +6,6 @@
         Task<IEnumerable<T?>> GetAll();
         Task Add(T obj);
         Task Delete(T obj);
-        Task<T> Update(T obj);
+        Task<T> Update(T objToUpdate, T source);
     }
 }

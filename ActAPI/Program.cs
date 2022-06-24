@@ -13,6 +13,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.Configure<DbConnectionInfo>(settings => builder.Configuration.GetSection("ConnectionStrings").Bind(settings));
 builder.Services.AddScoped<IDataContext, DataContext>();
 builder.Services.AddScoped<IOfflineExamService,OfflineExamService>();
+builder.Services.AddScoped<ISectionService, SectionService>();
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

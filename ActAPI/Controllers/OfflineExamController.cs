@@ -25,7 +25,7 @@ namespace ActAPI.Controllers
             var exam = await _offlineExamService.Get(id);
             if (exam == null)
             {
-                return NotFound($"Exam with id {id} is not found");
+                return NotFound($"Exam with id {id} was not found");
             }
 
             return Ok(exam);
@@ -46,7 +46,7 @@ namespace ActAPI.Controllers
             var itemToDelete = await _offlineExamService.Get(id);
             if (itemToDelete == null)
             {
-                return NotFound($"Exam with id {id} is not found");
+                return NotFound($"Exam with id {id} was not found");
             }
             await _offlineExamService.Delete(itemToDelete);
             return Ok(id);
@@ -58,9 +58,9 @@ namespace ActAPI.Controllers
             {
                 var itemToUpdate = await _offlineExamService.Get(id);
                 if (itemToUpdate == null)
-                    return NotFound($"Exam with id {id} is not found");
+                    return NotFound($"Exam with id {id} was not found");
 
-                return await _offlineExamService.Update(offlineExam);
+                return await _offlineExamService.Update(itemToUpdate, offlineExam);
             }
             catch (Exception)
             {

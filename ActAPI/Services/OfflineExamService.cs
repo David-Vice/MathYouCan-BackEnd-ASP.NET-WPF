@@ -41,24 +41,26 @@ namespace ActAPI.Services
             return await _dataContext.OfflineExams.ToListAsync();
         }
 
-        public async Task<OfflineExam> Update(OfflineExam obj)
+        /// <summary>
+        /// </summary>
+        /// <param name="objToUpdate"> Object of type OfflineExam to be updated </param>
+        /// <param name="source"> Object of type OfflineExam as source </param>
+        /// <returns> Updated object </returns>
+        /// <exception cref="NullReferenceException"> Provided objToUpdate had reference to null </exception>
+        public async Task<OfflineExam> Update(OfflineExam objToUpdate, OfflineExam source)
         {
-            //var itemToUpdate = await _context.Users.FindAsync(id);
-            //if (itemToUpdate == null)
-            //{
-            //    throw new NullReferenceException();
-            //}
-            var result = _dataContext.OfflineExams.SingleOrDefault(e => e.Id == obj.Id);
-            if (result != null)
+            if (objToUpdate != null)
             {
-                result.StartTime = obj.StartTime;
-                result.EndTime = obj.EndTime;
-                result.Sections = obj.Sections;
-                result.Name = obj.Name;
-                result.Date = obj.Date;
+                objToUpdate.StartTime = source.StartTime;
+                objToUpdate.EndTime = source.EndTime;
+                objToUpdate.Sections = source.Sections;
+                objToUpdate.Name = source.Name;
+                objToUpdate.Date = source.Date;
                 await _dataContext.SaveChangesAsync();
+                return objToUpdate;
             }
-            return obj;
+
+            throw new NullReferenceException();
         }
     }
 }
