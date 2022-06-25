@@ -30,6 +30,7 @@ namespace ActAPI.Controllers
             })
             .ToArray();
         }
+
         [HttpPost]
         public ActionResult<string> UploadFile(IFormFile formFile)
         {
@@ -49,7 +50,6 @@ namespace ActAPI.Controllers
                 return Ok(filepath);
             }
             return BadRequest("File not provided!");
-
         }
     }
 }

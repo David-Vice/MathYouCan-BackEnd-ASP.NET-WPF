@@ -30,7 +30,6 @@ namespace ActAPI.Controllers
             return Ok(await _sectionService.GetAll());
         }
 
-
         [HttpPost] 
         public async Task<ActionResult>  CreateSection(Section section)
         {
@@ -46,7 +45,6 @@ namespace ActAPI.Controllers
             {
                 return NotFound("Exam with provided id does not exist or refences to null");
             }
-
         }
 
         [HttpDelete("{id}")]
@@ -73,8 +71,6 @@ namespace ActAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     "Error updating data");
             }
-
         }
-
     }
 }
