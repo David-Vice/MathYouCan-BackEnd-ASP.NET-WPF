@@ -38,7 +38,7 @@ namespace ActAPI.Services
 
         public async Task<IEnumerable<OfflineExam?>> GetAll()
         {
-            return await _dataContext.OfflineExams.ToListAsync();
+            return await _dataContext.OfflineExams.ToListAsync(); ;
         }
 
         /// <summary>

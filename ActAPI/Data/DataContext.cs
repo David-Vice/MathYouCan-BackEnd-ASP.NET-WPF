@@ -28,7 +28,7 @@ namespace ActAPI.Data
 
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(_connectionString);
+                optionsBuilder.UseLazyLoadingProxies().UseSqlServer(_connectionString);
             }
         }
 
