@@ -27,17 +27,6 @@ namespace ActAPI.Services
             try
             {
                 if (obj.OfflineExamId == null) throw new NullReferenceException();
-
-                //OfflineExam? offlineExam = null;
-                //if (offlineExam == null) throw new NullReferenceException();
-
-                // adding exam to OfflineExam property of section
-                //obj.OfflineExam = _offlineExamService.Get(obj.OfflineExamId.Value).Result; //_dataContext.OfflineExams.Where(x => x.Id == obj.OfflineExamId).FirstOrDefault();
-
-                // adding section to Sections collection of offline exam
-                //_dataContext.OfflineExams.Where(x => x.Id == obj.OfflineExamId).FirstOrDefault().Sections.Add(obj);
-
-                // adding section to Sections table of db
                 _dataContext.Sections.Add(obj);
 
 
