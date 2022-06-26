@@ -16,6 +16,8 @@ builder.Services.Configure<DbConnectionInfo>(settings => builder.Configuration.G
 builder.Services.AddScoped<IDataContext, DataContext>();
 builder.Services.AddScoped<IOfflineExamService,OfflineExamService>();
 builder.Services.AddScoped<ISectionService, SectionService>();
+builder.Services.AddScoped<IQuestionService, QuestionService>();
+builder.Services.AddScoped<IQuestionAnswerService, QuestionAnswerService>();
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
