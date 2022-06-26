@@ -1,4 +1,6 @@
+using ActAPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Http.Headers;
 
 namespace ActAPI.Controllers
 {
@@ -31,25 +33,6 @@ namespace ActAPI.Controllers
             .ToArray();
         }
 
-        [HttpPost]
-        public ActionResult<string> UploadFile(IFormFile formFile)
-        {
-            if (formFile.Length > 0)
-            {
-                string path = Path.Combine(_hostingEnvironment.ContentRootPath, "Uploads");
-                if (!Directory.Exists(path))
-                {
-                    Directory.CreateDirectory(path);
-                }
-                string fileName = Path.GetFileName(formFile.FileName);
-                string filepath = Path.Combine(path, fileName);
-                using (FileStream stream = new FileStream(filepath, FileMode.Create))
-                {
-                    formFile.CopyTo(stream);
-                }
-                return Ok(filepath);
-            }
-            return BadRequest("File not provided!");
-        }
+        
     }
 }
