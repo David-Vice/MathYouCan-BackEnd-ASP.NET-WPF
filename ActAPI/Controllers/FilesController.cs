@@ -40,14 +40,17 @@ namespace ActAPI.Controllers
                     if (formFile.Length > 0)
                     {
                         var fileName = ContentDispositionHeaderValue.Parse(formFile.ContentDisposition).FileName.Trim('"');
-                        fileName = $"{type}{objId}_" + fileName;
+                        string ext = Path.GetExtension(fileName);
+                        fileName = $"{type}{objId}{ext}";
                        // var fileName = $"{type}{objId}"+;
+                        
                         var fullPath = Path.Combine(pathToSave, fileName);
                         var dbPath = Path.Combine(folderName, fileName);
                         using (FileStream stream = new FileStream(fullPath, FileMode.Create))
                         {
                             formFile.CopyTo(stream);
                         }
+                        SaveFilePath(objId, dbPath, type);
                         return Ok(new { dbPath });
                     }
                     else
@@ -67,7 +70,24 @@ namespace ActAPI.Controllers
                 throw;
             }
         }
-
+        private async void SaveFilePath(int objId,string path, char type)
+        {
+            if (type == 'q')
+            {
+                Question? q = await _questionService.Get(objId);
+                Question? source = q;
+                source.PhotoName = path;
+                await _questionService.Update(q, source);
+            }
+            else
+            {
+                QuestionAnswer? a = await _questionAnswerService.Get(objId);
+                QuestionAnswer? source= a;
+                source.PhotoName= path;
+                await _questionAnswerService.Update(a, source);
+                
+            }
+        }
         private async Task<int?> GetOfflineExamIdByType(int objId,char type)
         {
 

@@ -25,6 +25,7 @@
   <ItemGroup>
     <Folder Include="Dtos\" />
     <Folder Include="Uploads\" />
+    <Folder Include="Uploads\4\" />
   </ItemGroup>
 
 </Project>
