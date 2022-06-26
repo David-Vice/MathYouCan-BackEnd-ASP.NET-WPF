@@ -1,4 +1,5 @@
-﻿using ActAPI.Models;
+﻿using ActAPI.Handlers;
+using ActAPI.Models;
 using ActAPI.Services.Abstract;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -7,7 +8,7 @@ namespace ActAPI.Controllers
 {
     [Route("api/[controller]s")]
     [ApiController]
-    public class QuestionController : Controller
+    public class QuestionController : ControllerBase
     {
         private readonly IQuestionService _questionService;
         public QuestionController(IQuestionService questionService)
@@ -30,7 +31,7 @@ namespace ActAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddQuestion(Question question)
+        public async Task<ActionResult> AddQuestion([ModelBinder(BinderType = typeof(JsonModelBinder))] Question question,IFormFile formFile)
         {
             try
             {
@@ -38,6 +39,11 @@ namespace ActAPI.Controllers
                 if (question.SectionId == null)
                     return BadRequest("Could not connect question to section, because section id was not provided");
                 await _questionService.Add(question);
+                if (formFile != null)
+                {
+                    question.PhotoName = await FileHandler.UploadFile(question.Section.OfflineExamId, formFile, question.Id, 'a');
+                    await _questionService.Update(question, question);
+                }
                 return Ok(question.Id);
             }
             catch (NullReferenceException)

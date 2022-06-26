@@ -1,4 +1,5 @@
-﻿using ActAPI.Models;
+﻿using ActAPI.Handlers;
+using ActAPI.Models;
 using ActAPI.Services.Abstract;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -7,7 +8,7 @@ namespace ActAPI.Controllers
 {
     [Route("api/[controller]s")]
     [ApiController]
-    public class QuestionAnswerController : Controller
+    public class QuestionAnswerController : ControllerBase
     {
         private readonly IQuestionAnswerService _questionAnswerService;
         public QuestionAnswerController(IQuestionAnswerService questionAnswerService)
@@ -30,7 +31,7 @@ namespace ActAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddQuestionAnswer(QuestionAnswer questionAnswer)
+        public async Task<ActionResult> AddQuestionAnswer([ModelBinder(BinderType = typeof(JsonModelBinder))] QuestionAnswer questionAnswer,IFormFile formFile)
         {
             try
             {
@@ -38,6 +39,12 @@ namespace ActAPI.Controllers
                 if (questionAnswer.QuestionId == null)
                     return BadRequest("Could not connect question answer to question, because question id was not provided");
                 await _questionAnswerService.Add(questionAnswer);
+                if (formFile!=null)
+                {
+                    questionAnswer.PhotoName= await FileHandler.UploadFile(questionAnswer.Question.Section.OfflineExamId, formFile,questionAnswer.Id ,'a');
+                    await _questionAnswerService.Update(questionAnswer, questionAnswer);
+                }
+
                 return Ok(questionAnswer.Id);
             }
             catch (NullReferenceException)
