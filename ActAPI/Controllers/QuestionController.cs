@@ -31,7 +31,7 @@ namespace ActAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddQuestion([ModelBinder(BinderType = typeof(JsonModelBinder))] Question question,IFormFile formFile)
+        public async Task<ActionResult> AddQuestion([ModelBinder(BinderType = typeof(JsonModelBinder))]Question question, IFormFile? formFile)
         {
             try
             {
