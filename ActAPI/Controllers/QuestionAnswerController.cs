@@ -11,9 +11,11 @@ namespace ActAPI.Controllers
     public class QuestionAnswerController : ControllerBase
     {
         private readonly IQuestionAnswerService _questionAnswerService;
-        public QuestionAnswerController(IQuestionAnswerService questionAnswerService)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public QuestionAnswerController(IQuestionAnswerService questionAnswerService, IWebHostEnvironment webHostEnvironment)
         {
             _questionAnswerService = questionAnswerService;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         [HttpGet("{id}")]
@@ -39,12 +41,6 @@ namespace ActAPI.Controllers
                 if (questionAnswer.QuestionId == null)
                     return BadRequest("Could not connect question answer to question, because question id was not provided");
                 await _questionAnswerService.Add(questionAnswer);
-                if (formFile!=null)
-                {
-                    questionAnswer.PhotoName= await FileHandler.UploadFile(questionAnswer.Question.Section.OfflineExamId, formFile,questionAnswer.Id ,'a');
-                    await _questionAnswerService.Update(questionAnswer, questionAnswer);
-                }
-
                 return Ok(questionAnswer.Id);
             }
             catch (NullReferenceException)
@@ -77,5 +73,26 @@ namespace ActAPI.Controllers
                     "Error updating data");
             }
         }
+        [HttpPut("{id}/UploadImage")]
+        public async Task<ActionResult> UploadImage(int id, IFormFile formFile)
+        {
+            try
+            {
+                if (formFile == null) return BadRequest("To file provided");
+
+                QuestionAnswer? questionAnswer = _questionAnswerService.Get(id).Result;
+                if (questionAnswer == null) return NotFound($"No quetion with id: {id} exist!");
+
+                questionAnswer.PhotoName = await FileHandler.UploadFile(_webHostEnvironment, questionAnswer.Question?.Section?.OfflineExamId, formFile, id, 'a');
+                await _questionAnswerService.Update(questionAnswer, questionAnswer);
+
+                return Ok(id);
+            }
+            catch (Exception)
+            {
+                return BadRequest("Unable to upload image");
+            }
+        }
+
     }
 }

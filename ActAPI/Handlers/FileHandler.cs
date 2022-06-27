@@ -7,7 +7,7 @@ namespace ActAPI.Handlers
     public static class FileHandler
     {
         
-        public async static Task<string> UploadFile(int? offlineExamId,IFormFile formFile, int objId, char type)
+        public async static Task<string> UploadFile(IWebHostEnvironment webHostEnvironment,int? offlineExamId,IFormFile formFile, int objId, char type)
         {
             try
             {
@@ -15,11 +15,13 @@ namespace ActAPI.Handlers
                 // IFormFile formFile = this.Request.Form.Files[0];
 
               //  int? offlineExamId = await GetOfflineExamIdByType(questionService,questionAnswerService,objId, type);
+                
                 if (offlineExamId.HasValue&& offlineExamId > 0)
                 {
 
-                    var folderName = Path.Combine("Uploads", $"{offlineExamId}");
-                    var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+                    //var folderName = Path.Combine("Uploads", $"{offlineExamId}");
+                    string rootPath = "";
+                    var pathToSave = Path.Combine(webHostEnvironment.ContentRootPath, "Uploads", $"{offlineExamId}");
                     if (!Directory.Exists(pathToSave))
                     {
                         Directory.CreateDirectory(pathToSave);
@@ -32,13 +34,14 @@ namespace ActAPI.Handlers
                         // var fileName = $"{type}{objId}"+;
 
                         var fullPath = Path.Combine(pathToSave, fileName);
-                        var dbPath = Path.Combine(folderName, fileName);
+                     //   var dbPath = Path.Combine(folderName, fileName);
                         using (FileStream stream = new FileStream(fullPath, FileMode.Create))
                         {
                             formFile.CopyTo(stream);
                         }
                       //  SaveFilePath(questionService,questionAnswerService,objId, dbPath, type);
-                        return   dbPath ;
+                        
+                        return   fullPath ;
                     }
                     else
                     {
@@ -57,50 +60,19 @@ namespace ActAPI.Handlers
                 throw;
             }
         }
-        private async static void SaveFilePath(IQuestionService questionService, IQuestionAnswerService questionAnswerService,int objId, string path, char type)
-        {
-            if (type == 'q')
+       public static void Delete(string? path)
+       {
+            if (path != null)
             {
-                Question? q = await questionService.Get(objId);
-                Question? source = q;
-                source.PhotoName = path;
-                await questionService.Update(q, source);
-            }
-            else
-            {
-                QuestionAnswer? a = await questionAnswerService.Get(objId);
-                QuestionAnswer? source = a;
-                source.PhotoName = path;
-                await questionAnswerService.Update(a, source);
-
-            }
-        }
-        private async static Task<int?> GetOfflineExamIdByType(IQuestionService questionService, IQuestionAnswerService questionAnswerService,int objId, char type)
-        {
-
-            if (type == 'q')
-            {
-                Question? q = await questionService.Get(objId);
-                if (q != null)
+                FileInfo fi = new FileInfo(path);
+                if (fi.Exists)
                 {
-                    return q.Section?.OfflineExamId;
+
+                    File.Delete(path);
                 }
-                else { return null; }
             }
-            else if (type == 'a')
-            {
-                QuestionAnswer? a = await questionAnswerService.Get(objId);
-                if (a != null)
-                {
-                    return a.Question?.Section?.OfflineExamId;
-                }
-                else { return null; }
-            }
-            else
-            {
-                return -1;
-            }
-        }
+
+       }
     }
 }
 

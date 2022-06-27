@@ -10,11 +10,11 @@ namespace ActAPI.Controllers
     public class QuestionController : ControllerBase
     {
         private readonly IQuestionService _questionService;
-        private readonly IQuestionAnswerService _questionAnswerService;
-        public QuestionController(IQuestionService questionService, IQuestionAnswerService questionAnswerService)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public QuestionController(IQuestionService questionService,IWebHostEnvironment webHostEnvironment)
         {
             _questionService = questionService;
-            _questionAnswerService = questionAnswerService;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         [HttpGet("{id}")]
@@ -64,14 +64,14 @@ namespace ActAPI.Controllers
                 Question? question = _questionService.Get(id).Result;
                 if (question == null) return NotFound($"No quetion with id: {id} exist!");
 
-                question.PhotoName = await FileHandler.UploadFile(question.Section.OfflineExamId, formFile, id, 'q');
+                question.PhotoName = await FileHandler.UploadFile(_webHostEnvironment,question.Section?.OfflineExamId, formFile, id, 'q');
                 await _questionService.Update(question, question);
 
                 return Ok(id);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return BadRequest("Unable to upload image");
+                return BadRequest(e.Message);
             }
         }
 

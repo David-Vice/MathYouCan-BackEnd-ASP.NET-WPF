@@ -1,4 +1,5 @@
 ﻿using ActAPI.Data;
+using ActAPI.Handlers;
 using ActAPI.Models;
 using ActAPI.Services.Abstract;
 using Microsoft.EntityFrameworkCore;
@@ -33,6 +34,7 @@ namespace ActAPI.Services
 
         public async Task Delete(QuestionAnswer obj)
         {
+            FileHandler.Delete(obj.PhotoName);
             _dataContext.QuestionAnswers.Remove(obj);
             await _dataContext.SaveChangesAsync();
         }
