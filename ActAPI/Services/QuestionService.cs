@@ -8,10 +8,12 @@ namespace ActAPI.Services
     public class QuestionService : IQuestionService
     {
         private readonly IDataContext _dataContext;
+        private readonly IQuestionAnswerService _questionAnswerService;
 
-        public QuestionService(IDataContext dataContext)
+        public QuestionService(IDataContext dataContext, IQuestionAnswerService questionAnswerService)
         {
             _dataContext = dataContext;
+            _questionAnswerService = questionAnswerService;
         }
 
         public async Task Add(Question obj)
@@ -31,8 +33,18 @@ namespace ActAPI.Services
             }
         }
 
+        /// <summary>
+        /// Deletes question and all answers connected to it
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public async Task Delete(Question obj)
         {
+            foreach (QuestionAnswer a in obj.QuestionAnswers)
+            {
+                await _questionAnswerService.Delete(a);
+            }
+
             _dataContext.Questions.Remove(obj);
             await _dataContext.SaveChangesAsync();
         }

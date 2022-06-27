@@ -8,12 +8,12 @@ namespace ActAPI.Services
     public class SectionService : ISectionService
     {
         private readonly IDataContext _dataContext;
-        private readonly IOfflineExamService _offlineExamService;
+        private readonly IQuestionService _questionService;
 
-        public SectionService(IDataContext dataContext, IOfflineExamService offlineExamService)
+        public SectionService(IDataContext dataContext, IQuestionService questionService)
         {
             _dataContext = dataContext;
-            _offlineExamService = offlineExamService;
+            _questionService = questionService;
         }
 
         /// <summary>
@@ -29,7 +29,6 @@ namespace ActAPI.Services
                 if (obj.OfflineExamId == null) throw new NullReferenceException();
                 _dataContext.Sections.Add(obj);
 
-
                 await _dataContext.SaveChangesAsync();
             }
             catch (Exception)
@@ -39,8 +38,18 @@ namespace ActAPI.Services
             
         }
 
+        /// <summary>
+        /// Deletes section and all questions and answers connected to that quesiton
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public async Task Delete(Section obj)
         {
+            foreach (Question q in obj.Questions)
+            {
+                await _questionService.Delete(q);
+            }
+
             _dataContext.Sections.Remove(obj);
             await _dataContext.SaveChangesAsync();
         }

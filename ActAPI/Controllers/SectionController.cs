@@ -1,6 +1,5 @@
 ﻿using ActAPI.Models;
 using ActAPI.Services.Abstract;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ActAPI.Controllers
@@ -10,10 +9,12 @@ namespace ActAPI.Controllers
     public class SectionController : ControllerBase
     {
         private readonly ISectionService _sectionService;
+        private readonly IQuestionService _questionService;
 
-        public SectionController(ISectionService sectionService)
+        public SectionController(ISectionService sectionService, IQuestionService questionService)
         {
             _sectionService = sectionService;
+            _questionService = questionService;
         }
 
         [HttpGet("{id}")]
@@ -23,15 +24,15 @@ namespace ActAPI.Controllers
             if (section == null) return NotFound($"Section with id: {id} was not found");
             return Ok(section);
         }
-        
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Section>>> GetAll()
         {
             return Ok(await _sectionService.GetAll());
         }
 
-        [HttpPost] 
-        public async Task<ActionResult>  CreateSection(Section section)
+        [HttpPost]
+        public async Task<ActionResult> CreateSection(Section section, int questionsNumber)
         {
             try
             {
@@ -39,6 +40,13 @@ namespace ActAPI.Controllers
                 if (section.OfflineExamId == null)
                     return BadRequest("Could not connect section to exam, because exam id was not provided");
                 await _sectionService.Add(section);
+
+                for (int i = 0; i < questionsNumber; i++)
+                {
+                    Question q = new Question() { Type = 0, PhotoName = "", QuestionContent = "", Text = "", SectionId = section.Id };
+                    await _questionService.Add(q);
+                }
+
                 return Ok(section.Id);
             }
             catch (NullReferenceException)
@@ -52,6 +60,7 @@ namespace ActAPI.Controllers
         {
             var sectionToDelete = await _sectionService.Get(id);
             if (sectionToDelete == null) return NotFound($"Section with id: {id} was not found");
+
             await _sectionService.Delete(sectionToDelete);
             return Ok(id);
         }

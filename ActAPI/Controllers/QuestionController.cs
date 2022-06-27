@@ -1,7 +1,6 @@
 ﻿using ActAPI.Handlers;
 using ActAPI.Models;
 using ActAPI.Services.Abstract;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ActAPI.Controllers
@@ -11,9 +10,11 @@ namespace ActAPI.Controllers
     public class QuestionController : ControllerBase
     {
         private readonly IQuestionService _questionService;
-        public QuestionController(IQuestionService questionService)
+        private readonly IQuestionAnswerService _questionAnswerService;
+        public QuestionController(IQuestionService questionService, IQuestionAnswerService questionAnswerService)
         {
             _questionService = questionService;
+            _questionAnswerService = questionAnswerService;
         }
 
         [HttpGet("{id}")]
@@ -31,7 +32,8 @@ namespace ActAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddQuestion([ModelBinder(BinderType = typeof(JsonModelBinder))]Question question, IFormFile? formFile)
+        //public async Task<ActionResult> AddQuestion([ModelBinder(BinderType = typeof(JsonModelBinder))]Question question, IFormFile? formFile)
+        public async Task<ActionResult> AddQuestion(Question question)
         {
             try
             {
@@ -39,11 +41,11 @@ namespace ActAPI.Controllers
                 if (question.SectionId == null)
                     return BadRequest("Could not connect question to section, because section id was not provided");
                 await _questionService.Add(question);
-                if (formFile != null)
-                {
-                    question.PhotoName = await FileHandler.UploadFile(question.Section.OfflineExamId, formFile, question.Id, 'a');
-                    await _questionService.Update(question, question);
-                }
+                //if (formFile != null)
+                //{
+                //    question.PhotoName = await FileHandler.UploadFile(question.Section.OfflineExamId, formFile, question.Id, 'q');
+                //    await _questionService.Update(question, question);
+                //}
                 return Ok(question.Id);
             }
             catch (NullReferenceException)
@@ -52,11 +54,33 @@ namespace ActAPI.Controllers
             }
         }
 
+        [HttpPut("{id}/UploadImage")]
+        public async Task<ActionResult> UploadImage(int id, IFormFile formFile)
+        {
+            try
+            {
+                if (formFile == null) return BadRequest("To file provided");
+
+                Question? question = _questionService.Get(id).Result;
+                if (question == null) return NotFound($"No quetion with id: {id} exist!");
+
+                question.PhotoName = await FileHandler.UploadFile(question.Section.OfflineExamId, formFile, id, 'q');
+                await _questionService.Update(question, question);
+
+                return Ok(id);
+            }
+            catch (Exception)
+            {
+                return BadRequest("Unable to upload image");
+            }
+        }
+
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteQuestion(int id)
         {
             var questionToDelete = await _questionService.Get(id);
             if (questionToDelete == null) return NotFound($"Question with id: {id} was not found");
+
             await _questionService.Delete(questionToDelete);
             return Ok(id);
         }

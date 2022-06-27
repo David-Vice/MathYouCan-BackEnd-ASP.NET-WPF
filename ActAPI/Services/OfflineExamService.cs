@@ -8,9 +8,12 @@ namespace ActAPI.Services
     public class OfflineExamService:IOfflineExamService
     {
         private readonly IDataContext _dataContext;
-        public OfflineExamService(IDataContext dataContext)
+        private readonly ISectionService _sectionService;
+
+        public OfflineExamService(IDataContext dataContext, ISectionService sectionService)
         {
             _dataContext = dataContext;
+            _sectionService = sectionService;
         }
 
         public async Task Add(OfflineExam obj)
@@ -20,13 +23,18 @@ namespace ActAPI.Services
            
         }
 
+        /// <summary>
+        /// Deletes offline exam and all sections, questions, answers connected to it
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public async Task Delete(OfflineExam obj)
         {
-            //var itemToDelete = await _context.Users.FindAsync(id);
-            //if (itemToDelete == null)
-            //{
-            //    throw new NullReferenceException();
-            //}
+            foreach (Section s in obj.Sections)
+            {
+                await _sectionService.Delete(s);
+            }
+
             _dataContext.OfflineExams.Remove(obj);
             await _dataContext.SaveChangesAsync();
         }
