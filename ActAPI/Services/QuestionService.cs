@@ -34,6 +34,27 @@ namespace ActAPI.Services
             }
         }
 
+        public async Task Add(Question obj, int numberOfAnswers)
+        {
+            try
+            {
+                if (obj.SectionId == null) throw new NullReferenceException();
+
+                _dataContext.Sections.Where(x => x.Id == obj.SectionId).FirstOrDefault().Questions.Add(obj);
+                _dataContext.Questions.Add(obj);
+
+                await _dataContext.SaveChangesAsync();
+                for (int i = 0; i < numberOfAnswers; i++)
+                {
+                    await _questionAnswerService.Add(new QuestionAnswer() { PhotoName = "", IsCorrect = false, QuestionId = obj.Id, Text = "", Type = 0 });
+                }
+            }
+            catch (Exception)
+            {
+                throw new NullReferenceException();
+            }
+        }
+
         /// <summary>
         /// Deletes question and all answers connected to it
         /// </summary>

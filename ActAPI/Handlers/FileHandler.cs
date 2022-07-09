@@ -21,7 +21,7 @@ namespace ActAPI.Handlers
 
                     //var folderName = Path.Combine("Uploads", $"{offlineExamId}");
                     string rootPath = "";
-                    var pathToSave = Path.Combine(webHostEnvironment.ContentRootPath, "Uploads", $"{offlineExamId}");
+                    var pathToSave = Path.Combine(webHostEnvironment.WebRootPath, "Uploads", $"{offlineExamId}");
                     if (!Directory.Exists(pathToSave))
                     {
                         Directory.CreateDirectory(pathToSave);
@@ -39,9 +39,14 @@ namespace ActAPI.Handlers
                         {
                             formFile.CopyTo(stream);
                         }
+                        string result = fullPath;
+                        if (webHostEnvironment.IsProduction())
+                        {
+                            result = "https://bsite.net/Kanan02/Uploads/" + $"{offlineExamId}" + $"/{fileName}";
+                        }
                       //  SaveFilePath(questionService,questionAnswerService,objId, dbPath, type);
                         
-                        return   fullPath ;
+                        return   result ;
                     }
                     else
                     {
@@ -62,7 +67,7 @@ namespace ActAPI.Handlers
         }
        public static void Delete(string? path)
        {
-            if (path != null)
+            if (path != null&&path!="")
             {
                 FileInfo fi = new FileInfo(path);
                 if (fi.Exists)
