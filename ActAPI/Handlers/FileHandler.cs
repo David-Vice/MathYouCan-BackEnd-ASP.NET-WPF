@@ -46,7 +46,7 @@ namespace ActAPI.Handlers
                         }
                       //  SaveFilePath(questionService,questionAnswerService,objId, dbPath, type);
                         
-                        return   result ;
+                        return   result+"&"+fullPath;
                     }
                     else
                     {
@@ -69,11 +69,12 @@ namespace ActAPI.Handlers
        {
             if (path != null&&path!="")
             {
-                FileInfo fi = new FileInfo(path);
+                string s = path.Split("&")[1];
+                FileInfo fi = new FileInfo(s);
                 if (fi.Exists)
                 {
 
-                    File.Delete(path);
+                    File.Delete(s);
                 }
             }
 
