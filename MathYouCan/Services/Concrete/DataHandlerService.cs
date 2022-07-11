@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using MathYouCan.Models.Exams;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,6 +44,25 @@ namespace MathYouCan.Services.Concrete
                
             }
         }
+
+        public async Task<OfflineExam> GetOfflineExam(int examId)
+        {
+
+
+            return null;
+        }
+
+
+        /// <summary>
+        /// Used in TestSelection.xaml to get all exam names
+        /// </summary>
+        /// <returns> List of string containing names of the exams </returns>
+        public async Task<IEnumerable<string>> GetAllOfflineExamNames()
+        {
+
+            return null;
+        }
+
     }
 }
 
