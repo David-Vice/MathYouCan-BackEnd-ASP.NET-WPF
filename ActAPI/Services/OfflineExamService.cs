@@ -1,5 +1,6 @@
 ﻿using ActAPI.Data;
 using ActAPI.Models;
+using ActAPI.Models.Dto;
 using ActAPI.Services.Abstract;
 using Microsoft.EntityFrameworkCore;
 
@@ -46,7 +47,14 @@ namespace ActAPI.Services
 
         public async Task<IEnumerable<OfflineExam?>> GetAll()
         {
-            return await _dataContext.OfflineExams.ToListAsync(); ;
+            return await _dataContext.OfflineExams.ToListAsync();
+        }
+
+        public IEnumerable<OfflineExamDetails> GetAllExamDetails()
+        {
+            IEnumerable<OfflineExam> offlineExams = _dataContext.OfflineExams;
+            IEnumerable<OfflineExamDetails> offlineExamDetails = offlineExams.Select(x => new OfflineExamDetails() { Id=x.Id, Name=x.Name, Date=x.Date, StartTime=x.StartTime, EndTime=x.EndTime});
+            return offlineExamDetails.ToList();
         }
 
         /// <summary>

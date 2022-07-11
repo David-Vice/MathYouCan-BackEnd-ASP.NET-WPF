@@ -1,4 +1,5 @@
 ﻿using ActAPI.Models;
+using ActAPI.Models.Dto;
 using ActAPI.Services.Abstract;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,6 +19,12 @@ namespace ActAPI.Controllers
         public async Task<ActionResult<IEnumerable<OfflineExam>>> GetAll()
         {
             return Ok(await _offlineExamService.GetAll());
+        }
+        [HttpGet]
+        [Route("ExamDetails")]
+        public ActionResult<IEnumerable<OfflineExamDetails>> GetAllExamDetails()
+        {
+            return Ok(_offlineExamService.GetAllExamDetails());
         }
         [HttpGet("{id}")]
         public async Task<ActionResult<OfflineExam>> GetById(int id)

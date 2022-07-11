@@ -32,19 +32,23 @@ namespace ActAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateSection(Section section, int questionsNumber)
+        public async Task<ActionResult> CreateSection(Section section, int questionsNumber,int answersNumber)
         {
             try
             {
                 if (section == null) return BadRequest("Section was not provided");
                 if (section.OfflineExamId == null)
                     return BadRequest("Could not connect section to exam, because exam id was not provided");
+                if (questionsNumber <=0)
+                    return BadRequest("Number of questions cannot be less than 1");
+                if (answersNumber <= 1)
+                    return BadRequest("Number of answers cannot be less than 2");
                 await _sectionService.Add(section);
 
                 for (int i = 0; i < questionsNumber; i++)
                 {
                     Question q = new Question() { Type = 0, PhotoName = "", QuestionContent = "", Text = "", SectionId = section.Id };
-                    await _questionService.Add(q);
+                    await _questionService.Add(q,answersNumber);
                 }
 
                 return Ok(section.Id);

@@ -33,14 +33,19 @@ namespace ActAPI.Controllers
 
         [HttpPost]
         //public async Task<ActionResult> AddQuestion([ModelBinder(BinderType = typeof(JsonModelBinder))]Question question, IFormFile? formFile)
-        public async Task<ActionResult> AddQuestion(Question question)
+        public async Task<ActionResult> AddQuestion(Question question,int numberOfAnswers)
         {
             try
             {
                 if (question == null) return BadRequest("Question was not provided");
                 if (question.SectionId == null)
                     return BadRequest("Could not connect question to section, because section id was not provided");
-                await _questionService.Add(question);
+                if (numberOfAnswers<=1)
+                {
+                    return BadRequest("Number of answers cannot be less than 2");
+
+                }
+                await _questionService.Add(question,numberOfAnswers);
                 //if (formFile != null)
                 //{
                 //    question.PhotoName = await FileHandler.UploadFile(question.Section.OfflineExamId, formFile, question.Id, 'q');
