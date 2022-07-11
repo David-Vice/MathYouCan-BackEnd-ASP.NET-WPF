@@ -31,7 +31,7 @@ namespace MathYouCan.Views
         private void FillListBox()
         {
             //DataHandlerService dataHandlerService = new DataHandlerService();
-            //await dataHandlerService.GetAllOfflineExamNames();
+            //dataHandlerService.GetAllOfflineExamNames();
 
             for (int i = 0; i < 50; i++)
             {

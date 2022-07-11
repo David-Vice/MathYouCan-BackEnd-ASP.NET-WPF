@@ -1,10 +1,7 @@
 ﻿using MathYouCan.Models.Exams;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -15,6 +12,13 @@ namespace MathYouCan.Services.Concrete
     {
         
         private string _token;
+        private string _url;
+
+        public DataHandlerService()
+        {
+            _url = "https://bsite.net/Kanan02/api";
+        }
+
         public void GetLoginResult(string mail, string password)
         {
             using (var client = new HttpClient())
@@ -57,10 +61,16 @@ namespace MathYouCan.Services.Concrete
         /// Used in TestSelection.xaml to get all exam names
         /// </summary>
         /// <returns> List of string containing names of the exams </returns>
-        public async Task<IEnumerable<string>> GetAllOfflineExamNames()
+        public void GetAllOfflineExamNames()
         {
-
-            return null;
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new System.Uri(_url);
+            client.DefaultRequestHeaders.Accept.Add(
+               new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json")
+            );
+            var response = client.GetStringAsync("/OfflineExams/ExamDetails").Result;
+            IEnumerable<OfflineExam> offlineExam = JsonConvert.DeserializeObject<IEnumerable<OfflineExam>>(response);
+      
         }
 
     }
