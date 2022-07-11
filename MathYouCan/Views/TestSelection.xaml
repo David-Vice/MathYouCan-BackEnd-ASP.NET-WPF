@@ -64,7 +64,8 @@
             <ListBox Name="examsListBox" 
                      Grid.Row="1" 
                      Grid.Column="1"
-                     Grid.ColumnSpan="2"></ListBox>
+                     Grid.ColumnSpan="2"
+                     SelectionChanged="examsListBox_SelectionChanged"></ListBox>
             
         </Grid>
         

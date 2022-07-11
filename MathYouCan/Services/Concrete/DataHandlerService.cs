@@ -12,11 +12,11 @@ namespace MathYouCan.Services.Concrete
     {
         
         private string _token;
-        private string _url;
+        private string _uri;
 
         public DataHandlerService()
         {
-            _url = "https://bsite.net/Kanan02/api";
+            _uri = "https://bsite.net";
         }
 
         public void GetLoginResult(string mail, string password)
@@ -61,16 +61,18 @@ namespace MathYouCan.Services.Concrete
         /// Used in TestSelection.xaml to get all exam names
         /// </summary>
         /// <returns> List of string containing names of the exams </returns>
-        public void GetAllOfflineExamNames()
+        public IEnumerable<OfflineExam> GetAllOfflineExams()
         {
             HttpClient client = new HttpClient();
-            client.BaseAddress = new System.Uri(_url);
+            client.BaseAddress = new System.Uri(_uri);
             client.DefaultRequestHeaders.Accept.Add(
                new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json")
             );
-            var response = client.GetStringAsync("/OfflineExams/ExamDetails").Result;
-            IEnumerable<OfflineExam> offlineExam = JsonConvert.DeserializeObject<IEnumerable<OfflineExam>>(response);
-      
+            HttpResponseMessage response = client.GetAsync("/Kanan02/api/OfflineExams/ExamDetails").Result;
+            string content = response.Content.ReadAsStringAsync().Result;
+
+            IEnumerable<OfflineExam> offlineExams = JsonConvert.DeserializeObject<IEnumerable<OfflineExam>>(content);
+            return offlineExams;
         }
 
     }
