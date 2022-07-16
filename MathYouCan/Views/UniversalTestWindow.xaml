@@ -130,9 +130,9 @@
                         <ColumnDefinition Width="0.1*"></ColumnDefinition>
                         <ColumnDefinition Width="0.7*"></ColumnDefinition>
                         <ColumnDefinition Width="0.1*"></ColumnDefinition>
-                        <ColumnDefinition  Width="0.7*"></ColumnDefinition>
+                        <ColumnDefinition Width="0.7*"></ColumnDefinition>
                         <ColumnDefinition Width="0.1*"></ColumnDefinition>
-                        <ColumnDefinition  Width="0.6*"></ColumnDefinition>
+                        <ColumnDefinition Width="0.6*"></ColumnDefinition>
                         <ColumnDefinition Width="0.2*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Image Grid.Column="1" Name="actLogoImage" Source="pack://application:,,,/Img/large.png" RenderOptions.BitmapScalingMode="HighQuality"/>

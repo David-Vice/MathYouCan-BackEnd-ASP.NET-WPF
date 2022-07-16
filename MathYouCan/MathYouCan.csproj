@@ -63,6 +63,7 @@
     <Compile Include="Converters\TextToFlowDocumentConverter.cs" />
     <Compile Include="Models\Enums\AnswerType.cs" />
     <Compile Include="Models\Enums\QuestionType.cs" />
+    <Compile Include="Models\ExamResults.cs" />
     <Compile Include="Models\Exams\OfflineExam.cs" />
     <Compile Include="Models\Exams\Question.cs" />
     <Compile Include="Models\Exams\QuestionAnswer.cs" />

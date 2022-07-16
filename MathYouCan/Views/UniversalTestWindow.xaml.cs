@@ -83,8 +83,8 @@ namespace MathYouCan.Views
 
         private void FillQuestion()
         {
-           _universalTestViewModel.FillQuestionPassage(questionPassageParagraph);
-            _universalTestViewModel.FillImage(imageContainer);
+           _universalTestViewModel.FillQuestionInfo(questionPassageParagraph, questionTextBlock);
+           _universalTestViewModel.FillImage(imageContainer);
            _universalTestViewModel.FillAnswers(this,answersPerQuestion);
         }
 
@@ -145,7 +145,7 @@ namespace MathYouCan.Views
                 var answerRadio = (RadioButton)this.FindName($"RadioAns{i + 1}");
                 if(isAnswered  && answerRadio.IsVisible)
                 {
-                    if (((List<QuestionAnswer>)_universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].Question.Answers)[i].Id == _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].ChosenAnswerId)
+                    if (((List<QuestionAnswer>)_universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].Question.QuestionAnswers)[i].Id == _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].ChosenAnswerId)
                     {
                         answerRadio.IsChecked = true;
                     }
@@ -168,7 +168,7 @@ namespace MathYouCan.Views
             var answerState = (Label)this.FindName($"stateQuestion{_universalTestViewModel.CurrentQuestionIndex}");
             answerState.Content = "Answered";
             _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].IsAnswered = true;
-            _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].ChosenAnswerId = ((List<QuestionAnswer>)_universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].Question.Answers)[(int)(sender as RadioButton).Content.ToString()[0] - 65].Id;   //(int)(sender as RadioButton).Content.ToString()[0] - 65;
+            _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].ChosenAnswerId = ((List<QuestionAnswer>)_universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].Question.QuestionAnswers)[(int)(sender as RadioButton).Content.ToString()[0] - 65].Id;   //(int)(sender as RadioButton).Content.ToString()[0] - 65;
         }
         private void Answer_Unchecked(object sender, RoutedEventArgs e)
         {

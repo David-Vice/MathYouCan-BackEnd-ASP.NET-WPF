@@ -31,12 +31,10 @@ namespace MathYouCan.Views
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //time check and so on
-            //
             List<UniversalTestWindow> windows = new List<UniversalTestWindow>();
             Close();
-           // if (_exam.StartTime.Add(TimeSpan.FromMinutes(30))>=DateTime.Now. )
-           // {
 
+            ResultsWindow resultsWindow = new ResultsWindow();
 
             for (int i = 0; i < _exam.Sections.Count(); i++)
             {
@@ -48,13 +46,17 @@ namespace MathYouCan.Views
                     
                 }
                 windows[i].ShowDialog();
+                //windows[i].
                 if (windows[i].ExamEnded)
                 {
                     break;
                 }
                     
             }
-           // }
+
+            resultsWindow.ShowDialog();
+
+
         }
     }
 }

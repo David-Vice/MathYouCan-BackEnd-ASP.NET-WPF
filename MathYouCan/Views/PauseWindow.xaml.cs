@@ -20,7 +20,7 @@ namespace MathYouCan.Views
     /// </summary>
     public partial class PauseWindow : Window
     {
-        TimeSpan _time = TimeSpan.FromSeconds(10*60-1);
+        TimeSpan _time = TimeSpan.FromSeconds(1*60-1);
         public PauseWindow()
         {
             InitializeComponent();

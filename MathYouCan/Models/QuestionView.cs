@@ -9,12 +9,6 @@ namespace MathYouCan.Models
 {
     public class QuestionView
     {
-      //  public string QuestionTitle { get; set; }
-
-     //   public string QuestionPassage { get; set; }
-
-      //  public string QuestionContent { get; set; }
-
         public Question Question { get; set; }
 
         public int ChosenAnswerId { get; set; }  // Undefined until the end of the test

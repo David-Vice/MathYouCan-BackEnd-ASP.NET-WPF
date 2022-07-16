@@ -20,11 +20,9 @@ namespace MathYouCan.Views
     {
         private InstructionWindowViewModel _instructionWindowViewModel;
         private List<Button> _buttons = new List<Button>();
-        private OfflineExam _exam;
-        public InstructionsWindow(OfflineExam exam)
+        public InstructionsWindow()
         {
             _instructionWindowViewModel = new InstructionWindowViewModel();
-            _exam = exam;
             InitializeComponent();
         }
 
@@ -223,10 +221,7 @@ namespace MathYouCan.Views
 
         private void acceptButton_Click(object sender, RoutedEventArgs e)
         {
-            Mainpage mainpage = new Mainpage(_exam);
             Close();
-            mainpage.ShowDialog();
-            
         }
 
        

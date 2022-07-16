@@ -50,7 +50,7 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Label Name="TimerLabel" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="65">
-                10:00
+                1:00
             </Label>
         </Grid>
     </Grid>

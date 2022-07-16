@@ -33,7 +33,7 @@ namespace MathYouCan.ViewModels
         public Brush HighLighteTextBrush { get; set; }  // Color of highlight
         public bool IsHighlightEnabled { get; set; } = false;
         public bool IsEliminatorEnabled { get; set; } = false;
-
+        public int NumberOfCorrectAnswers { get; set; } = 0;
 
         //потом этот метод должен принимать IEnumerable<Question>
         public UniversalTestViewModel(Section section)
@@ -62,7 +62,7 @@ namespace MathYouCan.ViewModels
             instruction.IsAnswered = true;
             
             instruction.Question = new Question();
-            instruction.Question.Answers = new List<QuestionAnswer>();
+            instruction.Question.QuestionAnswers = new List<QuestionAnswer>();
           
             instruction.Question.Text = ins.Header + "\n" + ins.InstructionText;
             Questions.Add(instruction);
@@ -71,7 +71,6 @@ namespace MathYouCan.ViewModels
             foreach (var item in _section.Questions)
             {
                 Questions.Add(new QuestionView() { Question = item  });
-
             }
 
         }
@@ -214,7 +213,8 @@ namespace MathYouCan.ViewModels
             {
                 timeLabel.Text = _time.ToString(@"mm\:ss");
                 progressBar.Value--;
-                if (_time == TimeSpan.Zero) { 
+                if (_time == TimeSpan.Zero)
+                {
                     dispatcherTimer.Stop();
                     SendResultAndExitWindow(window);
                 }
@@ -230,38 +230,71 @@ namespace MathYouCan.ViewModels
         //this method will be called when end_section_button clicked and when time is out
         public void SendResultAndExitWindow(UniversalTestWindow window)
         {
+            // calculating number of correct answers
+            for (int i = 0; i < Questions.Count; i++)
+            {
+                for (int j = 0; j < Questions[i].Question.QuestionAnswers.Count(); j++)
+                {
+                    if (Questions[i].ChosenAnswerId == Questions[i].Question.QuestionAnswers[j].Id && Questions[i].Question.QuestionAnswers[j].IsCorrect)
+                    {
+                        NumberOfCorrectAnswers++;
+                    } 
+                }
+            }
+
             window.Close();
-            
-            
         }
 
 
         #region Filling 
-        public void FillQuestionPassage(Paragraph questionPassageParagraph)
+        public void FillQuestionInfo(Paragraph questionPassageParagraph, TextBlock questionTextBlock)
         {
-            //=====================================================================
+            questionTextBlock.Visibility = Visibility.Visible;
+
+            if (Questions[CurrentQuestionIndex].Question.Text == String.Empty &&
+                Questions[CurrentQuestionIndex].Question.PhotoName == String.Empty)
+            {
+                Questions[CurrentQuestionIndex].Question.Text = Questions[CurrentQuestionIndex].Question.QuestionContent;
+                questionTextBlock.Visibility = Visibility.Collapsed;
+                Questions[CurrentQuestionIndex].Question.QuestionContent = String.Empty;
+            }
+
             Converter.ConvertToParagraph(questionPassageParagraph,
                 Questions[CurrentQuestionIndex].Question.Text, 16);
-            //=====================================================================
+
+            questionTextBlock.Inlines.Clear();
+
+            string questionContent = Questions[CurrentQuestionIndex].Question.QuestionContent;
+
+            if (!String.IsNullOrEmpty(questionContent))
+            {
+                questionTextBlock.Inlines.Add(questionContent);
+            }
+            else questionTextBlock.Visibility = Visibility.Collapsed;
+
+
+            string photoname = Questions[CurrentQuestionIndex].Question.PhotoName;
+            //if (!String.IsNullOrEmpty(photoname)) questionTextBlock.Inlines.Add(questionContent);
         }
+
         public void FillImage(BlockUIContainer imageContainer)
         {
             imageContainer.Child = CreateImage(Questions[CurrentQuestionIndex].Question.PhotoName,false);
         }
         public void FillAnswers(UniversalTestWindow window,int answersPerQuestion)
         {
-            List<QuestionAnswer> answers = (List<QuestionAnswer>)Questions[CurrentQuestionIndex].Question.Answers;
-
+            List<QuestionAnswer> answers = (List<QuestionAnswer>)Questions[CurrentQuestionIndex].Question.QuestionAnswers;
+            if (answers == null) return;
             for (int i = 0; i < answers.Count; i++)
             {
                 var answerGrid = (Grid)window.FindName($"GridAns{i + 1}");
                 answerGrid.Visibility = Visibility.Visible;
                 var answer = (Paragraph)window.FindName($"BodyAns{i + 1}");
-                Converter.ConvertToParagraph(answer, (Questions[CurrentQuestionIndex].Question.Answers as List<QuestionAnswer>)[i].Text, 16);
+                Converter.ConvertToParagraph(answer, (Questions[CurrentQuestionIndex].Question.QuestionAnswers as List<QuestionAnswer>)[i].Text, 16);
                 var imageContainer = (BlockUIContainer)window.FindName($"imageContainer{i + 1}");
                 _ = imageContainer.Child == null ? answer.Margin = new Thickness(0, 5, 0, 0) : answer.Margin = new Thickness(0, 0, 0, 0);
                 
-                imageContainer.Child = CreateImage((Questions[CurrentQuestionIndex].Question.Answers as List<QuestionAnswer>)[i].PhotoName,true);
+                imageContainer.Child = CreateImage((Questions[CurrentQuestionIndex].Question.QuestionAnswers as List<QuestionAnswer>)[i].PhotoName,true);
                 
             }
             for (int i = answers.Count; i < answersPerQuestion; i++)
@@ -273,7 +306,7 @@ namespace MathYouCan.ViewModels
         //Method is user by FillImage and FillAnswers
         Image CreateImage(string photoName,bool isAnswer)
         {
-            if (photoName != null)
+            if (!String.IsNullOrEmpty(photoName))
             {
                 BitmapImage bitmapImage = new BitmapImage(new Uri(photoName, UriKind.Absolute));
                 Image image = new Image()
@@ -299,8 +332,6 @@ namespace MathYouCan.ViewModels
                 
                 image.HorizontalAlignment = HorizontalAlignment.Left;
                 return image;
-
-
             }
             else
             {

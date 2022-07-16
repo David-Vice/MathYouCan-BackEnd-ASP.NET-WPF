@@ -46,6 +46,11 @@ namespace MathYouCan.Services.Concrete
                 infoText = ScienceInfo;
                 instText = ScienceInst;
             }
+            else if (Section.Contains("Reading"))
+            {
+                infoText = ReadingInfo;
+                instText = ReadingInst;
+            }
         }
 
         private string EngInfo = "|~B~|English|~B~| |~B~|Test|~B~| |~B~|Directions|~B~|\n\n|~B~|You|~B~| |~B~|will|~B~| |~B~|have|~B~| |~B~|45|~B~| |~B~|minutes|~B~| |~B~|to|~B~| |~B~|complete|~B~| |~B~|this|~B~| |~B~|section.|~B~| \n " +
@@ -121,7 +126,7 @@ namespace MathYouCan.Services.Concrete
             "You are NOT permitted to use a calculator on this section.\n" +
             "Select the |~B~|Next|~B~| button to proceed.\n"
         };
-        private string WritingInfo = "|~B~|Writing|~B~| |~B~|Test|~B~| Directions|~B~|\n" +
+        private string ReadingInfo = "|~B~|Writing|~B~| |~B~|Test|~B~| Directions|~B~|\n" +
             "You may now resume testing. Remember, if you are wearing a watch with an alarm or have any other alarm device, it must remain turned off. If you have" +
             " a cell phone or other electronic device, it must remain powered off and stored out of sight until you leave the test site.\n\n" +
             "Clear your workstation of everything except your testing computer, scratch paper, and pencil.\n" +
@@ -132,7 +137,7 @@ namespace MathYouCan.Services.Concrete
             "You will type your essay in the text box on the computer screen. Your essay in this box will be scored. You may use your scratch paper to plan your essay. Your work on the scratch paper will not be scored," +
             " but you will hand your scratch paper to your room supervisor at the end of testing.\n" +
             "Select the |~B~|Next|~B~| button to proceed.\n";
-        private Instruction WritingInst = new Instruction() {
+        private Instruction ReadingInst = new Instruction() {
             Header = "Begin Writing Test—40 minutes",
             InstructionText =
             "This is a test of your writing skills. You will have 40 minutes to read the prompt, plan your response, and write an essay in English. Before you begin working, read all material carefully to understand exactly" +

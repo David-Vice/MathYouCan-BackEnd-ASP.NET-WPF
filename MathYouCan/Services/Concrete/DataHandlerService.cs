@@ -3,8 +3,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
+using System;
 
 namespace MathYouCan.Services.Concrete
 {
@@ -49,11 +49,27 @@ namespace MathYouCan.Services.Concrete
             }
         }
 
-        public async Task<OfflineExam> GetOfflineExam(int examId)
+        public OfflineExam GetOfflineExam(int examId)
         {
+            try
+            {
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new System.Uri(_uri);
+                client.DefaultRequestHeaders.Accept.Add(
+                   new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json")
+                );
+                HttpResponseMessage response = client.GetAsync($"/Kanan02/api/OfflineExams/{examId}").Result;
+                response.EnsureSuccessStatusCode();
+                string content = response.Content.ReadAsStringAsync().Result;
 
-
-            return null;
+                OfflineExam offlineExam = JsonConvert.DeserializeObject<OfflineExam>(content);
+                return offlineExam;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error message: {ex.Message}\n\nError Stack Trace: {ex.StackTrace}");
+                throw;
+            }
         }
 
 
@@ -63,16 +79,25 @@ namespace MathYouCan.Services.Concrete
         /// <returns> List of string containing names of the exams </returns>
         public IEnumerable<OfflineExam> GetAllOfflineExams()
         {
-            HttpClient client = new HttpClient();
-            client.BaseAddress = new System.Uri(_uri);
-            client.DefaultRequestHeaders.Accept.Add(
-               new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json")
-            );
-            HttpResponseMessage response = client.GetAsync("/Kanan02/api/OfflineExams/ExamDetails").Result;
-            string content = response.Content.ReadAsStringAsync().Result;
+            try
+            {
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new System.Uri(_uri);
+                client.DefaultRequestHeaders.Accept.Add(
+                   new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json")
+                );
+                HttpResponseMessage response = client.GetAsync("/Kanan02/api/OfflineExams/ExamDetails").Result;
+                response.EnsureSuccessStatusCode();
+                string content = response.Content.ReadAsStringAsync().Result;
 
-            IEnumerable<OfflineExam> offlineExams = JsonConvert.DeserializeObject<IEnumerable<OfflineExam>>(content);
-            return offlineExams;
+                IEnumerable<OfflineExam> offlineExams = JsonConvert.DeserializeObject<IEnumerable<OfflineExam>>(content);
+                return offlineExams;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error message: {ex.Message}\n\nError Stack Trace: {ex.StackTrace}");
+                throw;
+            }
         }
 
     }

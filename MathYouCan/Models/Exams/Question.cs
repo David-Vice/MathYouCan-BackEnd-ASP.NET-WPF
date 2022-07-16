@@ -14,7 +14,7 @@ namespace MathYouCan.Models.Exams
         public string QuestionContent { get; set; } = null;
         public string Text { get; set; } = null;
         public string PhotoName { get; set; } = null;
-        public IEnumerable<QuestionAnswer> Answers { get; set; }
+        public IList<QuestionAnswer> QuestionAnswers { get; set; }
     
     }
 }
