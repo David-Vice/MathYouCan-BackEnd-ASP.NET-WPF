@@ -32,14 +32,15 @@ namespace MathYouCan.Views
         List<Button> buttons = new List<Button>();
         List<StackPanel> navPanels = new List<StackPanel>();
         int answersPerQuestion = 5;
-
+        ResultsWindow _resultsWindow;
         UniversalTestViewModel _universalTestViewModel;
         public bool ExamEnded { get; set; } = false;
-        public UniversalTestWindow(Section section)
+        public UniversalTestWindow(Section section,ResultsWindow resultsWindow)
         {
 
             InitializeComponent();
             _universalTestViewModel = new UniversalTestViewModel(section);
+            _resultsWindow = resultsWindow;
             CreateButtons();
             CreateNavButtons();
             LoadInfo(section);
@@ -198,7 +199,7 @@ namespace MathYouCan.Views
                 toolsButton.IsEnabled = true;
                 if (_universalTestViewModel.TestIsTimed())
                 {
-                    _universalTestViewModel.SetTimer(timerTextBlock,this,timerProgressBar);
+                    _universalTestViewModel.SetTimer(timerTextBlock,this,timerProgressBar,_resultsWindow);
                 }
             }
           //  else
@@ -460,7 +461,7 @@ namespace MathYouCan.Views
             ExamEnded = true;
             if (MessageBox.Show("Do you want to finish the exam?", "Exit", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
-                _universalTestViewModel.SendResultAndExitWindow(this);
+                _universalTestViewModel.SendResultAndExitWindow(this,_resultsWindow);
                
             }
         }

@@ -38,7 +38,7 @@ namespace MathYouCan.Views
 
             for (int i = 0; i < _exam.Sections.Count(); i++)
             {
-                windows.Add(new UniversalTestWindow(_exam.Sections.ElementAt(i)));
+                windows.Add(new UniversalTestWindow(_exam.Sections.ElementAt(i),resultsWindow));
                 if (i == 2)
                 {
                     PauseWindow pauseWindow=new PauseWindow();
@@ -46,6 +46,7 @@ namespace MathYouCan.Views
                     
                 }
                 windows[i].ShowDialog();
+
                 //windows[i].
                 if (windows[i].ExamEnded)
                 {

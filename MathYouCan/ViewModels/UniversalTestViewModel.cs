@@ -199,9 +199,9 @@ namespace MathYouCan.ViewModels
         }
         public int GetTime()
         {
-            return (int)_section.Duration;
+            return (int)_section.Duration*60;
         }
-        public void SetTimer(TextBlock timeLabel,UniversalTestWindow window,ProgressBar progressBar)
+        public void SetTimer(TextBlock timeLabel,UniversalTestWindow window,ProgressBar progressBar,ResultsWindow resultsWindow)
         {
             int time = GetTime();
             progressBar.Maximum = time;
@@ -216,7 +216,7 @@ namespace MathYouCan.ViewModels
                 if (_time == TimeSpan.Zero)
                 {
                     dispatcherTimer.Stop();
-                    SendResultAndExitWindow(window);
+                    SendResultAndExitWindow(window,resultsWindow);
                 }
                 _time = _time.Add(TimeSpan.FromSeconds(-1));
             }, Application.Current.Dispatcher);
@@ -228,7 +228,7 @@ namespace MathYouCan.ViewModels
         
         
         //this method will be called when end_section_button clicked and when time is out
-        public void SendResultAndExitWindow(UniversalTestWindow window)
+        public void SendResultAndExitWindow(UniversalTestWindow window,ResultsWindow resultsWindow)
         {
             // calculating number of correct answers
             for (int i = 0; i < Questions.Count; i++)
@@ -241,7 +241,23 @@ namespace MathYouCan.ViewModels
                     } 
                 }
             }
-
+            string result = $"{NumberOfCorrectAnswers}/{Questions.Count}";
+            if (_section.Name=="English Section")
+            {
+                resultsWindow.EnglishAnswers = result;
+            }
+            else if (_section.Name == "Math Section")
+            {
+                resultsWindow.MathAnswers = result;
+            }
+            else if (_section.Name == "Reading Section")
+            {
+                resultsWindow.ReadingAnswers = result;
+            }
+            else if (_section.Name == "Science Section")
+            {
+                resultsWindow.ScienceAnswers = result;
+            }
             window.Close();
         }
 

@@ -44,6 +44,14 @@ namespace ActAPI.Controllers
             {
                 return BadRequest("Please enter name of Exam");
             }
+            var details=_offlineExamService.GetAllExamDetails();
+            foreach (var item in details)
+            {
+                if (offlineExam.Name==item.Name)
+                {
+                    return BadRequest("Exam with this name has already been created");
+                }
+            }
             await _offlineExamService.Add(offlineExam);
             return Ok(offlineExam.Id);
         }

@@ -22,9 +22,38 @@ namespace MathYouCan.Views
         public ResultsWindow()
         {
             InitializeComponent();
+            MathAnswers = "0/0";
+            EnglishAnswers = "0/0";
+            ScienceAnswers = "0/0";
+            ReadingAnswers = "0/0";
         }
-
-
+        public string MathAnswers {
+            set
+            {
+                mathResults.Content = value;
+            }
+        }
+        public string ScienceAnswers
+        {
+            set
+            {
+                scienceResults.Content = value;
+            }
+        }
+        public string ReadingAnswers
+        {
+            set
+            {
+                readingResults.Content = value;
+            }
+        }
+        public string EnglishAnswers
+        {
+            set
+            {
+                englishResults.Content = value;
+            }
+        }
         #region On Window Load
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

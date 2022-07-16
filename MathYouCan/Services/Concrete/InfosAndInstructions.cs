@@ -126,28 +126,22 @@ namespace MathYouCan.Services.Concrete
             "You are NOT permitted to use a calculator on this section.\n" +
             "Select the |~B~|Next|~B~| button to proceed.\n"
         };
-        private string ReadingInfo = "|~B~|Writing|~B~| |~B~|Test|~B~| Directions|~B~|\n" +
-            "You may now resume testing. Remember, if you are wearing a watch with an alarm or have any other alarm device, it must remain turned off. If you have" +
+        private string ReadingInfo = "|~B~|Reading|~B~| |~B~|Test|~B~| Directions|~B~| \n" +
+            "You may now resume testing. Remember, if you are wearing a watch with an alarm or have any other alarm device, it must remain turned\n off. If you have" +
             " a cell phone or other electronic device, it must remain powered off and stored out of sight until you leave the test site.\n\n" +
-            "Clear your workstation of everything except your testing computer, scratch paper, and pencil.\n" +
-            "|~B~| You will have 40 minutes to complete this section.|~B~|\n" +
-            "SECTION DIRECTIONS: The first screen in this section contains instructions about the writing test. The second screen contains the writing prompt and questions" +
-            " to help you plan your essay. The third screen repeats the writing prompt and provides the text box where you will type your essay and select |~B~|Next|~B~| when complete." +
-            " You can return to the instructions or planning questions at any time by selecting the |~B~|Nav|~B~| button at the top of the screen and then selecting |~B~|Instr|~B~| or |~B~|Plan|~B~|.\n\n " +
-            "You will type your essay in the text box on the computer screen. Your essay in this box will be scored. You may use your scratch paper to plan your essay. Your work on the scratch paper will not be scored," +
-            " but you will hand your scratch paper to your room supervisor at the end of testing.\n" +
+            "Clear your workstation of everything except your testing computer, scratch paper, and pencil.\n " +
+            "|~B~|You|~B~| |~B~|will|~B~| |~B~|have|~B~| |~B~|35|~B~| |~B~|minutes|~B~| |~B~|to|~B~| |~B~|complete|~B~| |~B~|this|~B~| |~B~|section|~B~| \n" +
+            "SECTION DIRECTIONS: The first screen in this section contains instructions about the reading test. That screen is not part of the scored questions. You can return to the instructions at any time by selecting the  |~B~|Nav|~B~| button at the top of the screen and then selecting |~B~|Instr|~B~|\n\n" +
+            " You may use your scratch paper on this test. You will hand that in to the room supervisor at the end of testing.\n\n" +
             "Select the |~B~|Next|~B~| button to proceed.\n";
         private Instruction ReadingInst = new Instruction() {
             Header = "Begin Writing Test—40 minutes",
             InstructionText =
-            "This is a test of your writing skills. You will have 40 minutes to read the prompt, plan your response, and write an essay in English. Before you begin working, read all material carefully to understand exactly" +
-            " what you are being asked to do.\n" +
-            "Your essay will be evaluated based on the evidence it provides of your ability to:\n" +
-            " • Clearly state your own perspective on a complex issue and analyze the relationship between your perspective and at least one\n other perspective\n" +
-            " • Develop and support your ideas with reasoning and examples\n" +
-            " • Organize your ideas clearly and logically\n" +
-            " • Communicate your ideas effectively in standard written English\n"
-       };
+            "There are several passages in this test. Each passage is accompanied by several questions. Some passages are grouped within a\n single scrollable window and the corresponding questions will refer to Passage A, Passage B, or both passages.\n\n" +
+            "Read each passage through once, using the scroll bar to see the entire passage, before you begin to answer the questions that accompany the passage. After reading a passage, choose the best answer to each question, select the circle next to it, then select\n the "+
+            "|~B~|Next|~B~|  button. You may refer to the passages as often as necessary.\n"+
+            "Select the |~B~|Next|~B~| button to proceed.\n"
+        };
 
     }
 }
