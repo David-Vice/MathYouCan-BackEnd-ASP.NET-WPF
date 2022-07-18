@@ -1,21 +1,14 @@
-﻿using MathYouCan.Converters;
+﻿using MathYouCan.Models.Exams;
 using MathYouCan.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Windows.Navigation;
-using System.Windows.Threading;
-using MathYouCan.Models.Exams;
-using System.Windows.Media;
-using System.Windows.Input;
 using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
 using Section = MathYouCan.Models.Exams.Section;
 
 namespace MathYouCan.Views
@@ -35,7 +28,7 @@ namespace MathYouCan.Views
         ResultsWindow _resultsWindow;
         UniversalTestViewModel _universalTestViewModel;
         public bool ExamEnded { get; set; } = false;
-        public UniversalTestWindow(Section section,ResultsWindow resultsWindow)
+        public UniversalTestWindow(Section section, ResultsWindow resultsWindow)
         {
 
             InitializeComponent();
@@ -44,7 +37,7 @@ namespace MathYouCan.Views
             CreateButtons();
             CreateNavButtons();
             LoadInfo(section);
-           _universalTestViewModel.ChangeBtnToActive(infoButton);
+            _universalTestViewModel.ChangeBtnToActive(infoButton);
             CreateAnswers(answersPerQuestion);
         }
 
@@ -84,24 +77,34 @@ namespace MathYouCan.Views
 
         private void FillQuestion()
         {
-           _universalTestViewModel.FillQuestionInfo(questionPassageParagraph, questionTextBlock);
-           _universalTestViewModel.FillImage(imageContainer);
-           _universalTestViewModel.FillAnswers(this,answersPerQuestion);
+            _universalTestViewModel.FillQuestionInfo(questionPassageParagraph, questionTextBlock);
+
+            //if (!String.IsNullOrEmpty(_universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].Question.Text))
+            //    _universalTestViewModel.FillImage(imageContainerPassage);
+            //else
+            //    _universalTestViewModel.FillImage(imageContainerQuesion);
+            _universalTestViewModel.FillImage(imageContainerPassage);
+
+
+            _universalTestViewModel.FillAnswers(this, answersPerQuestion);
         }
 
         /// <summary>
         /// Sets question text to QuestionPassage(Stack Panel) according to current Question index(CurrentQuestionIndex) from view model
         /// </summary>
-       
+
 
         //этот метод вызывается вначале 1 раз и еще каждый раз когда пользователь меняет вопрос кликая на кнопки changeQuestionButton_Click
         private void UpdateWindow()
         {
-            if (_universalTestViewModel.PrevQuestionIndex >= 0 )
+            //if (imageContainerPassage.Child != null)
+            //    (imageContainerPassage.Child as Image).Visibility = Visibility.Collapsed;
+
+            if (_universalTestViewModel.PrevQuestionIndex >= 0)
             {
-                if(_universalTestViewModel.Questions[_universalTestViewModel.PrevQuestionIndex].IsAnswered)
+                if (_universalTestViewModel.Questions[_universalTestViewModel.PrevQuestionIndex].IsAnswered)
                 {
-                   _universalTestViewModel.ChangeBtnToAnswered(buttons[_universalTestViewModel.PrevQuestionIndex]);
+                    _universalTestViewModel.ChangeBtnToAnswered(buttons[_universalTestViewModel.PrevQuestionIndex]);
                 }
                 else
                 {
@@ -140,11 +143,11 @@ namespace MathYouCan.Views
         private void SyncRadioAnswers()
         {
             bool isAnswered = _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].IsAnswered;
-            
+
             for (int i = 0; i < answersPerQuestion; i++)
             {
                 var answerRadio = (RadioButton)this.FindName($"RadioAns{i + 1}");
-                if(isAnswered  && answerRadio.IsVisible)
+                if (isAnswered && answerRadio.IsVisible)
                 {
                     if (((List<QuestionAnswer>)_universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].Question.QuestionAnswers)[i].Id == _universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].ChosenAnswerId)
                     {
@@ -188,35 +191,36 @@ namespace MathYouCan.Views
         }
         private void nextButton_Click(object sender, RoutedEventArgs e)
         {
-            if (_universalTestViewModel.CurrentQuestionIndex==-1)
+            if (_universalTestViewModel.CurrentQuestionIndex == -1)
             {
                 _universalTestViewModel.ChangeBtnToAnswered(infoButton);
                 _universalTestViewModel.EnableButtons(buttons);
                 infoButton.Click -= changeQuestionButton_Click;
                 navButton.IsEnabled = true;
-               // infoButton.IsEnabled = false;
+                // infoButton.IsEnabled = false;
                 endSectionButton.IsEnabled = true;
                 toolsButton.IsEnabled = true;
                 if (_universalTestViewModel.TestIsTimed())
                 {
-                    _universalTestViewModel.SetTimer(timerTextBlock,this,timerProgressBar,_resultsWindow);
+                    _universalTestViewModel.SetTimer(timerTextBlock, this, timerProgressBar, _resultsWindow);
                 }
             }
-          //  else
-          //  {
-                _universalTestViewModel.PrevQuestionIndex = _universalTestViewModel.CurrentQuestionIndex ;
-                _universalTestViewModel.CurrentQuestionIndex++;
-         //   }
+            //  else
+            //  {
+            _universalTestViewModel.PrevQuestionIndex = _universalTestViewModel.CurrentQuestionIndex;
+            _universalTestViewModel.CurrentQuestionIndex++;
+            //   }
             UpdateWindow();
         }
 
         #endregion
-        
+
         #region Methods which are called only at the beginning once
-        private void LoadInfo(Section section) { 
-             _universalTestViewModel.Converter.ConvertToParagraph(questionPassageParagraph, _universalTestViewModel.GetInfo(section.Name),17);
+        private void LoadInfo(Section section)
+        {
+            _universalTestViewModel.Converter.ConvertToParagraph(questionPassageParagraph, _universalTestViewModel.GetInfo(section.Name), 17);
         }
-        
+
         private void CreateButtons()
         {
             buttons = _universalTestViewModel.CreateButtons();
@@ -297,8 +301,8 @@ namespace MathYouCan.Views
 
                 Border gridEliminator = new Border();
                 Panel.SetZIndex(gridEliminator, 1);
-                gridEliminator.BorderBrush=new SolidColorBrush(Colors.Black);
-                gridEliminator.BorderThickness = new Thickness(1,1,1,1);
+                gridEliminator.BorderBrush = new SolidColorBrush(Colors.Black);
+                gridEliminator.BorderThickness = new Thickness(1, 1, 1, 1);
                 gridEliminator.CornerRadius = new CornerRadius(10);
                 gridEliminator.Name = $"GridEliminator{i + 1}";
                 gridEliminator.SetValue(Grid.ColumnProperty, 1);
@@ -332,7 +336,7 @@ namespace MathYouCan.Views
                 RegisterName($"BodyAns{i + 1}", bodyAns);
                 //added image container to each answer
                 BlockUIContainer imageContainer = new BlockUIContainer();
-                
+
                 imageContainer.Name = $"imageContainer{i + 1}";
                 RegisterName($"imageContainer{i + 1}", imageContainer);
 
@@ -402,7 +406,7 @@ namespace MathYouCan.Views
             if (l.Visibility == Visibility.Visible)
             {
                 l.Visibility = Visibility.Collapsed;
-                if((sp.Children[1] as Label).Content.ToString() == "Highlighter") ClearHighlight();
+                if ((sp.Children[1] as Label).Content.ToString() == "Highlighter") ClearHighlight();
             }
             else l.Visibility = Visibility.Visible;
 
@@ -419,7 +423,7 @@ namespace MathYouCan.Views
             else if (sp.Name == "eliminatorOption")
             {
                 _universalTestViewModel.IsEliminatorEnabled = !_universalTestViewModel.IsEliminatorEnabled;
-                if(_universalTestViewModel.IsEliminatorEnabled)
+                if (_universalTestViewModel.IsEliminatorEnabled)
                 {
                     ShowEliminatorButtons();
                     UnEliminateAll();
@@ -461,8 +465,8 @@ namespace MathYouCan.Views
             ExamEnded = true;
             if (MessageBox.Show("Do you want to finish the exam?", "Exit", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
-                _universalTestViewModel.SendResultAndExitWindow(this,_resultsWindow);
-               
+                _universalTestViewModel.SendResultAndExitWindow(this, _resultsWindow);
+
             }
         }
 
@@ -506,7 +510,7 @@ namespace MathYouCan.Views
         }
         private void notEliminatedAnswer_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if(_universalTestViewModel.IsEliminatorEnabled)
+            if (_universalTestViewModel.IsEliminatorEnabled)
             {
                 string num = String.Empty;
                 if (sender.GetType().Name == "Paragraph")
@@ -527,8 +531,8 @@ namespace MathYouCan.Views
             {
                 string num = (sender as Button).Name.ToString();
                 var eliminatedAnswer = (Border)this.FindName($"GridEliminator{num[num.Length - 1]}");
-                
-                if(eliminatedAnswer.Visibility == Visibility.Visible)
+
+                if (eliminatedAnswer.Visibility == Visibility.Visible)
                 {
                     eliminatedAnswer.Visibility = Visibility.Collapsed;
                 }
@@ -540,9 +544,9 @@ namespace MathYouCan.Views
         }
         private void EliminateAll()
         {
-            for(int i=0;i<answersPerQuestion;i++)
+            for (int i = 0; i < answersPerQuestion; i++)
             {
-                var eliminatedAnswer = (Border)this.FindName($"GridEliminator{i+1}");
+                var eliminatedAnswer = (Border)this.FindName($"GridEliminator{i + 1}");
                 eliminatedAnswer.Visibility = Visibility.Visible;
             }
         }

@@ -25,7 +25,7 @@ namespace MathYouCan.ViewModels
 
         //first question is Instructions
         public IList<QuestionView> Questions { get; set; }
-        public  Section _section { get; set; }
+        public Section _section { get; set; }
         public int CurrentQuestionIndex { get; set; } = -1;
         public int PrevQuestionIndex { get; set; } = -1;
         public TextToFlowDocumentConverter Converter { get; set; }
@@ -60,23 +60,23 @@ namespace MathYouCan.ViewModels
             QuestionView instruction = new QuestionView();
             Instruction ins = GetInstrucitons(sectionName);
             instruction.IsAnswered = true;
-            
+
             instruction.Question = new Question();
             instruction.Question.QuestionAnswers = new List<QuestionAnswer>();
-          
+
             instruction.Question.Text = ins.Header + "\n" + ins.InstructionText;
             Questions.Add(instruction);
 
 
             foreach (var item in _section.Questions)
             {
-                Questions.Add(new QuestionView() { Question = item  });
+                Questions.Add(new QuestionView() { Question = item });
             }
 
         }
         public List<Button> CreateButtons()
         {
-            List<Button> buttons=new List<Button>();
+            List<Button> buttons = new List<Button>();
             for (int i = 0; i < Questions.Count; i++)
             {
                 Button btn = new Button();
@@ -106,9 +106,9 @@ namespace MathYouCan.ViewModels
             return buttons;
         }
 
-        public List<StackPanel> CreateNavButtons(List<Border> borders,UniversalTestWindow window)
+        public List<StackPanel> CreateNavButtons(List<Border> borders, UniversalTestWindow window)
         {
-            List<StackPanel> navPanels=new List<StackPanel>();
+            List<StackPanel> navPanels = new List<StackPanel>();
             for (int i = 0; i < Questions.Count; i++)
             {
                 Border border = new Border();
@@ -121,7 +121,7 @@ namespace MathYouCan.ViewModels
                 questionsNavStackPanel.HorizontalAlignment = HorizontalAlignment.Stretch;
                 questionsNavStackPanel.Orientation = Orientation.Horizontal;
                 questionsNavStackPanel.Background = new SolidColorBrush(Colors.LightGray);
-                
+
                 StackPanel numStackPanel = new StackPanel();
                 numStackPanel.Name = $"numStackPanel{i}";
                 numStackPanel.VerticalAlignment = VerticalAlignment.Stretch;
@@ -143,7 +143,7 @@ namespace MathYouCan.ViewModels
                 numQuestion.FontSize = 22;
                 numQuestion.FontWeight = FontWeights.Light;
                 _ = i == 0 ? numQuestion.Content = "Instr" : numQuestion.Content = $"{i}";
-             //   numQuestion.Content = $"{i + 1}";
+                //   numQuestion.Content = $"{i + 1}";
 
                 Label stateQuestion = new Label();
                 stateQuestion.Name = $"stateQuestion{i}";
@@ -171,10 +171,10 @@ namespace MathYouCan.ViewModels
         {
             InfosAndInstructions infosAndInstructions = new InfosAndInstructions(testType);
             return infosAndInstructions.GetInfo();
-            
+
         }
 
-      
+
 
         public Instruction GetInstrucitons(string section)
         {
@@ -195,20 +195,20 @@ namespace MathYouCan.ViewModels
         //These 2 methods will work with api values
         public bool TestIsTimed()
         {
-            return _section.Duration!=null;
+            return _section.Duration != null;
         }
         public int GetTime()
         {
-            return (int)_section.Duration*60;
+            return (int)_section.Duration * 60;
         }
-        public void SetTimer(TextBlock timeLabel,UniversalTestWindow window,ProgressBar progressBar,ResultsWindow resultsWindow)
+        public void SetTimer(TextBlock timeLabel, UniversalTestWindow window, ProgressBar progressBar, ResultsWindow resultsWindow)
         {
             int time = GetTime();
             progressBar.Maximum = time;
             progressBar.Value = time;
-         
-            TimeSpan _time=TimeSpan.FromSeconds(time);
-            DispatcherTimer dispatcherTimer= new DispatcherTimer();
+
+            TimeSpan _time = TimeSpan.FromSeconds(time);
+            DispatcherTimer dispatcherTimer = new DispatcherTimer();
             dispatcherTimer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
             {
                 timeLabel.Text = _time.ToString(@"mm\:ss");
@@ -216,7 +216,7 @@ namespace MathYouCan.ViewModels
                 if (_time == TimeSpan.Zero)
                 {
                     dispatcherTimer.Stop();
-                    SendResultAndExitWindow(window,resultsWindow);
+                    SendResultAndExitWindow(window, resultsWindow);
                 }
                 _time = _time.Add(TimeSpan.FromSeconds(-1));
             }, Application.Current.Dispatcher);
@@ -225,10 +225,10 @@ namespace MathYouCan.ViewModels
         }
 
         #endregion
-        
-        
+
+
         //this method will be called when end_section_button clicked and when time is out
-        public void SendResultAndExitWindow(UniversalTestWindow window,ResultsWindow resultsWindow)
+        public void SendResultAndExitWindow(UniversalTestWindow window, ResultsWindow resultsWindow)
         {
             // calculating number of correct answers
             for (int i = 0; i < Questions.Count; i++)
@@ -238,11 +238,11 @@ namespace MathYouCan.ViewModels
                     if (Questions[i].ChosenAnswerId == Questions[i].Question.QuestionAnswers[j].Id && Questions[i].Question.QuestionAnswers[j].IsCorrect)
                     {
                         NumberOfCorrectAnswers++;
-                    } 
+                    }
                 }
             }
-            string result = $"{NumberOfCorrectAnswers}/{Questions.Count}";
-            if (_section.Name=="English Section")
+            string result = $"{NumberOfCorrectAnswers}/{Questions.Count - 1}"; // -1 because of instruction( considered as quesion )
+            if (_section.Name == "English Section")
             {
                 resultsWindow.EnglishAnswers = result;
             }
@@ -283,35 +283,41 @@ namespace MathYouCan.ViewModels
             string questionContent = Questions[CurrentQuestionIndex].Question.QuestionContent;
 
             if (!String.IsNullOrEmpty(questionContent))
-            {
                 questionTextBlock.Inlines.Add(questionContent);
-            }
             else questionTextBlock.Visibility = Visibility.Collapsed;
-
-
-            string photoname = Questions[CurrentQuestionIndex].Question.PhotoName;
-            //if (!String.IsNullOrEmpty(photoname)) questionTextBlock.Inlines.Add(questionContent);
         }
 
         public void FillImage(BlockUIContainer imageContainer)
         {
-            imageContainer.Child = CreateImage(Questions[CurrentQuestionIndex].Question.PhotoName,false);
+            imageContainer.Child = null;
+            string photoname = Questions[CurrentQuestionIndex].Question.PhotoName;
+            if (String.IsNullOrEmpty(photoname))
+            {
+                //if (imageContainer.Child != null) (imageContainer.Child as Image).Visibility = Visibility.Hidden;
+                return;
+            }
+            imageContainer.Child = CreateImage(photoname.Split('&')[0], false);
         }
-        public void FillAnswers(UniversalTestWindow window,int answersPerQuestion)
+        public void FillAnswers(UniversalTestWindow window, int answersPerQuestion)
         {
             List<QuestionAnswer> answers = (List<QuestionAnswer>)Questions[CurrentQuestionIndex].Question.QuestionAnswers;
             if (answers == null) return;
             for (int i = 0; i < answers.Count; i++)
             {
+
                 var answerGrid = (Grid)window.FindName($"GridAns{i + 1}");
                 answerGrid.Visibility = Visibility.Visible;
                 var answer = (Paragraph)window.FindName($"BodyAns{i + 1}");
                 Converter.ConvertToParagraph(answer, (Questions[CurrentQuestionIndex].Question.QuestionAnswers as List<QuestionAnswer>)[i].Text, 16);
                 var imageContainer = (BlockUIContainer)window.FindName($"imageContainer{i + 1}");
+
+                imageContainer.Child = null;
                 _ = imageContainer.Child == null ? answer.Margin = new Thickness(0, 5, 0, 0) : answer.Margin = new Thickness(0, 0, 0, 0);
-                
-                imageContainer.Child = CreateImage((Questions[CurrentQuestionIndex].Question.QuestionAnswers as List<QuestionAnswer>)[i].PhotoName,true);
-                
+
+                String photoname = (Questions[CurrentQuestionIndex].Question.QuestionAnswers as List<QuestionAnswer>)[i].PhotoName;
+                if (String.IsNullOrEmpty(photoname)) continue;
+
+                imageContainer.Child = CreateImage(photoname.Split('&')[0], true);
             }
             for (int i = answers.Count; i < answersPerQuestion; i++)
             {
@@ -319,8 +325,10 @@ namespace MathYouCan.ViewModels
                 answerGrid.Visibility = Visibility.Collapsed;
             }
         }
+
+
         //Method is user by FillImage and FillAnswers
-        Image CreateImage(string photoName,bool isAnswer)
+        Image CreateImage(string photoName, bool isAnswer)
         {
             if (!String.IsNullOrEmpty(photoName))
             {
@@ -328,7 +336,7 @@ namespace MathYouCan.ViewModels
                 Image image = new Image()
                 {
                     Source = bitmapImage,
-
+                    Visibility = Visibility.Visible,
                     Stretch = Stretch.Fill
 
                 };
@@ -336,16 +344,16 @@ namespace MathYouCan.ViewModels
                 {
                     bitmapImage.DownloadCompleted += (e, arg) =>
                     {
-                 
-                        if (bitmapImage.PixelWidth > 150 && bitmapImage.PixelHeight > 150&&isAnswer)
+
+                        if (bitmapImage.PixelWidth > 150 && bitmapImage.PixelHeight > 150 && isAnswer)
                         {
                             image.Width = bitmapImage.PixelWidth / (bitmapImage.PixelHeight / 150);
                             image.Height = bitmapImage.PixelHeight / (bitmapImage.PixelHeight / 150);
                         }
                     };
                 }
-                
-                
+
+
                 image.HorizontalAlignment = HorizontalAlignment.Left;
                 return image;
             }
@@ -355,7 +363,7 @@ namespace MathYouCan.ViewModels
                 return null;
             }
         }
-      
+
 
         #endregion
         #region Buttons Conditions

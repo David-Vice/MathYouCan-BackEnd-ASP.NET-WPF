@@ -299,7 +299,7 @@
                             <Paragraph Name="questionPassageParagraph">
 
                             </Paragraph>
-                            <BlockUIContainer Name="imageContainer">
+                            <BlockUIContainer Name="imageContainerPassage">
                                 
                             </BlockUIContainer>
                         </FlowDocument>
@@ -320,14 +320,12 @@
 
                             <!-- Question Part -->
                             <TextBlock x:Name="questionTextBlock" HorizontalAlignment="Stretch" Height="Auto" TextWrapping="Wrap" Padding="10,20,10,20" FontSize="17" Grid.Row="0">
-                              
+
                             </TextBlock>
                             <!-- Question Part END -->
 
                             <!-- Answer List -->
                             <Grid x:Name="AnswersGrid" Grid.Row="1" Margin="10">
-                                
-                                
                                 
                             </Grid>
                             <!-- Answer List END -->

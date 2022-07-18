@@ -81,22 +81,22 @@
 
                 <StackPanel Grid.Row="0" Orientation="Horizontal">
                     <Label Content="English Section:" FontSize="20"/>
-                    <Label Name="englishResults" Content="6/40" FontSize="20"/>
+                    <Label Name="englishResults" Content="0/0" FontSize="20"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="1" Orientation="Horizontal">
                     <Label Content="Math Section:" FontSize="20"/>
-                    <Label Name="mathResults" Content="29/40" FontSize="20"/>
+                    <Label Name="mathResults" Content="0/0" FontSize="20"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="2" Orientation="Horizontal">
                     <Label Content="Reading Section:" FontSize="20"/>
-                    <Label Name="readingResults" Content="18/40" FontSize="20"/>
+                    <Label Name="readingResults" Content="0/0" FontSize="20"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="3" Orientation="Horizontal">
                     <Label Content="Science Section:" FontSize="20"/>
-                    <Label Name="scienceResults" Content="39/40" FontSize="20"/>
+                    <Label Name="scienceResults" Content="0/0" FontSize="20"/>
                 </StackPanel>
 
             </Grid>
