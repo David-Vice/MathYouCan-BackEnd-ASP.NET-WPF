@@ -26,7 +26,6 @@ namespace MathYouCan.Views
         public TestSelection()
         {
             InitializeComponent();
-
             FillListBox();
         }
 
@@ -79,12 +78,18 @@ namespace MathYouCan.Views
                 return;
             }
 
+            DialogResult = true;
             Close();
         }
 
         private void examsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SelectedOfflineExamId = _offlineExams.Where(x => x.Name == (examsListBox.SelectedValue as ListBoxItem).Content.ToString()).Select(x => x.Id).FirstOrDefault();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

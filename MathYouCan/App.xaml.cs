@@ -24,18 +24,19 @@ namespace MathYouCan
 
                 TestSelection testSelectionWindow = new TestSelection();
                 testSelectionWindow.ShowDialog();
-                
-                DataHandlerService dataHandlerService = new DataHandlerService();
-                OfflineExam selectedOfflineExam = dataHandlerService.GetOfflineExam(testSelectionWindow.SelectedOfflineExamId);
+                if (testSelectionWindow.DialogResult.Value)
+                {
+                    DataHandlerService dataHandlerService = new DataHandlerService();
+                    OfflineExam selectedOfflineExam = dataHandlerService.GetOfflineExam(testSelectionWindow.SelectedOfflineExamId);
 
-                new InstructionsWindow().ShowDialog();
+                    new InstructionsWindow().ShowDialog();
 
-                new Mainpage(selectedOfflineExam).ShowDialog();
+                    new Mainpage(selectedOfflineExam).ShowDialog();
 
-                //MessageBox.Show(testSelectionWindow.SelectedOfflineExamId.ToString());
+                    //MessageBox.Show(testSelectionWindow.SelectedOfflineExamId.ToString());
 
-                //new ResultsWindow().ShowDialog();
-
+                    //new ResultsWindow().ShowDialog();
+                }
             }
             finally
             {

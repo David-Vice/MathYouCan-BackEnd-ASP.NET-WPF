@@ -26,7 +26,11 @@
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="0.5*"/>
                 </Grid.RowDefinitions>
-
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="0.1*"></ColumnDefinition>
+                    <ColumnDefinition Width="0.02*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
                 <StackPanel Orientation="Horizontal" 
                             HorizontalAlignment="Left" 
                             Margin="20,0,0,0"
@@ -35,6 +39,13 @@
                     <Image Name="actLogoImage" 
                            RenderOptions.BitmapScalingMode="HighQuality"/>
                 </StackPanel>
+                <Button Grid.Column="1" Grid.Row="1" Background="#e42a22" Click="Button_Click" Foreground="White" Content="Exit" FontSize="15">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="4"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
             </Grid>
 
         </Border>

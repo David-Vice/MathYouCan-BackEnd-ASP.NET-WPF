@@ -12,7 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
+using Section = MathYouCan.Models.Exams.Section;
 namespace MathYouCan.Views
 {
     /// <summary>
@@ -35,10 +35,10 @@ namespace MathYouCan.Views
             Close();
 
             ResultsWindow resultsWindow = new ResultsWindow();
-
-            for (int i = 0; i < _exam.Sections.Count(); i++)
+            List<Section> sections = SortSections();
+            for (int i = 0; i < sections.Count; i++)
             {
-                windows.Add(new UniversalTestWindow(_exam.Sections.ElementAt(i),resultsWindow));
+                windows.Add(new UniversalTestWindow(sections.ElementAt(i),resultsWindow));
                 if (i == 2)
                 {
                     PauseWindow pauseWindow=new PauseWindow();
@@ -58,6 +58,33 @@ namespace MathYouCan.Views
             resultsWindow.ShowDialog();
 
 
+        }
+        //Change if he wants to create not full test
+        private List<Section> SortSections()
+        {
+
+            List<Section> sectionsTmp = _exam.Sections.ToList();
+            for (int i = 0; i < _exam.Sections.Count(); i++)
+            {
+                Section s = _exam.Sections.ElementAt(i);
+                if (s.Name=="English Section")
+                {
+                    sectionsTmp[0]=s;
+                }
+                if (s.Name == "Math Section")
+                {
+                    sectionsTmp[1] = s;
+                }
+                if (s.Name == "Reading Section")
+                {
+                    sectionsTmp[2] = s;
+                }
+                if (s.Name == "Science Section")
+                {
+                    sectionsTmp[3] = s;
+                }
+            }
+            return sectionsTmp;
         }
     }
 }
