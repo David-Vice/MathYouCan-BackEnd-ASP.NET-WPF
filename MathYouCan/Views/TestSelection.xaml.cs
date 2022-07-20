@@ -32,8 +32,7 @@ namespace MathYouCan.Views
         private void FillListBox()
         {
             DataHandlerService dataHandlerService = new DataHandlerService();
-            _offlineExams = dataHandlerService.GetAllOfflineExams().ToList();
-
+            _offlineExams = dataHandlerService.GetAllOfflineExams().OrderBy(s=>s.Name).ToList();
             for (int i = 0; i < _offlineExams.Count(); i++)
             {
                 ListBoxItem lbi = new ListBoxItem();
