@@ -16,6 +16,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.Configure<DbConnectionInfo>(settings => builder.Configuration.GetSection("ConnectionStrings").Bind(settings));
 builder.Services.AddScoped<IDataContext, DataContext>();
+builder.Services.AddScoped<IResultService, ResultService>();
 builder.Services.AddScoped<IOfflineExamService,OfflineExamService>();
 builder.Services.AddScoped<ISectionService, SectionService>();
 builder.Services.AddScoped<IQuestionService, QuestionService>();

@@ -9,11 +9,13 @@ namespace ActAPI.Services
     {
         private readonly IDataContext _dataContext;
         private readonly IQuestionService _questionService;
+        private readonly IResultService _resultService;
 
-        public SectionService(IDataContext dataContext, IQuestionService questionService)
+        public SectionService(IDataContext dataContext, IQuestionService questionService,IResultService resultService)
         {
             _dataContext = dataContext;
             _questionService = questionService;
+            _resultService = resultService;
         }
 
         /// <summary>
@@ -49,7 +51,10 @@ namespace ActAPI.Services
             {
                 await _questionService.Delete(q);
             }
-
+            foreach (Result r in obj.Results)
+            {
+                await _resultService.Delete(r);
+            }
             _dataContext.Sections.Remove(obj);
             await _dataContext.SaveChangesAsync();
         }

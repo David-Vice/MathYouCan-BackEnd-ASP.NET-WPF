@@ -1,23 +1,21 @@
-﻿using ActAPI.Models;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
+using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace ActAPI.Data
+namespace ActAPI.Models
 {
-    public partial class DataContext : DbContext, IDataContext
+    public partial class db_a8aa44_actdbContext : DbContext
     {
-        private readonly string? _connectionString;
-        public DataContext()
+        public db_a8aa44_actdbContext()
         {
         }
-        public DataContext(DbContextOptions<DataContext> options)
+
+        public db_a8aa44_actdbContext(DbContextOptions<db_a8aa44_actdbContext> options)
             : base(options)
         {
         }
-        public DataContext(IOptions<DbConnectionInfo> dbConnectionInfo)
-        {
-            _connectionString = dbConnectionInfo.Value.SqlContext;
-        }
+
         public virtual DbSet<OfflineExam> OfflineExams { get; set; } = null!;
         public virtual DbSet<Question> Questions { get; set; } = null!;
         public virtual DbSet<QuestionAnswer> QuestionAnswers { get; set; } = null!;
@@ -26,13 +24,12 @@ namespace ActAPI.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseLazyLoadingProxies().UseSqlServer(_connectionString);
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Data Source=SQL8004.site4now.net;Initial Catalog=db_a8aa44_actdb;User Id=db_a8aa44_actdb_admin;Password=actdb2022");
             }
         }
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

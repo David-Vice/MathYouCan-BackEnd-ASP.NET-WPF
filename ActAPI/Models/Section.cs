@@ -8,6 +8,7 @@ namespace ActAPI.Models
         public Section()
         {
             Questions = new HashSet<Question>();
+            Results = new HashSet<Result>();
         }
 
         public int Id { get; set; }
@@ -17,5 +18,6 @@ namespace ActAPI.Models
 
         public virtual OfflineExam? OfflineExam { get; set; }
         public virtual ICollection<Question> Questions { get; set; }
+        public virtual ICollection<Result> Results { get; set; }
     }
 }

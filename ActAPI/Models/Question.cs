@@ -16,6 +16,7 @@ namespace ActAPI.Models
         public string? Text { get; set; }
         public string? PhotoName { get; set; }
         public int? SectionId { get; set; }
+
         public virtual Section? Section { get; set; }
         public virtual ICollection<QuestionAnswer> QuestionAnswers { get; set; }
     }

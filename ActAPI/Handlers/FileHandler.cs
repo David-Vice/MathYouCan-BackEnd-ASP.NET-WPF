@@ -42,7 +42,7 @@ namespace ActAPI.Handlers
                         string result = fullPath;
                         if (webHostEnvironment.IsProduction())
                         {
-                            result = "https://bsite.net/Kanan02/Uploads/" + $"{offlineExamId}" + $"/{fileName}";
+                            result = "Uploads/" + $"{offlineExamId}" + $"/{fileName}";
                         }
                       //  SaveFilePath(questionService,questionAnswerService,objId, dbPath, type);
                         
