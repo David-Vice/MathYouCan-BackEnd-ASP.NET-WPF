@@ -61,6 +61,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\TextToFlowDocumentConverter.cs" />
+    <Compile Include="Data\ApiUri.cs" />
     <Compile Include="Models\Enums\AnswerType.cs" />
     <Compile Include="Models\Enums\QuestionType.cs" />
     <Compile Include="Models\ExamResults.cs" />

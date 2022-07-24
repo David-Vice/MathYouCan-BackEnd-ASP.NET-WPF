@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Text;
 using System.Windows;
 using System;
+using MathYouCan.Data;
 
 namespace MathYouCan.Services.Concrete
 {
@@ -16,7 +17,7 @@ namespace MathYouCan.Services.Concrete
 
         public DataHandlerService()
         {
-            _uri = "https://bsite.net";
+            _uri = ApiUri.ActApiUri;
         }
 
         public void GetLoginResult(string mail, string password)
@@ -54,11 +55,11 @@ namespace MathYouCan.Services.Concrete
             try
             {
                 HttpClient client = new HttpClient();
-                client.BaseAddress = new System.Uri(_uri);
+                client.BaseAddress = new Uri(_uri);
                 client.DefaultRequestHeaders.Accept.Add(
                    new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json")
                 );
-                HttpResponseMessage response = client.GetAsync($"/Kanan02/api/OfflineExams/{examId}").Result;
+                HttpResponseMessage response = client.GetAsync($"/api/OfflineExams/{examId}").Result;
                 response.EnsureSuccessStatusCode();
                 string content = response.Content.ReadAsStringAsync().Result;
 
@@ -82,11 +83,11 @@ namespace MathYouCan.Services.Concrete
             try
             {
                 HttpClient client = new HttpClient();
-                client.BaseAddress = new System.Uri(_uri);
+                client.BaseAddress = new Uri(_uri);
                 client.DefaultRequestHeaders.Accept.Add(
                    new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json")
                 );
-                HttpResponseMessage response = client.GetAsync("/Kanan02/api/OfflineExams/ExamDetails").Result;
+                HttpResponseMessage response = client.GetAsync("/api/OfflineExams/ExamDetails").Result;
                 response.EnsureSuccessStatusCode();
                 string content = response.Content.ReadAsStringAsync().Result;
 
@@ -100,26 +101,31 @@ namespace MathYouCan.Services.Concrete
             }
         }
 
+
+
+        public string GetExamGrade(int sectionId, int correctAnswerNumber)
+        {
+            try
+            {
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(_uri);
+                client.DefaultRequestHeaders.Accept.Add(
+                   new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json")
+                );
+                HttpResponseMessage response = client.GetAsync($"/api/Results/Grade?sectionId={sectionId}&correctAnswers={correctAnswerNumber}").Result;
+                response.EnsureSuccessStatusCode();
+                string content = response.Content.ReadAsStringAsync().Result;
+
+                string grade = JsonConvert.DeserializeObject<string>(content);
+                return grade;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error message: {ex.Message}\n\nError Stack Trace: {ex.StackTrace}");
+                return "-";
+            }
+        }
+
+
     }
 }
-
-//{
-// TODO - Send HTTP requests              
-//client.BaseAddress = new Uri("http://api.mathyoucan.com/User/api/");
-//client.DefaultRequestHeaders.Accept.Clear();
-//client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-//// HTTP POST                
-//var body = new Dictionary<string, string>
-//{
-//    { "email", mail },
-//    { "password", password }
-//};
-
-//var content = new FormUrlEncodedContent(body);
-//    HttpResponseMessage response =  client.PostAsync("Auth/login", content).Result;
-//   // if (response.IsSuccessStatusCode)
-// //   {
-//        string responseStream = response.Content.ReadAsStringAsync().Result;
-//        System.Windows.Forms.MessageBox.Show(responseStream);
-//  //  }
-//}

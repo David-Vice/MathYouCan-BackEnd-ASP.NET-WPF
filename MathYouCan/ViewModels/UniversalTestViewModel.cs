@@ -1,5 +1,6 @@
 ﻿//using MathYouCan.Models;
 using MathYouCan.Converters;
+using MathYouCan.Data;
 using MathYouCan.Models;
 using MathYouCan.Models.Exams;
 using MathYouCan.Services.Concrete;
@@ -230,34 +231,53 @@ namespace MathYouCan.ViewModels
         //this method will be called when end_section_button clicked and when time is out
         public void SendResultAndExitWindow(UniversalTestWindow window, ResultsWindow resultsWindow)
         {
-            // calculating number of correct answers
+            List<int> incorrectQuestions = new List<int>();
+
+            // calculating number of correct answers and getting incorrect questions
             for (int i = 0; i < Questions.Count; i++)
             {
+                bool isQuestionCorrect = false;
                 for (int j = 0; j < Questions[i].Question.QuestionAnswers.Count(); j++)
                 {
                     if (Questions[i].ChosenAnswerId == Questions[i].Question.QuestionAnswers[j].Id && Questions[i].Question.QuestionAnswers[j].IsCorrect)
-                    {
-                        NumberOfCorrectAnswers++;
-                    }
+                        isQuestionCorrect = true;
                 }
+
+                if (isQuestionCorrect) NumberOfCorrectAnswers++;
+                else if (i != 0) incorrectQuestions.Add(i+1);
             }
-            string result = $"{NumberOfCorrectAnswers}/{Questions.Count - 1}"; // -1 because of instruction( considered as quesion )
+
+            DataHandlerService dataHandlerService = new DataHandlerService();
+
             if (_section.Name == "English Section")
             {
-                resultsWindow.EnglishAnswers = result;
+                resultsWindow.ExamResults.EnglishCorrectNumber = NumberOfCorrectAnswers;
+                resultsWindow.ExamResults.EnglishIncorrectQuestionNumbers = incorrectQuestions;
+                resultsWindow.ExamResults.EnglishTotalNumber = Questions.Count - 1;
+                resultsWindow.ExamResults.EnglishGrade = dataHandlerService.GetExamGrade(_section.Id, NumberOfCorrectAnswers);
             }
             else if (_section.Name == "Math Section")
             {
-                resultsWindow.MathAnswers = result;
+                resultsWindow.ExamResults.MathCorrectNumber = NumberOfCorrectAnswers;
+                resultsWindow.ExamResults.MathIncorrectQuestionNumbers = incorrectQuestions;
+                resultsWindow.ExamResults.MathTotalNumber = Questions.Count - 1;
+                resultsWindow.ExamResults.MathGrade = dataHandlerService.GetExamGrade(_section.Id, NumberOfCorrectAnswers);
             }
             else if (_section.Name == "Reading Section")
             {
-                resultsWindow.ReadingAnswers = result;
+                resultsWindow.ExamResults.ReadingCorrectNumber = NumberOfCorrectAnswers;
+                resultsWindow.ExamResults.ReadingIncorrectQuestionNumbers = incorrectQuestions;
+                resultsWindow.ExamResults.ReadingTotalNumber = Questions.Count - 1;
+                resultsWindow.ExamResults.ReadingGrade = dataHandlerService.GetExamGrade(_section.Id, NumberOfCorrectAnswers);
             }
             else if (_section.Name == "Science Section")
             {
-                resultsWindow.ScienceAnswers = result;
+                resultsWindow.ExamResults.ScienceCorrectNumber = NumberOfCorrectAnswers;
+                resultsWindow.ExamResults.ScienceIncorrectQuestionNumbers = incorrectQuestions;
+                resultsWindow.ExamResults.ScienceTotalNumber = Questions.Count - 1;
+                resultsWindow.ExamResults.ScienceGrade = dataHandlerService.GetExamGrade(_section.Id, NumberOfCorrectAnswers);
             }
+
             window.Close();
         }
 
@@ -332,7 +352,7 @@ namespace MathYouCan.ViewModels
         {
             if (!String.IsNullOrEmpty(photoName))
             {
-                BitmapImage bitmapImage = new BitmapImage(new Uri(photoName, UriKind.Absolute));
+                BitmapImage bitmapImage = new BitmapImage(new Uri(ApiUri.ActApiUri + "/" + photoName, UriKind.Absolute));
                 Image image = new Image()
                 {
                     Source = bitmapImage,
