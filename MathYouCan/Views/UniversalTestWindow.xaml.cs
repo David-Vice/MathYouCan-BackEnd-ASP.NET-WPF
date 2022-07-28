@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -40,6 +41,7 @@ namespace MathYouCan.Views
             LoadInfo(section);
             _universalTestViewModel.ChangeBtnToActive(infoButton);
             CreateAnswers(answersPerQuestion);
+            DataContext= _universalTestViewModel;
         }
 
         #region Methods to UPDATE WINDOW
@@ -84,9 +86,8 @@ namespace MathYouCan.Views
             //    _universalTestViewModel.FillImage(imageContainerPassage);
             //else
             //    _universalTestViewModel.FillImage(imageContainerQuesion);
-            _universalTestViewModel.FillImage(imageContainerPassage);
+            _universalTestViewModel.FillImage();
             
-
             _universalTestViewModel.FillAnswers(this, answersPerQuestion);
         }
 
@@ -342,6 +343,14 @@ namespace MathYouCan.Views
                 imageContainer.Name = $"imageContainer{i + 1}";
                 RegisterName($"imageContainer{i + 1}", imageContainer);
 
+                imageContainer.Child = new Image();
+                Binding myBinding = new Binding($"AnswerImage{i + 1}");
+                myBinding.Source = _universalTestViewModel;
+                myBinding.Mode = BindingMode.TwoWay;
+                myBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+                Image image = new Image();
+                image.SetBinding(Image.SourceProperty, myBinding);
+                imageContainer.Child = image;
                 gridAns.Children.Add(radioAns);
                 bodyFlowDoc.Blocks.Add(bodyAns);
                 bodyFlowDoc.Blocks.Add(imageContainer);

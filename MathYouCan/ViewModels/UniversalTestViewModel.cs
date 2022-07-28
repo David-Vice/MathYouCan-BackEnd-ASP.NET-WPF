@@ -12,6 +12,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -25,6 +26,89 @@ namespace MathYouCan.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
 
+        protected virtual void OnPropertyChanged(string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        private string questionImage = "";
+        public string QuestionImage
+        {
+            get => questionImage;
+            set
+            {
+                if (!questionImage.Equals(value))
+                {
+                    questionImage = value;
+                    OnPropertyChanged(nameof(QuestionImage));
+                }
+            }
+
+        }
+        private string answerImage1 = "";
+        public string AnswerImage1
+        {
+            get { return answerImage1; }
+            set
+            {
+                if (!answerImage1.Equals(value))
+                {
+                    answerImage1 = value;
+                    OnPropertyChanged(nameof(AnswerImage1));
+                }
+            }
+        }
+        private string answerImage2 = "";
+        public string AnswerImage2
+        {
+            get { return answerImage2; }
+            set
+            {
+                if (!answerImage2.Equals(value))
+                {
+                    answerImage2 = value;
+                    OnPropertyChanged(nameof(AnswerImage2));
+                }
+            }
+        }
+        private string answerImage3 = "";
+        public string AnswerImage3
+        {
+            get { return answerImage3; }
+            set
+            {
+                if (!answerImage3.Equals(value))
+                {
+                    answerImage3 = value;
+                    OnPropertyChanged(nameof(AnswerImage3));
+                }
+            }
+        }
+        private string answerImage4 = "";
+        public string AnswerImage4
+        {
+            get { return answerImage4; }
+            set
+            {
+                if (!answerImage4.Equals(value))
+                {
+                    answerImage4 = value;
+                    OnPropertyChanged(nameof(AnswerImage4));
+                }
+            }
+        }
+        private string answerImage5 = "";
+        public string AnswerImage5
+        {
+            get { return answerImage5; }
+            set
+            {
+                if (!answerImage5.Equals(value))
+                {
+                    answerImage5 = value;
+                    OnPropertyChanged(nameof(AnswerImage5));
+                }
+            }
+        }
         //first question is Instructions
         public IList<QuestionView> Questions { get; set; }
         public Section _section { get; set; }
@@ -205,25 +289,25 @@ namespace MathYouCan.ViewModels
         }
         public void SetTimer(TextBlock timeLabel, UniversalTestWindow window, ProgressBar progressBar, ResultsWindow resultsWindow)
         {
-            //int time = GetTime();
-            //progressBar.Maximum = time;
-            //progressBar.Value = time;
+            int time = GetTime();
+            progressBar.Maximum = time;
+            progressBar.Value = time;
 
-            //TimeSpan _time = TimeSpan.FromSeconds(time);
-            //DispatcherTimer dispatcherTimer = new DispatcherTimer();
-            //dispatcherTimer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
-            //{
-            //    timeLabel.Text = _time.ToString(@"mm\:ss");
-            //    progressBar.Value--;
-            //    if (_time == TimeSpan.Zero)
-            //    {
-            //        dispatcherTimer.Stop();
-            //        SendResultAndExitWindow(window, resultsWindow);
-            //    }
-            //    _time = _time.Add(TimeSpan.FromSeconds(-1));
-            //}, Application.Current.Dispatcher);
+            TimeSpan _time = TimeSpan.FromSeconds(time);
+            DispatcherTimer dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
+            {
+                timeLabel.Text = _time.ToString(@"mm\:ss");
+                progressBar.Value--;
+                if (_time == TimeSpan.Zero)
+                {
+                    dispatcherTimer.Stop();
+                    SendResultAndExitWindow(window, resultsWindow);
+                }
+                _time = _time.Add(TimeSpan.FromSeconds(-1));
+            }, Application.Current.Dispatcher);
 
-            //dispatcherTimer.Start();
+            dispatcherTimer.Start();
         }
 
         #endregion
@@ -308,16 +392,18 @@ namespace MathYouCan.ViewModels
             else questionTextBlock.Visibility = Visibility.Collapsed;
         }
 
-        public void FillImage(BlockUIContainer imageContainer)
+        public void FillImage()
         {
-            imageContainer.Child =null;
-            string photoname = Questions[CurrentQuestionIndex].Question.PhotoName;
+          //  imageContainer.Source=null;
+            String photoname = Questions[CurrentQuestionIndex].Question.PhotoName;
             if (String.IsNullOrEmpty(photoname))
             {
+                QuestionImage = "";
                 //if (imageContainer.Child != null) (imageContainer.Child as Image).Visibility = Visibility.Hidden;
                 return;
             }
-            imageContainer.Child = CreateImage(photoname.Split('&')[0], false);
+            QuestionImage = ApiUri.ActApiUri + "/" + photoname.Split('&')[0];
+            //imageContainer.Source=new BitmapImage(new Uri( ApiUri.ActApiUri + "/" + photoname));
        
         }
         public void FillAnswers(UniversalTestWindow window, int answersPerQuestion)
@@ -331,15 +417,25 @@ namespace MathYouCan.ViewModels
                 answerGrid.Visibility = Visibility.Visible;
                 var answer = (Paragraph)window.FindName($"BodyAns{i + 1}");
                 Converter.ConvertToParagraph(answer, (Questions[CurrentQuestionIndex].Question.QuestionAnswers as List<QuestionAnswer>)[i].Text, 16);
-                var imageContainer = (BlockUIContainer)window.FindName($"imageContainer{i + 1}");
-
-                imageContainer.Child = null;
-                _ = imageContainer.Child == null ? answer.Margin = new Thickness(0, 5, 0, 0) : answer.Margin = new Thickness(0, 0, 0, 0);
-
+                
                 String photoname = (Questions[CurrentQuestionIndex].Question.QuestionAnswers as List<QuestionAnswer>)[i].PhotoName;
-                if (String.IsNullOrEmpty(photoname)) continue;
+                if (String.IsNullOrEmpty(photoname)) {
+                    if (i + 1 == 1) AnswerImage1 = "";
+                    if (i + 1 == 2) AnswerImage2 = "";
+                    if (i + 1 == 3) AnswerImage3 = "";
+                    if (i + 1 == 4) AnswerImage4 = "";
+                    if (i + 1 == 5) AnswerImage5 = "";
+                    continue;
+                }
+                if(i+1==1) AnswerImage1 = ApiUri.ActApiUri + "/" + photoname.Split('&')[0];
+                if(i+1==2) AnswerImage2 = ApiUri.ActApiUri + "/" + photoname.Split('&')[0];
+                if(i+1==3) AnswerImage3 = ApiUri.ActApiUri + "/" + photoname.Split('&')[0];
+                if(i+1 == 4) AnswerImage4 = ApiUri.ActApiUri + "/" + photoname.Split('&')[0];
+                if(i+1 == 5) AnswerImage5 = ApiUri.ActApiUri + "/" + photoname.Split('&')[0];
 
-                imageContainer.Child = CreateImage(photoname.Split('&')[0], true);
+
+                //imageContainer.Child = CreateImage(photoname.Split('&')[0], true);
+
             }
             for (int i = answers.Count; i < answersPerQuestion; i++)
             {
@@ -347,45 +443,6 @@ namespace MathYouCan.ViewModels
                 answerGrid.Visibility = Visibility.Collapsed;
             }
         }
-
-
-        //Method is user by FillImage and FillAnswers
-        Image CreateImage(string photoName, bool isAnswer)
-        {
-            if (!String.IsNullOrEmpty(photoName))
-            {
-                BitmapImage bitmapImage = new BitmapImage(new Uri(ApiUri.ActApiUri + "/" + photoName, UriKind.Absolute));
-                Image image = new Image()
-                {
-                    Source = bitmapImage,
-                    Visibility = Visibility.Visible,
-                    Stretch = Stretch.Fill
-
-                };
-               // if (bitmapImage.IsDownloading)
-                //{
-                    //bitmapImage.DownloadCompleted += (e, arg) =>
-                    //{
-
-                    //    if (bitmapImage.PixelWidth > 150 && bitmapImage.PixelHeight > 150 && isAnswer)
-                    //    {
-                    //        image.Width = bitmapImage.PixelWidth / (bitmapImage.PixelHeight / 150);
-                    //        image.Height = bitmapImage.PixelHeight / (bitmapImage.PixelHeight / 150);
-                    //    }
-                    //};
-                //  }
-               
-
-                image.HorizontalAlignment = HorizontalAlignment.Left;
-                return image;
-            }
-            else
-            {
-
-                return null;
-            }
-        }
-
 
         #endregion
         #region Buttons Conditions
