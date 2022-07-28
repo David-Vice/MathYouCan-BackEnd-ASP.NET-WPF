@@ -244,7 +244,7 @@ namespace MathYouCan.ViewModels
                 }
 
                 if (isQuestionCorrect) NumberOfCorrectAnswers++;
-                else if (i != 0) incorrectQuestions.Add(i+1);
+                else if (i != 0) incorrectQuestions.Add(i);
             }
 
             DataHandlerService dataHandlerService = new DataHandlerService();

@@ -1,6 +1,8 @@
 ﻿using MathYouCan.Models;
 using System;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace MathYouCan.Views
@@ -22,7 +24,9 @@ namespace MathYouCan.Views
         {
             SetWindowDefaultSettings();
             AssignImageSources();
+
             FillResultsTable();
+            FillIncorrectQuestions();
         }
 
 
@@ -59,6 +63,34 @@ namespace MathYouCan.Views
             mathGrade.Content= ExamResults.MathGrade;
             readingGrade.Content = ExamResults.ReadingGrade;
             scienceGrade.Content = ExamResults.ScienceGrade;
+        }
+
+        private void FillIncorrectQuestions()
+        {
+            Border border;
+            Label label;
+            Grid grid;
+
+            for (int i = 0; i < ExamResults.EnglishIncorrectQuestionNumbers.Count; i++)
+            {
+                border = new Border();
+                border.BorderThickness = new Thickness(1);
+                border.BorderBrush = Brushes.Black;
+
+                label = new Label();
+                label.FontSize = 18;
+                label.FontWeight = FontWeights.Bold;
+                label.Foreground = Brushes.Red;
+                label.Content = ExamResults.EnglishIncorrectQuestionNumbers[i];
+
+                border.Child = label;
+
+                //grid = new Grid();
+                //grid.Children.Clear();
+                //grid.Children.Add(border);
+
+                englishIncorrectQuestionStackPanel.Children.Add(border);
+            }
         }
     }
 }

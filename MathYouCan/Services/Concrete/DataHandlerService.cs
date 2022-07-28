@@ -121,7 +121,7 @@ namespace MathYouCan.Services.Concrete
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error message: {ex.Message}\n\nError Stack Trace: {ex.StackTrace}");
+                //MessageBox.Show($"Error message: {ex.Message}\n\nError Stack Trace: {ex.StackTrace}");
                 return "-";
             }
         }
