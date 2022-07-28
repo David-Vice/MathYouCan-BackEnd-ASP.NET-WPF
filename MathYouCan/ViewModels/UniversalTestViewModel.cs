@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -65,7 +66,7 @@ namespace MathYouCan.ViewModels
             instruction.Question = new Question();
             instruction.Question.QuestionAnswers = new List<QuestionAnswer>();
 
-            instruction.Question.Text = ins.Header + "\n" + ins.InstructionText;
+            instruction.Question.QuestionContent = ins.Header + "\n" + ins.InstructionText;
             Questions.Add(instruction);
 
 
@@ -204,25 +205,25 @@ namespace MathYouCan.ViewModels
         }
         public void SetTimer(TextBlock timeLabel, UniversalTestWindow window, ProgressBar progressBar, ResultsWindow resultsWindow)
         {
-            int time = GetTime();
-            progressBar.Maximum = time;
-            progressBar.Value = time;
+            //int time = GetTime();
+            //progressBar.Maximum = time;
+            //progressBar.Value = time;
 
-            TimeSpan _time = TimeSpan.FromSeconds(time);
-            DispatcherTimer dispatcherTimer = new DispatcherTimer();
-            dispatcherTimer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
-            {
-                timeLabel.Text = _time.ToString(@"mm\:ss");
-                progressBar.Value--;
-                if (_time == TimeSpan.Zero)
-                {
-                    dispatcherTimer.Stop();
-                    SendResultAndExitWindow(window, resultsWindow);
-                }
-                _time = _time.Add(TimeSpan.FromSeconds(-1));
-            }, Application.Current.Dispatcher);
+            //TimeSpan _time = TimeSpan.FromSeconds(time);
+            //DispatcherTimer dispatcherTimer = new DispatcherTimer();
+            //dispatcherTimer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
+            //{
+            //    timeLabel.Text = _time.ToString(@"mm\:ss");
+            //    progressBar.Value--;
+            //    if (_time == TimeSpan.Zero)
+            //    {
+            //        dispatcherTimer.Stop();
+            //        SendResultAndExitWindow(window, resultsWindow);
+            //    }
+            //    _time = _time.Add(TimeSpan.FromSeconds(-1));
+            //}, Application.Current.Dispatcher);
 
-            dispatcherTimer.Start();
+            //dispatcherTimer.Start();
         }
 
         #endregion
@@ -287,20 +288,20 @@ namespace MathYouCan.ViewModels
         {
             questionTextBlock.Visibility = Visibility.Visible;
 
-            if (Questions[CurrentQuestionIndex].Question.Text == String.Empty &&
+            if (Questions[CurrentQuestionIndex].Question.QuestionContent == String.Empty &&
                 Questions[CurrentQuestionIndex].Question.PhotoName == String.Empty)
             {
-                Questions[CurrentQuestionIndex].Question.Text = Questions[CurrentQuestionIndex].Question.QuestionContent;
+                Questions[CurrentQuestionIndex].Question.QuestionContent = Questions[CurrentQuestionIndex].Question.Text;
                 questionTextBlock.Visibility = Visibility.Collapsed;
-                Questions[CurrentQuestionIndex].Question.QuestionContent = String.Empty;
+                Questions[CurrentQuestionIndex].Question.Text = String.Empty;
             }
 
             Converter.ConvertToParagraph(questionPassageParagraph,
-                Questions[CurrentQuestionIndex].Question.Text, 16);
+                Questions[CurrentQuestionIndex].Question.QuestionContent, 16);
 
             questionTextBlock.Inlines.Clear();
 
-            string questionContent = Questions[CurrentQuestionIndex].Question.QuestionContent;
+            string questionContent = Questions[CurrentQuestionIndex].Question.Text;
 
             if (!String.IsNullOrEmpty(questionContent))
                 questionTextBlock.Inlines.Add(questionContent);
@@ -309,7 +310,7 @@ namespace MathYouCan.ViewModels
 
         public void FillImage(BlockUIContainer imageContainer)
         {
-            imageContainer.Child = null;
+            imageContainer.Child =null;
             string photoname = Questions[CurrentQuestionIndex].Question.PhotoName;
             if (String.IsNullOrEmpty(photoname))
             {
@@ -317,6 +318,7 @@ namespace MathYouCan.ViewModels
                 return;
             }
             imageContainer.Child = CreateImage(photoname.Split('&')[0], false);
+       
         }
         public void FillAnswers(UniversalTestWindow window, int answersPerQuestion)
         {
@@ -360,19 +362,19 @@ namespace MathYouCan.ViewModels
                     Stretch = Stretch.Fill
 
                 };
-                if (bitmapImage.IsDownloading)
-                {
-                    bitmapImage.DownloadCompleted += (e, arg) =>
-                    {
+               // if (bitmapImage.IsDownloading)
+                //{
+                    //bitmapImage.DownloadCompleted += (e, arg) =>
+                    //{
 
-                        if (bitmapImage.PixelWidth > 150 && bitmapImage.PixelHeight > 150 && isAnswer)
-                        {
-                            image.Width = bitmapImage.PixelWidth / (bitmapImage.PixelHeight / 150);
-                            image.Height = bitmapImage.PixelHeight / (bitmapImage.PixelHeight / 150);
-                        }
-                    };
-                }
-
+                    //    if (bitmapImage.PixelWidth > 150 && bitmapImage.PixelHeight > 150 && isAnswer)
+                    //    {
+                    //        image.Width = bitmapImage.PixelWidth / (bitmapImage.PixelHeight / 150);
+                    //        image.Height = bitmapImage.PixelHeight / (bitmapImage.PixelHeight / 150);
+                    //    }
+                    //};
+                //  }
+               
 
                 image.HorizontalAlignment = HorizontalAlignment.Left;
                 return image;

@@ -3,6 +3,7 @@ using MathYouCan.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -84,7 +85,7 @@ namespace MathYouCan.Views
             //else
             //    _universalTestViewModel.FillImage(imageContainerQuesion);
             _universalTestViewModel.FillImage(imageContainerPassage);
-
+            
 
             _universalTestViewModel.FillAnswers(this, answersPerQuestion);
         }
@@ -119,6 +120,7 @@ namespace MathYouCan.Views
 
             SyncRadioAnswers();
             if (_universalTestViewModel.IsEliminatorEnabled) UnEliminateAll();
+           
         }
 
         #endregion

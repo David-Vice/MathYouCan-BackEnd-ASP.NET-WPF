@@ -113,15 +113,18 @@ namespace MathYouCan.Services.Concrete
                    new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json")
                 );
                 HttpResponseMessage response = client.GetAsync($"/api/Results/Grade?sectionId={sectionId}&correctAnswers={correctAnswerNumber}").Result;
-                response.EnsureSuccessStatusCode();
-                string content = response.Content.ReadAsStringAsync().Result;
+                string grade = "-";
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = response.Content.ReadAsStringAsync().Result;
+                    grade =$"{JsonConvert.DeserializeObject<int>(content)}" ;
+                }
 
-                string grade = JsonConvert.DeserializeObject<string>(content);
                 return grade;
             }
             catch (Exception ex)
             {
-                //MessageBox.Show($"Error message: {ex.Message}\n\nError Stack Trace: {ex.StackTrace}");
+                MessageBox.Show($"Error message: {ex.Message}\n\nError Stack Trace: {ex.StackTrace}");
                 return "-";
             }
         }
