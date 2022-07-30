@@ -8,7 +8,7 @@ namespace ActAPI.Controllers
     [ApiController]
     public class ResultController : ControllerBase
     {
-        private readonly IResultService _resultService ;
+        private readonly IResultService _resultService;
         public ResultController(IResultService resultService)
         {
             _resultService = resultService;
@@ -18,7 +18,7 @@ namespace ActAPI.Controllers
         {
             return Ok(await _resultService.GetAll());
         }
-       
+
         [HttpGet("{id}")]
         public async Task<ActionResult<Result>> GetById(int id)
         {
@@ -32,9 +32,9 @@ namespace ActAPI.Controllers
         }
         [HttpGet]
         [Route("Grade")]
-        public async Task<ActionResult<Result>> GetGradeByCorrectAnswers(int sectionId,int correctAnswers)
+        public async Task<ActionResult<Result>> GetGradeByCorrectAnswers(int sectionId, int correctAnswers)
         {
-            int? result = _resultService.GetGradeByCorrectAnswers(sectionId,correctAnswers);
+            int? result = _resultService.GetGradeByCorrectAnswers(sectionId, correctAnswers);
             if (result == null)
             {
                 return NotFound($"Grade was not found");
@@ -49,11 +49,27 @@ namespace ActAPI.Controllers
             {
                 return BadRequest("Result is empty");
             }
-           
+
             await _resultService.Add(result);
             return Ok(result.Id);
         }
-      
+
+        [HttpPost]
+        [Route("AddTable")]
+        public async Task<ActionResult> AddTable(int sectionId, int tableSize)
+        {
+            try
+            {
+                await _resultService.AddTable(sectionId,tableSize);
+                return Ok($"Table for section {sectionId} created!");
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error on adding table!");
+            }
+        }
+
         [HttpPut("{id}")]
         public async Task<ActionResult<Result>> Update(int id, Result result)
         {

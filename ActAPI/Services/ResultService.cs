@@ -52,5 +52,14 @@ namespace ActAPI.Services
 
             throw new NullReferenceException();
         }
+
+        public async Task AddTable(int sectionId, int tableSize)
+        {
+            for(int i=1;i<=tableSize;i++)
+            {
+                Result tmp = new Result() { CorrectAnswers = i, Grade = 0, SectionId = sectionId };
+                await Add(tmp);
+            }
+        }
     }
 }
