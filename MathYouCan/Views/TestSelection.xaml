@@ -60,7 +60,7 @@
                    Content="Select Exam"
                    FontSize="29"
                    FontWeight="DemiBold"></Label>
-            
+
             <ListBox Name="examsListBox" 
                      Grid.Row="1" 
                      Grid.Column="1"

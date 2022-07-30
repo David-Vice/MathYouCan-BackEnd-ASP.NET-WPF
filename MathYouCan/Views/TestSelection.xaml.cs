@@ -3,15 +3,10 @@ using MathYouCan.Services.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace MathYouCan.Views
 {
@@ -22,7 +17,7 @@ namespace MathYouCan.Views
     {
         public int SelectedOfflineExamId { get; set; } = -1;
 
-        private List<OfflineExam> _offlineExams = new List<OfflineExam>(); 
+        private List<OfflineExam> _offlineExams = new List<OfflineExam>();
         public TestSelection()
         {
             InitializeComponent();
@@ -32,7 +27,7 @@ namespace MathYouCan.Views
         private void FillListBox()
         {
             DataHandlerService dataHandlerService = new DataHandlerService();
-            _offlineExams = dataHandlerService.GetAllOfflineExams().OrderBy(s=>s.Name).ToList();
+            _offlineExams = dataHandlerService.GetAllOfflineExams().OrderBy(s => s.Name).ToList();
             for (int i = 0; i < _offlineExams.Count(); i++)
             {
                 ListBoxItem lbi = new ListBoxItem();

@@ -1,5 +1,6 @@
 ﻿//using MathYouCan.Models;
 using MathYouCan.Converters;
+using MathYouCan.Data;
 using MathYouCan.Models;
 using MathYouCan.Models.Exams;
 using MathYouCan.Services.Concrete;
@@ -8,8 +9,10 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -23,6 +26,89 @@ namespace MathYouCan.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
 
+        protected virtual void OnPropertyChanged(string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        private string questionImage = "";
+        public string QuestionImage
+        {
+            get => questionImage;
+            set
+            {
+                if (!questionImage.Equals(value))
+                {
+                    questionImage = value;
+                    OnPropertyChanged(nameof(QuestionImage));
+                }
+            }
+
+        }
+        private string answerImage1 = "";
+        public string AnswerImage1
+        {
+            get { return answerImage1; }
+            set
+            {
+                if (!answerImage1.Equals(value))
+                {
+                    answerImage1 = value;
+                    OnPropertyChanged(nameof(AnswerImage1));
+                }
+            }
+        }
+        private string answerImage2 = "";
+        public string AnswerImage2
+        {
+            get { return answerImage2; }
+            set
+            {
+                if (!answerImage2.Equals(value))
+                {
+                    answerImage2 = value;
+                    OnPropertyChanged(nameof(AnswerImage2));
+                }
+            }
+        }
+        private string answerImage3 = "";
+        public string AnswerImage3
+        {
+            get { return answerImage3; }
+            set
+            {
+                if (!answerImage3.Equals(value))
+                {
+                    answerImage3 = value;
+                    OnPropertyChanged(nameof(AnswerImage3));
+                }
+            }
+        }
+        private string answerImage4 = "";
+        public string AnswerImage4
+        {
+            get { return answerImage4; }
+            set
+            {
+                if (!answerImage4.Equals(value))
+                {
+                    answerImage4 = value;
+                    OnPropertyChanged(nameof(AnswerImage4));
+                }
+            }
+        }
+        private string answerImage5 = "";
+        public string AnswerImage5
+        {
+            get { return answerImage5; }
+            set
+            {
+                if (!answerImage5.Equals(value))
+                {
+                    answerImage5 = value;
+                    OnPropertyChanged(nameof(AnswerImage5));
+                }
+            }
+        }
         //first question is Instructions
         public IList<QuestionView> Questions { get; set; }
         public Section _section { get; set; }
@@ -64,7 +150,7 @@ namespace MathYouCan.ViewModels
             instruction.Question = new Question();
             instruction.Question.QuestionAnswers = new List<QuestionAnswer>();
 
-            instruction.Question.Text = ins.Header + "\n" + ins.InstructionText;
+            instruction.Question.QuestionContent = ins.Header + "\n" + ins.InstructionText;
             Questions.Add(instruction);
 
 
@@ -230,34 +316,53 @@ namespace MathYouCan.ViewModels
         //this method will be called when end_section_button clicked and when time is out
         public void SendResultAndExitWindow(UniversalTestWindow window, ResultsWindow resultsWindow)
         {
-            // calculating number of correct answers
+            List<int> incorrectQuestions = new List<int>();
+
+            // calculating number of correct answers and getting incorrect questions
             for (int i = 0; i < Questions.Count; i++)
             {
+                bool isQuestionCorrect = false;
                 for (int j = 0; j < Questions[i].Question.QuestionAnswers.Count(); j++)
                 {
                     if (Questions[i].ChosenAnswerId == Questions[i].Question.QuestionAnswers[j].Id && Questions[i].Question.QuestionAnswers[j].IsCorrect)
-                    {
-                        NumberOfCorrectAnswers++;
-                    }
+                        isQuestionCorrect = true;
                 }
+
+                if (isQuestionCorrect) NumberOfCorrectAnswers++;
+                else if (i != 0) incorrectQuestions.Add(i);
             }
-            string result = $"{NumberOfCorrectAnswers}/{Questions.Count - 1}"; // -1 because of instruction( considered as quesion )
+
+            DataHandlerService dataHandlerService = new DataHandlerService();
+
             if (_section.Name == "English Section")
             {
-                resultsWindow.EnglishAnswers = result;
+                resultsWindow.ExamResults.EnglishCorrectNumber = NumberOfCorrectAnswers;
+                resultsWindow.ExamResults.EnglishIncorrectQuestionNumbers = incorrectQuestions;
+                resultsWindow.ExamResults.EnglishTotalNumber = Questions.Count - 1;
+                resultsWindow.ExamResults.EnglishGrade = dataHandlerService.GetExamGrade(_section.Id, NumberOfCorrectAnswers);
             }
             else if (_section.Name == "Math Section")
             {
-                resultsWindow.MathAnswers = result;
+                resultsWindow.ExamResults.MathCorrectNumber = NumberOfCorrectAnswers;
+                resultsWindow.ExamResults.MathIncorrectQuestionNumbers = incorrectQuestions;
+                resultsWindow.ExamResults.MathTotalNumber = Questions.Count - 1;
+                resultsWindow.ExamResults.MathGrade = dataHandlerService.GetExamGrade(_section.Id, NumberOfCorrectAnswers);
             }
             else if (_section.Name == "Reading Section")
             {
-                resultsWindow.ReadingAnswers = result;
+                resultsWindow.ExamResults.ReadingCorrectNumber = NumberOfCorrectAnswers;
+                resultsWindow.ExamResults.ReadingIncorrectQuestionNumbers = incorrectQuestions;
+                resultsWindow.ExamResults.ReadingTotalNumber = Questions.Count - 1;
+                resultsWindow.ExamResults.ReadingGrade = dataHandlerService.GetExamGrade(_section.Id, NumberOfCorrectAnswers);
             }
             else if (_section.Name == "Science Section")
             {
-                resultsWindow.ScienceAnswers = result;
+                resultsWindow.ExamResults.ScienceCorrectNumber = NumberOfCorrectAnswers;
+                resultsWindow.ExamResults.ScienceIncorrectQuestionNumbers = incorrectQuestions;
+                resultsWindow.ExamResults.ScienceTotalNumber = Questions.Count - 1;
+                resultsWindow.ExamResults.ScienceGrade = dataHandlerService.GetExamGrade(_section.Id, NumberOfCorrectAnswers);
             }
+
             window.Close();
         }
 
@@ -267,36 +372,39 @@ namespace MathYouCan.ViewModels
         {
             questionTextBlock.Visibility = Visibility.Visible;
 
-            if (Questions[CurrentQuestionIndex].Question.Text == String.Empty &&
+            if (Questions[CurrentQuestionIndex].Question.QuestionContent == String.Empty &&
                 Questions[CurrentQuestionIndex].Question.PhotoName == String.Empty)
             {
-                Questions[CurrentQuestionIndex].Question.Text = Questions[CurrentQuestionIndex].Question.QuestionContent;
+                Questions[CurrentQuestionIndex].Question.QuestionContent = Questions[CurrentQuestionIndex].Question.Text;
                 questionTextBlock.Visibility = Visibility.Collapsed;
-                Questions[CurrentQuestionIndex].Question.QuestionContent = String.Empty;
+                Questions[CurrentQuestionIndex].Question.Text = String.Empty;
             }
 
             Converter.ConvertToParagraph(questionPassageParagraph,
-                Questions[CurrentQuestionIndex].Question.Text, 16);
+                Questions[CurrentQuestionIndex].Question.QuestionContent, 16);
 
             questionTextBlock.Inlines.Clear();
 
-            string questionContent = Questions[CurrentQuestionIndex].Question.QuestionContent;
+            string questionContent = Questions[CurrentQuestionIndex].Question.Text;
 
             if (!String.IsNullOrEmpty(questionContent))
                 questionTextBlock.Inlines.Add(questionContent);
             else questionTextBlock.Visibility = Visibility.Collapsed;
         }
 
-        public void FillImage(BlockUIContainer imageContainer)
+        public void FillImage()
         {
-            imageContainer.Child = null;
-            string photoname = Questions[CurrentQuestionIndex].Question.PhotoName;
+          //  imageContainer.Source=null;
+            String photoname = Questions[CurrentQuestionIndex].Question.PhotoName;
             if (String.IsNullOrEmpty(photoname))
             {
+                QuestionImage = "";
                 //if (imageContainer.Child != null) (imageContainer.Child as Image).Visibility = Visibility.Hidden;
                 return;
             }
-            imageContainer.Child = CreateImage(photoname.Split('&')[0], false);
+            QuestionImage = ApiUri.ActApiUri + "/" + photoname.Split('&')[0];
+            //imageContainer.Source=new BitmapImage(new Uri( ApiUri.ActApiUri + "/" + photoname));
+       
         }
         public void FillAnswers(UniversalTestWindow window, int answersPerQuestion)
         {
@@ -309,15 +417,25 @@ namespace MathYouCan.ViewModels
                 answerGrid.Visibility = Visibility.Visible;
                 var answer = (Paragraph)window.FindName($"BodyAns{i + 1}");
                 Converter.ConvertToParagraph(answer, (Questions[CurrentQuestionIndex].Question.QuestionAnswers as List<QuestionAnswer>)[i].Text, 16);
-                var imageContainer = (BlockUIContainer)window.FindName($"imageContainer{i + 1}");
-
-                imageContainer.Child = null;
-                _ = imageContainer.Child == null ? answer.Margin = new Thickness(0, 5, 0, 0) : answer.Margin = new Thickness(0, 0, 0, 0);
-
+                
                 String photoname = (Questions[CurrentQuestionIndex].Question.QuestionAnswers as List<QuestionAnswer>)[i].PhotoName;
-                if (String.IsNullOrEmpty(photoname)) continue;
+                if (String.IsNullOrEmpty(photoname)) {
+                    if (i + 1 == 1) AnswerImage1 = "";
+                    if (i + 1 == 2) AnswerImage2 = "";
+                    if (i + 1 == 3) AnswerImage3 = "";
+                    if (i + 1 == 4) AnswerImage4 = "";
+                    if (i + 1 == 5) AnswerImage5 = "";
+                    continue;
+                }
+                if(i+1==1) AnswerImage1 = ApiUri.ActApiUri + "/" + photoname.Split('&')[0];
+                if(i+1==2) AnswerImage2 = ApiUri.ActApiUri + "/" + photoname.Split('&')[0];
+                if(i+1==3) AnswerImage3 = ApiUri.ActApiUri + "/" + photoname.Split('&')[0];
+                if(i+1 == 4) AnswerImage4 = ApiUri.ActApiUri + "/" + photoname.Split('&')[0];
+                if(i+1 == 5) AnswerImage5 = ApiUri.ActApiUri + "/" + photoname.Split('&')[0];
 
-                imageContainer.Child = CreateImage(photoname.Split('&')[0], true);
+
+                //imageContainer.Child = CreateImage(photoname.Split('&')[0], true);
+
             }
             for (int i = answers.Count; i < answersPerQuestion; i++)
             {
@@ -325,45 +443,6 @@ namespace MathYouCan.ViewModels
                 answerGrid.Visibility = Visibility.Collapsed;
             }
         }
-
-
-        //Method is user by FillImage and FillAnswers
-        Image CreateImage(string photoName, bool isAnswer)
-        {
-            if (!String.IsNullOrEmpty(photoName))
-            {
-                BitmapImage bitmapImage = new BitmapImage(new Uri(photoName, UriKind.Absolute));
-                Image image = new Image()
-                {
-                    Source = bitmapImage,
-                    Visibility = Visibility.Visible,
-                    Stretch = Stretch.Fill
-
-                };
-                if (bitmapImage.IsDownloading)
-                {
-                    bitmapImage.DownloadCompleted += (e, arg) =>
-                    {
-
-                        if (bitmapImage.PixelWidth > 150 && bitmapImage.PixelHeight > 150 && isAnswer)
-                        {
-                            image.Width = bitmapImage.PixelWidth / (bitmapImage.PixelHeight / 150);
-                            image.Height = bitmapImage.PixelHeight / (bitmapImage.PixelHeight / 150);
-                        }
-                    };
-                }
-
-
-                image.HorizontalAlignment = HorizontalAlignment.Left;
-                return image;
-            }
-            else
-            {
-
-                return null;
-            }
-        }
-
 
         #endregion
         #region Buttons Conditions
