@@ -61,7 +61,7 @@ namespace ActAPI.Controllers
             try
             {
                 await _resultService.AddTable(sectionId,tableSize);
-                return Ok($"Table for section {sectionId} created!");
+                return Ok();
             }
             catch (Exception)
             {
