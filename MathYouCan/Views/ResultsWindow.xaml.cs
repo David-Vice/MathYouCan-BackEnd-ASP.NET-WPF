@@ -50,7 +50,7 @@ namespace MathYouCan.Views
         private void FillResultsTable()
         {
             englishCorrectNumber.Content = ExamResults.EnglishCorrectNumber;
-            mathCorrectNumber.Content= ExamResults.MathCorrectNumber;
+            mathCorrectNumber.Content = ExamResults.MathCorrectNumber;
             readingCorrectNumber.Content = ExamResults.ReadingCorrectNumber;
             scienceCorrectNumber.Content = ExamResults.ScienceCorrectNumber;
 
@@ -60,37 +60,130 @@ namespace MathYouCan.Views
             scienceTotal.Content = ExamResults.ScienceTotalNumber;
 
             englishGrade.Content = ExamResults.EnglishGrade;
-            mathGrade.Content= ExamResults.MathGrade;
+            mathGrade.Content = ExamResults.MathGrade;
             readingGrade.Content = ExamResults.ReadingGrade;
             scienceGrade.Content = ExamResults.ScienceGrade;
+
+            totalGrade.Content = GetFinalGrade();
         }
 
         private void FillIncorrectQuestions()
         {
             Border border;
             Label label;
-            Grid grid;
 
             for (int i = 0; i < ExamResults.EnglishIncorrectQuestionNumbers.Count; i++)
             {
                 border = new Border();
                 border.BorderThickness = new Thickness(1);
                 border.BorderBrush = Brushes.Black;
+                border.Width = 35;
 
                 label = new Label();
                 label.FontSize = 18;
                 label.FontWeight = FontWeights.Bold;
                 label.Foreground = Brushes.Red;
                 label.Content = ExamResults.EnglishIncorrectQuestionNumbers[i];
+                label.VerticalAlignment = VerticalAlignment.Center;
+                label.HorizontalAlignment = HorizontalAlignment.Center;
 
                 border.Child = label;
 
-                //grid = new Grid();
-                //grid.Children.Clear();
-                //grid.Children.Add(border);
-
                 englishIncorrectQuestionStackPanel.Children.Add(border);
             }
+
+            for (int i = 0; i < ExamResults.MathIncorrectQuestionNumbers.Count; i++)
+            {
+                border = new Border();
+                border.BorderThickness = new Thickness(1);
+                border.BorderBrush = Brushes.Black;
+                border.Width = 35;
+
+                label = new Label();
+                label.FontSize = 18;
+                label.FontWeight = FontWeights.Bold;
+                label.Foreground = Brushes.Red;
+                label.Content = ExamResults.MathIncorrectQuestionNumbers[i];
+                label.VerticalAlignment = VerticalAlignment.Center;
+                label.HorizontalAlignment = HorizontalAlignment.Center;
+
+                border.Child = label;
+
+                mathIncorrectQuestionStackPanel.Children.Add(border);
+            }
+
+            for (int i = 0; i < ExamResults.ReadingIncorrectQuestionNumbers.Count; i++)
+            {
+                border = new Border();
+                border.BorderThickness = new Thickness(1);
+                border.BorderBrush = Brushes.Black;
+                border.Width = 35;
+
+                label = new Label();
+                label.FontSize = 18;
+                label.FontWeight = FontWeights.Bold;
+                label.Foreground = Brushes.Red;
+                label.Content = ExamResults.ReadingIncorrectQuestionNumbers[i];
+                label.VerticalAlignment = VerticalAlignment.Center;
+                label.HorizontalAlignment = HorizontalAlignment.Center;
+
+                border.Child = label;
+
+                readingIncorrectQuestionStackPanel.Children.Add(border);
+            }
+
+            for (int i = 0; i < ExamResults.ScienceIncorrectQuestionNumbers.Count; i++)
+            {
+                border = new Border();
+                border.BorderThickness = new Thickness(1);
+                border.BorderBrush = Brushes.Black;
+                border.Width = 35;
+
+                label = new Label();
+                label.FontSize = 18;
+                label.FontWeight = FontWeights.Bold;
+                label.Foreground = Brushes.Red;
+                label.Content = ExamResults.ScienceIncorrectQuestionNumbers[i];
+                label.VerticalAlignment = VerticalAlignment.Center;
+                label.HorizontalAlignment = HorizontalAlignment.Center;
+
+                border.Child = label;
+
+                scienceIncorrectQuestionStackPanel.Children.Add(border);
+            }
         }
+
+        private string GetFinalGrade()
+        {
+            int count = 0;
+            double total = 0;
+            
+            if (ExamResults.EnglishGrade != "-")
+            {
+                count++;
+                total+=Convert.ToInt32(ExamResults.EnglishGrade);
+            }
+
+            if (ExamResults.MathGrade != "-")
+            {
+                count++;
+                total += Convert.ToInt32(ExamResults.MathGrade);
+            }
+
+            if (ExamResults.ReadingGrade != "-")
+            {
+                count++;
+                total += Convert.ToInt32(ExamResults.ReadingGrade);
+            }
+
+            if (ExamResults.ScienceGrade != "-")
+            {
+                count++;
+                total += Convert.ToInt32(ExamResults.ScienceGrade);
+            }
+
+            return count == 0 ? "-" : Math.Round(total / count, 2).ToString();
+        }
+
     }
 }

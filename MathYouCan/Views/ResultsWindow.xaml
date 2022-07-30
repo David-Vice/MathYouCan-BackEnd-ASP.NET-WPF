@@ -11,8 +11,8 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="7*"/>
-            <RowDefinition Height="7*"/>
-            <RowDefinition Height="18*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="23*"/>
             <RowDefinition Height="6*"/>
             <RowDefinition Height="20*"/>
         </Grid.RowDefinitions>
@@ -92,6 +92,7 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
@@ -127,6 +128,10 @@
                 <Border Grid.Row="4" Grid.Column="0"
                         BorderBrush="Black" BorderThickness="1">
                     <Label Content="Science" FontSize="18" FontWeight="Bold"/>
+                </Border>
+                <Border Grid.Row="5" Grid.Column="0"
+                        BorderBrush="Red" BorderThickness="1">
+                    <Label Content="Final grade" FontSize="18" FontWeight="Bold"/>
                 </Border>
                 <!-- COLUMN 1  END-->
 
@@ -229,44 +234,17 @@
                     <Label Name="scienceGrade" Content="-" HorizontalAlignment="Center"
                            FontSize="18" FontWeight="Bold"/>
                 </Border>
+                <Border Grid.Row="5" Grid.Column="3"
+                        BorderBrush="Red" BorderThickness="2">
+                    <Label Name="totalGrade" Content="-" HorizontalAlignment="Center"
+                           FontSize="18" FontWeight="Bold"/>
+                </Border>
                 <!-- COLUMN 4  END-->
 
 
 
 
                 <!-- RESULTS TABLE END -->
-
-
-                <!--<Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-
-                <StackPanel Grid.Row="0" Orientation="Horizontal">
-                    <Label Content="English Section:" FontSize="20"/>
-                    <Label Name="englishResults" Content="0/0" FontSize="20"/>
-                </StackPanel>
-
-                <StackPanel Grid.Row="1" Orientation="Horizontal">
-                    <Label Content="Math Section:" FontSize="20"/>
-                    <Label Name="mathResults" Content="0/0" FontSize="20"/>
-                </StackPanel>
-
-                <StackPanel Grid.Row="2" Orientation="Horizontal">
-                    <Label Content="Reading Section:" FontSize="20"/>
-                    <Label Name="readingResults" Content="0/0" FontSize="20"/>
-                </StackPanel>
-
-                <StackPanel Grid.Row="3" Orientation="Horizontal">
-                    <Label Content="Science Section:" FontSize="20"/>
-                    <Label Name="scienceResults" Content="0/0" FontSize="20"/>
-                </StackPanel>-->
 
             </Grid>
             
@@ -297,8 +275,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="0.3*"/>
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
@@ -317,10 +294,13 @@
             </Grid>
             <Grid Grid.Row="0" Grid.Column="2">
                 <Border BorderBrush="Black" BorderThickness="1">
-                    <StackPanel Name="englishIncorrectQuestionStackPanel"
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                                  VerticalScrollBarVisibility="Disabled"
+                                  HorizontalAlignment="Stretch">
+                        <StackPanel Name="englishIncorrectQuestionStackPanel"
                             Orientation="Horizontal">
-
-                    </StackPanel>
+                        </StackPanel>
+                    </ScrollViewer>
                 </Border>
             </Grid>
             <!-- ENGLISH INCORRECT END -->
@@ -334,10 +314,12 @@
             </Grid>
             <Grid Grid.Row="1" Grid.Column="2">
                 <Border BorderBrush="Black" BorderThickness="1">
-                    <StackPanel Name="mathIncorrectQuestionStackPanel"
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                                  VerticalScrollBarVisibility="Disabled">
+                        <StackPanel Name="mathIncorrectQuestionStackPanel"
                             Orientation="Horizontal">
-
-                    </StackPanel>
+                        </StackPanel>
+                    </ScrollViewer>
                 </Border>
             </Grid>
             <!-- MATH INCORRECT END -->
@@ -352,10 +334,13 @@
             </Grid>
             <Grid Grid.Row="2" Grid.Column="2">
                 <Border BorderBrush="Black" BorderThickness="1">
-                    <StackPanel Name="readingIncorrectQuestionStackPanel"
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                                  VerticalScrollBarVisibility="Disabled">
+                        <StackPanel Name="readingIncorrectQuestionStackPanel"
                             Orientation="Horizontal">
 
-                    </StackPanel>
+                        </StackPanel>
+                    </ScrollViewer>
                 </Border>
             </Grid>
             <!-- READING INCORRECT END -->
@@ -370,10 +355,13 @@
             </Grid>
             <Grid Grid.Row="3" Grid.Column="2">
                 <Border BorderBrush="Black" BorderThickness="1">
-                    <StackPanel Name="scienceIncorrectQuestionStackPanel"
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                                  VerticalScrollBarVisibility="Disabled">
+                        <StackPanel Name="scienceIncorrectQuestionStackPanel"
                             Orientation="Horizontal">
 
-                    </StackPanel>
+                        </StackPanel>
+                    </ScrollViewer>
                 </Border>
 
             </Grid>
