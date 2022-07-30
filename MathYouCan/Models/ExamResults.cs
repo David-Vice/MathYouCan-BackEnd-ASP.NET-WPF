@@ -29,10 +29,10 @@ namespace MathYouCan.Models
 
 
 
-        public string EnglishGrade { get; set; } = "-";
-        public string MathGrade { get; set; } = "-";
-        public string ReadingGrade { get; set; } = "-";
-        public string ScienceGrade { get; set; } = "-";
+        public string EnglishGrade { get; set; } = "0";
+        public string MathGrade { get; set; } = "0";
+        public string ReadingGrade { get; set; } = "0";
+        public string ScienceGrade { get; set; } = "0";
 
 
     }

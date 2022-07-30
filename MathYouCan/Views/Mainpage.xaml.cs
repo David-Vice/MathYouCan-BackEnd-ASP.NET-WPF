@@ -1,17 +1,7 @@
 ﻿using MathYouCan.Models.Exams;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using Section = MathYouCan.Models.Exams.Section;
 namespace MathYouCan.Views
 {
@@ -25,7 +15,7 @@ namespace MathYouCan.Views
         {
             InitializeComponent();
             _exam = exam;
-            examName.Content=exam.Name;
+            examName.Content = exam.Name;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -36,14 +26,15 @@ namespace MathYouCan.Views
 
             ResultsWindow resultsWindow = new ResultsWindow();
             List<Section> sections = SortSections();
+            SetTotalQuestionsNumber(resultsWindow, sections);
             for (int i = 0; i < sections.Count; i++)
             {
-                windows.Add(new UniversalTestWindow(sections.ElementAt(i),resultsWindow));
+                windows.Add(new UniversalTestWindow(sections.ElementAt(i), resultsWindow));
                 if (i == 2)
                 {
-                    PauseWindow pauseWindow=new PauseWindow();
+                    PauseWindow pauseWindow = new PauseWindow();
                     pauseWindow.ShowDialog();
-                    
+
                 }
                 windows[i].ShowDialog();
 
@@ -52,7 +43,7 @@ namespace MathYouCan.Views
                 {
                     break;
                 }
-                    
+
             }
 
             resultsWindow.ShowDialog();
@@ -67,9 +58,9 @@ namespace MathYouCan.Views
             for (int i = 0; i < _exam.Sections.Count(); i++)
             {
                 Section s = _exam.Sections.ElementAt(i);
-                if (s.Name=="English Section")
+                if (s.Name == "English Section")
                 {
-                    sectionsTmp[0]=s;
+                    sectionsTmp[0] = s;
                 }
                 if (s.Name == "Math Section")
                 {
@@ -86,5 +77,31 @@ namespace MathYouCan.Views
             }
             return sectionsTmp;
         }
+
+
+        private void SetTotalQuestionsNumber(ResultsWindow resultsWindow, List<Section> sections)
+        {
+            for (int i = 0; i < sections.Count; i++)
+            {
+
+                if (sections[i].Name == "English Section")
+                {
+                    resultsWindow.ExamResults.EnglishTotalNumber = sections[i].Questions.Count();
+                }
+                else if (sections[i].Name == "Math Section")
+                {
+                    resultsWindow.ExamResults.MathTotalNumber = sections[i].Questions.Count();
+                }
+                else if (sections[i].Name == "Reading Section")
+                {
+                    resultsWindow.ExamResults.ReadingTotalNumber = sections[i].Questions.Count();
+                }
+                else if (sections[i].Name == "Science Section")
+                {
+                    resultsWindow.ExamResults.ScienceTotalNumber = sections[i].Questions.Count();
+                }
+            }
+        }
+
     }
 }
