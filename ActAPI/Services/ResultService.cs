@@ -14,8 +14,17 @@ namespace ActAPI.Services
         }
         public async Task Add(Result obj)
         {
-            _dataContext.Results.Add(obj);
-            await _dataContext.SaveChangesAsync();
+           
+                if (obj.SectionId == null) throw new NullReferenceException();
+
+                _dataContext.Sections.Where(x => x.Id == obj.SectionId).FirstOrDefault().Results.Add(obj);
+                _dataContext.Results.Add(obj);
+
+                await _dataContext.SaveChangesAsync();
+                
+            
+
+            
         }
 
         public async Task Delete(Result obj)
@@ -57,7 +66,7 @@ namespace ActAPI.Services
         {
             for(int i=1;i<=tableSize;i++)
             {
-                Result tmp = new Result() { CorrectAnswers = i, Grade = 0, SectionId = sectionId };
+                Result tmp = new Result() { CorrectAnswers = i, Grade = -1, SectionId = sectionId };
                 await Add(tmp);
             }
         }

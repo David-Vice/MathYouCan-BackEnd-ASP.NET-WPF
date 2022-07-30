@@ -56,12 +56,10 @@ namespace ActAPI.Models
 
             modelBuilder.Entity<Result>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
                 entity.HasOne(d => d.Section)
                     .WithMany(p => p.Results)
                     .HasForeignKey(d => d.SectionId)
-                    .HasConstraintName("FK__Results__Section__5CD6CB2B");
+                    .HasConstraintName("FK__Results__Section__6FE99F9F");
             });
 
             modelBuilder.Entity<Section>(entity =>
