@@ -64,7 +64,7 @@ namespace ActAPI.Services
 
         public async Task AddTable(int sectionId, int tableSize)
         {
-            for(int i=1;i<=tableSize;i++)
+            for(int i=0;i<=tableSize;i++)
             {
                 Result tmp = new Result() { CorrectAnswers = i, Grade = -1, SectionId = sectionId };
                 await Add(tmp);
