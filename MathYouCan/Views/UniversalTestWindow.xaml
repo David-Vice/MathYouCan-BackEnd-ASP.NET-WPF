@@ -288,7 +288,7 @@
 
                     <!-- Question Title Label -->
                     <StackPanel Grid.Row="0"  VerticalAlignment="Center" >
-                        <Label Name="questionTitleLabel" HorizontalAlignment="Left" Padding="10,0,0,0" FontSize="17" FontWeight="Bold">Passage II</Label>
+                        <Label Name="questionTitleLabel" HorizontalAlignment="Left" Padding="10,0,0,0" FontSize="17" FontWeight="Bold"></Label>
                     </StackPanel>
                     <!-- Question Title END -->
 
