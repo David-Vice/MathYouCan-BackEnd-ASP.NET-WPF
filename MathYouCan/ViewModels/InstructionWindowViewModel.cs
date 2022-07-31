@@ -62,7 +62,7 @@ namespace MathYouCan.ViewModels
 
             string instructionText3 = "|~B~|IMPORTANT:|~B~| Read this information before selecting the |~B~|Next|~B~| button.\n\n" +
                 "You are about to take the ACT, which is composed of multiple-choice tests in English, " +
-                "mathematics, reading, and science,\nfollewed by a writing test, for which you will complete an essay written in English.\n\nThese tests" +
+                "mathematics, reading, and science,\nfollewed by a writing test, for which you will complete an essay written in English.\n\nThese tests " +
                 "measure skills and abilities highly related to high school course work and success in college. |~B~|Calculators may " +
                 "be\nused on the mathematics only|~B~|.\n\nFor each multiple-choice question, " +
                 "choose the best answer by selecting the circle next to it. " +
@@ -74,9 +74,9 @@ namespace MathYouCan.ViewModels
                 "question|~B~|. Your score on\nthe writing test is based on the essay you type into the text box.\n\n" +
                 "Your computer will keep the official time for your examination. There will be a countdown timer that will tell you the time\n" +
                 "remaining for the test you are working on. When 5 minutes remain on each test, a message will appear on your screen to serve as\n" +
-                "a warning before time is up. When time runs out, submit your test according to the instructions on your screen.\n\n If you finish" +
-                "a test easly, you may sit quietly or use the remaining time to reconsider questions you are uncertain about in that test\nor to review" +
-                "yout essay. You will |~B~|not|~B~| be able to look back at the test questions or the essay once the test is submitted.\n\n" +
+                "a warning before time is up. When time runs out, submit your test according to the instructions on your screen.\n\n If you finish " +
+                "a test easily, you may sit quietly or use the remaining time to reconsider questions you are uncertain about in that test\nor to review " +
+                "your essay. You will |~B~|not|~B~| be able to look back at the test questions or the essay once the test is submitted.\n\n" +
                 "Please read and agree to the Examinee Statement on the next screen. The Examinee Statement section is not scored.\n\nSelect the " +
                 "|~B~|Next|~B~| button to proceed.";
 
