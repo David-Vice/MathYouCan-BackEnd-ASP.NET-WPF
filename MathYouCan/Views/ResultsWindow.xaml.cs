@@ -155,34 +155,29 @@ namespace MathYouCan.Views
 
         private string GetFinalGrade()
         {
-            int count = 0;
             double total = 0;
             
-            if (ExamResults.EnglishGrade != "-")
+            if (ExamResults.EnglishGrade != "0")
             {
-                count++;
                 total+=Convert.ToInt32(ExamResults.EnglishGrade);
             }
 
-            if (ExamResults.MathGrade != "-")
+            if (ExamResults.MathGrade != "0")
             {
-                count++;
                 total += Convert.ToInt32(ExamResults.MathGrade);
             }
 
-            if (ExamResults.ReadingGrade != "-")
+            if (ExamResults.ReadingGrade != "0")
             {
-                count++;
                 total += Convert.ToInt32(ExamResults.ReadingGrade);
             }
 
-            if (ExamResults.ScienceGrade != "-")
+            if (ExamResults.ScienceGrade != "0")
             {
-                count++;
                 total += Convert.ToInt32(ExamResults.ScienceGrade);
             }
 
-            return count == 0 ? "-" : Math.Round(total / count, 2).ToString();
+            return Math.Round(total / 4, 2).ToString();
         }
 
     }
