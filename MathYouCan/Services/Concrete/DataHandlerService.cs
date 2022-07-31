@@ -117,7 +117,10 @@ namespace MathYouCan.Services.Concrete
                 if (response.IsSuccessStatusCode)
                 {
                     string content = response.Content.ReadAsStringAsync().Result;
-                    grade =$"{JsonConvert.DeserializeObject<int>(content)}" ;
+                    if (content!="-1")
+                    {
+                        grade =$"{JsonConvert.DeserializeObject<int>(content)}" ;
+                    }
                 }
 
                 return grade;
