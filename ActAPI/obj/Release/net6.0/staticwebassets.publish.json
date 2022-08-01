@@ -1,0 +1,19 @@
+{
+  "Version": 1,
+  "Hash": "SnM1HC2awigcpvuEiAuEh+adR9F27Ny3rbEIlCJJwZo=",
+  "Source": "ActAPI",
+  "BasePath": "_content/ActAPI",
+  "Mode": "Default",
+  "ManifestType": "Publish",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "ActAPI\\wwwroot",
+      "Source": "ActAPI",
+      "ContentRoot": "C:\\Users\\Kenan\\source\\repos\\MathYouCan\\ActAPI\\wwwroot\\",
+      "BasePath": "_content/ActAPI",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": []
+}
