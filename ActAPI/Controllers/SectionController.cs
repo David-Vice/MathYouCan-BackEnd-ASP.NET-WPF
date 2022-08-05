@@ -41,7 +41,7 @@ namespace ActAPI.Controllers
                     return BadRequest("Could not connect section to exam, because exam id was not provided");
                 if (questionsNumber <=0)
                     return BadRequest("Number of questions cannot be less than 1");
-                if (answersNumber <= 1||answersNumber>=5)
+                if (answersNumber <= 1||answersNumber>5)
                     return BadRequest("Number of answers cannot be less than 2 or more than 5");
                 await _sectionService.Add(section);
 
