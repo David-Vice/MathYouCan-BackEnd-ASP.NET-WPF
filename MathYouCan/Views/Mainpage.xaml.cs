@@ -27,6 +27,8 @@ namespace MathYouCan.Views
             ResultsWindow resultsWindow = new ResultsWindow();
             List<Section> sections = SortSections();
             SetTotalQuestionsNumber(resultsWindow, sections);
+
+            SetIncorrectQuestions(resultsWindow);
             for (int i = 0; i < sections.Count; i++)
             {
                 windows.Add(new UniversalTestWindow(sections.ElementAt(i), resultsWindow));
@@ -101,6 +103,24 @@ namespace MathYouCan.Views
                     resultsWindow.ExamResults.ScienceTotalNumber = sections[i].Questions.Count();
                 }
             }
+        }
+
+        // Sets all questions to incorrect
+        // IF USER STARTS SECTION INCORRECT QUESTIONS WILL BE REINITIALIZED
+        // THIS METHOD MUST BE USED AFTER "SetTotalQuestionsNumber"
+        private void SetIncorrectQuestions(ResultsWindow resultsWindow)
+        {
+            for (int i = 1; i <= resultsWindow.ExamResults.EnglishTotalNumber; i++)
+                resultsWindow.ExamResults.EnglishIncorrectQuestionNumbers.Add(i);
+
+            for (int i = 1; i <= resultsWindow.ExamResults.MathTotalNumber; i++)
+                resultsWindow.ExamResults.MathIncorrectQuestionNumbers.Add(i);
+
+            for (int i = 1; i <= resultsWindow.ExamResults.ReadingTotalNumber; i++)
+                resultsWindow.ExamResults.ReadingIncorrectQuestionNumbers.Add(i);
+
+            for (int i = 1; i <= resultsWindow.ExamResults.ScienceTotalNumber; i++)
+                resultsWindow.ExamResults.ScienceIncorrectQuestionNumbers.Add(i);
         }
 
     }

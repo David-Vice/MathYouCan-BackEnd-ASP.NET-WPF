@@ -157,22 +157,22 @@ namespace MathYouCan.Views
         {
             double total = 0;
             
-            if (ExamResults.EnglishGrade != "0")
+            if (ExamResults.EnglishGrade != "Grade not provided")
             {
                 total+=Convert.ToInt32(ExamResults.EnglishGrade);
             }
 
-            if (ExamResults.MathGrade != "0")
+            if (ExamResults.MathGrade != "Grade not provided")
             {
                 total += Convert.ToInt32(ExamResults.MathGrade);
             }
 
-            if (ExamResults.ReadingGrade != "0")
+            if (ExamResults.ReadingGrade != "Grade not provided")
             {
                 total += Convert.ToInt32(ExamResults.ReadingGrade);
             }
 
-            if (ExamResults.ScienceGrade != "0")
+            if (ExamResults.ScienceGrade != "Grade not provided")
             {
                 total += Convert.ToInt32(ExamResults.ScienceGrade);
             }
