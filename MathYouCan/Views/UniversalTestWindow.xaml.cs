@@ -3,7 +3,6 @@ using MathYouCan.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -41,7 +40,7 @@ namespace MathYouCan.Views
             LoadInfo(section);
             _universalTestViewModel.ChangeBtnToActive(infoButton);
             CreateAnswers(answersPerQuestion);
-            DataContext= _universalTestViewModel;
+            DataContext = _universalTestViewModel;
         }
 
         #region Methods to UPDATE WINDOW
@@ -87,7 +86,7 @@ namespace MathYouCan.Views
             //else
             //    _universalTestViewModel.FillImage(imageContainerQuesion);
             _universalTestViewModel.FillImage();
-            
+
             _universalTestViewModel.FillAnswers(this, answersPerQuestion);
         }
 
@@ -121,7 +120,7 @@ namespace MathYouCan.Views
 
             SyncRadioAnswers();
             if (_universalTestViewModel.IsEliminatorEnabled) UnEliminateAll();
-           
+
         }
 
         #endregion
@@ -334,7 +333,19 @@ namespace MathYouCan.Views
 
                 Paragraph bodyAns = new Paragraph();
                 bodyAns.Name = $"BodyAns{i + 1}";
-                bodyAns.FontSize = 17;
+
+                try
+                {
+                    if (_universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].Question.QuestionAnswers[i].Text != "")
+                        bodyAns.FontSize = 17;
+                    else
+                        bodyAns.FontSize = 1;
+                }
+                catch (Exception)
+                {
+                    bodyAns.FontSize = 1;
+                }
+                //bodyAns.Margin = new Thickness(0,0,0,-400);
                 bodyAns.MouseDown += notEliminatedAnswer_MouseDown;
                 RegisterName($"BodyAns{i + 1}", bodyAns);
                 //added image container to each answer
@@ -352,7 +363,9 @@ namespace MathYouCan.Views
                 image.SetBinding(Image.SourceProperty, myBinding);
                 imageContainer.Child = image;
                 gridAns.Children.Add(radioAns);
+
                 bodyFlowDoc.Blocks.Add(bodyAns);
+
                 bodyFlowDoc.Blocks.Add(imageContainer);
                 bodyScroll.Document = bodyFlowDoc;
                 gridAns.Children.Add(bodyScroll);
