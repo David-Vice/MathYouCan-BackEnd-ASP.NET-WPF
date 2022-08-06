@@ -29,10 +29,10 @@ namespace MathYouCan.Models
 
 
 
-        public string EnglishGrade { get; set; } = "Grade not provided";
-        public string MathGrade { get; set; } = "Grade not provided";
-        public string ReadingGrade { get; set; } = "Grade not provided";
-        public string ScienceGrade { get; set; } = "Grade not provided";
+        public string EnglishGrade { get; set; } = "Score not provided";
+        public string MathGrade { get; set; } = "Score not provided";
+        public string ReadingGrade { get; set; } = "Score not provided";
+        public string ScienceGrade { get; set; } = "Score not provided";
 
 
     }

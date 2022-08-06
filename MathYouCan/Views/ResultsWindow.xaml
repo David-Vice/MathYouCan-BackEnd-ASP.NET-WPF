@@ -131,7 +131,7 @@
                 </Border>
                 <Border Grid.Row="5" Grid.Column="0"
                         BorderBrush="Red" BorderThickness="1">
-                    <Label Content="Final grade" FontSize="18" FontWeight="Bold"/>
+                    <Label Content="Final score" FontSize="18" FontWeight="Bold"/>
                 </Border>
                 <!-- COLUMN 1  END-->
 
@@ -206,7 +206,7 @@
                 <!-- COLUMN 4 -->
                 <Border Grid.Row="0" Grid.Column="3"
                         BorderBrush="Black" BorderThickness="1">
-                    <Label  Content="Grade" HorizontalAlignment="Center"
+                    <Label  Content="Score" HorizontalAlignment="Center"
                             FontSize="18" FontWeight="Bold"/>
 
                 </Border>
