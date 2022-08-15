@@ -1,4 +1,5 @@
-﻿using MathYouCan.Models.Enums;
+﻿using MathYouCan.Models;
+using MathYouCan.Models.Enums;
 using MathYouCan.Models.Exams;
 using MathYouCan.Services.Concrete;
 using MathYouCan.Views;
@@ -22,6 +23,13 @@ namespace MathYouCan
                 //api call and get the OfflineExam Object
                 //now just for example I create it for mySelf
 
+                UserCredentials userCredentials = new UserCredentials();
+
+                StudentPrsonalInfoWindow studentPrsonalInfoWindow = new StudentPrsonalInfoWindow(userCredentials);
+                studentPrsonalInfoWindow.ShowDialog();
+
+                MessageBox.Show(userCredentials.Name + " " + userCredentials.Surname);
+
                 TestSelection testSelectionWindow = new TestSelection();
                 testSelectionWindow.ShowDialog();
                 if (testSelectionWindow.DialogResult.Value)
@@ -32,10 +40,6 @@ namespace MathYouCan
                     new InstructionsWindow().ShowDialog();
 
                     new Mainpage(selectedOfflineExam).ShowDialog();
-
-                    //MessageBox.Show(testSelectionWindow.SelectedOfflineExamId.ToString());
-
-                    //new ResultsWindow().ShowDialog();
                 }
             }
             finally

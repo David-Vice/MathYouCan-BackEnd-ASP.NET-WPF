@@ -108,6 +108,7 @@
     <Compile Include="Models\Exams\Section.cs" />
     <Compile Include="Models\Exams\Instruction.cs" />
     <Compile Include="Models\QuestionView.cs" />
+    <Compile Include="Models\UserCredentials.cs" />
     <Compile Include="Services\Concrete\DataHandlerService.cs" />
     <Compile Include="Services\Concrete\InfosAndInstructions.cs" />
     <Compile Include="ViewModels\InstructionWindowViewModel.cs" />
@@ -130,6 +131,9 @@
     </Compile>
     <Compile Include="Views\ResultsWindow.xaml.cs">
       <DependentUpon>ResultsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StudentPrsonalInfoWindow.xaml.cs">
+      <DependentUpon>StudentPrsonalInfoWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TestSelection.xaml.cs">
       <DependentUpon>TestSelection.xaml</DependentUpon>
@@ -154,6 +158,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ResultsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StudentPrsonalInfoWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
