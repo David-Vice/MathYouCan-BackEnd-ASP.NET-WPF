@@ -23,6 +23,7 @@ namespace ActAPI.Data
         public virtual DbSet<QuestionAnswer> QuestionAnswers { get; set; } = null!;
         public virtual DbSet<Result> Results { get; set; } = null!;
         public virtual DbSet<Section> Sections { get; set; } = null!;
+        public virtual DbSet<Student> Students { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -75,9 +76,25 @@ namespace ActAPI.Data
                     .HasConstraintName("FK__Sections__Offlin__4BAC3F29");
             });
 
+            modelBuilder.Entity<Student>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.ExamDate).HasColumnType("datetime");
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Surname)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+            });
+
             OnModelCreatingPartial(modelBuilder);
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
     }
 }

@@ -21,6 +21,7 @@ builder.Services.AddScoped<IOfflineExamService,OfflineExamService>();
 builder.Services.AddScoped<ISectionService, SectionService>();
 builder.Services.AddScoped<IQuestionService, QuestionService>();
 builder.Services.AddScoped<IQuestionAnswerService, QuestionAnswerService>();
+builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddCors(o =>
 {
     o.AddPolicy("CorsPolicy", builder =>

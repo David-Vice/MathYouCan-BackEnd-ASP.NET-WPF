@@ -11,6 +11,7 @@ namespace ActAPI.Data
         DbSet<Section> Sections { get; set; }
         DbSet<Result> Results { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
+        DbSet<Student> Students { get; set; }
 
     }
 }
