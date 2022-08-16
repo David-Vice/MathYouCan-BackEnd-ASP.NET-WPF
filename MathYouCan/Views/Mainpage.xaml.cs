@@ -1,4 +1,5 @@
-﻿using MathYouCan.Models.Exams;
+﻿using MathYouCan.Models;
+using MathYouCan.Models.Exams;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -11,11 +12,13 @@ namespace MathYouCan.Views
     public partial class Mainpage : Window
     {
         private OfflineExam _exam;
-        public Mainpage(OfflineExam exam)
+        private UserCredentials _userCredentials;
+        public Mainpage(OfflineExam exam,UserCredentials userCredentials)
         {
             InitializeComponent();
             _exam = exam;
             examName.Content = exam.Name;
+            _userCredentials=userCredentials;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -24,7 +27,7 @@ namespace MathYouCan.Views
             List<UniversalTestWindow> windows = new List<UniversalTestWindow>();
             Close();
 
-            ResultsWindow resultsWindow = new ResultsWindow();
+            ResultsWindow resultsWindow = new ResultsWindow(_userCredentials);
             List<Section> sections = SortSections();
             SetTotalQuestionsNumber(resultsWindow, sections);
 
@@ -40,7 +43,6 @@ namespace MathYouCan.Views
                 }
                 windows[i].ShowDialog();
 
-                //windows[i].
                 if (windows[i].ExamEnded)
                 {
                     break;

@@ -1,5 +1,7 @@
 ﻿using MathYouCan.Models;
 using System;
+using System.Net;
+using System.Net.Mail;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -12,9 +14,11 @@ namespace MathYouCan.Views
     /// </summary>
     public partial class ResultsWindow : Window
     {
+        private UserCredentials _userCredentials;
         public ExamResults ExamResults { get; } = new ExamResults();
-        public ResultsWindow()
+        public ResultsWindow(UserCredentials userCredentials)
         {
+            _userCredentials = userCredentials;
             InitializeComponent();
         }
 
@@ -27,6 +31,7 @@ namespace MathYouCan.Views
 
             FillResultsTable();
             FillIncorrectQuestions();
+            SaveResults();
         }
 
 
@@ -152,10 +157,10 @@ namespace MathYouCan.Views
                 scienceIncorrectQuestionStackPanel.Children.Add(border);
             }
         }
+        private double total = 0;
 
         private string GetFinalGrade()
         {
-            double total = 0;
             
             if (ExamResults.EnglishGrade != "Score not provided")
             {
@@ -179,6 +184,90 @@ namespace MathYouCan.Views
 
             return Math.Round(total / 4, 2).ToString();
         }
+        private void SendResults()
+        {
+            SmtpClient Smtp = new SmtpClient();
+            Smtp.UseDefaultCredentials = false;
+            var NetworkCredentials = new NetworkCredential() { UserName = "noreply.mathyoucan@gmail.com", Password = "uywrwmokrazvreyb" };
+            Smtp.Port = 587;
+            Smtp.EnableSsl = true;
+            Smtp.Host = "smtp.gmail.com";
+            Smtp.Credentials = NetworkCredentials;
 
+            MailMessage msg = new MailMessage();
+            msg.From = new MailAddress("noreply.mathyoucan@gmail.com");
+            msg.To.Add(mailTextBox.Text);
+            msg.Subject = "Your ACT Exam Results";
+            msg.IsBodyHtml=true;
+
+            string englishErrors = "";
+            string mathErrors = "";
+            string readingErrors = "";
+            string scienceErrors = "";
+
+            for (int i = 0; i < ExamResults.EnglishIncorrectQuestionNumbers.Count; i++)
+            {
+                englishErrors += $"{ExamResults.EnglishIncorrectQuestionNumbers[i]}";
+                if (i!= ExamResults.EnglishIncorrectQuestionNumbers.Count-1)
+                {
+                    englishErrors += ", ";
+                }
+            }
+            for (int i = 0; i < ExamResults.MathIncorrectQuestionNumbers.Count; i++)
+            {
+                mathErrors += $"{ExamResults.MathIncorrectQuestionNumbers[i]}";
+                if (i != ExamResults.MathIncorrectQuestionNumbers.Count - 1)
+                {
+                    mathErrors += ", ";
+                }
+            }
+            for (int i = 0; i < ExamResults.ReadingIncorrectQuestionNumbers.Count; i++)
+            {
+                readingErrors += $"{ExamResults.ReadingIncorrectQuestionNumbers[i]}";
+                if (i != ExamResults.ReadingIncorrectQuestionNumbers.Count - 1)
+                {
+                    readingErrors += ", ";
+                }
+            }
+            for (int i = 0; i < ExamResults.ScienceIncorrectQuestionNumbers.Count; i++)
+            {
+                scienceErrors += $"{ExamResults.ScienceIncorrectQuestionNumbers[i]}";
+                if (i != ExamResults.ScienceIncorrectQuestionNumbers.Count - 1)
+                {
+                    scienceErrors += ", ";
+                }
+            }
+            msg.Body = $"<h1>Dear {_userCredentials.Name} {_userCredentials.Surname}</h1>" +
+                "<p>Thanks for passing ACT test at Mathyoucan!</p>" +
+                $"<p>English section: <strong>{ExamResults.EnglishGrade}</strong> </p>" +
+                $"<p>Math section: <strong>{ExamResults.MathGrade}</strong> </p>" +
+                $"<p>Reading section: <strong>{ExamResults.ReadingGrade}</strong> </p>" +
+                $"<p>Science section: <strong>{ExamResults.ScienceGrade}</strong> </p>" +
+                $"<h2>Incorrect questions </h2>" +
+                $"<p>English section:{englishErrors}" +
+                $"<p>Math section: {mathErrors}" +
+                $"<p>Reading section: {readingErrors} </p>" +
+                $"<p>Science section: {scienceErrors}</p>" +
+                $"<h3>Your total score : {total} </h3>";
+               
+            Smtp.Send(msg);
+
+
+        }
+        private void SaveResults()
+        {
+
+        }
+
+        private void SendButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (mailTextBox.Text=="")
+            {
+                System.Windows.Forms.MessageBox.Show($"Please enter your email", "Mail", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+                return;
+            }
+            SendResults();
+            System.Windows.Forms.MessageBox.Show($"Your results has been sent on email {mailTextBox.Text}","Sent",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.Forms.MessageBoxIcon.Asterisk);
+        }
     }
 }

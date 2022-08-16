@@ -25,21 +25,23 @@ namespace MathYouCan
 
                 UserCredentials userCredentials = new UserCredentials();
 
-                StudentPrsonalInfoWindow studentPrsonalInfoWindow = new StudentPrsonalInfoWindow(userCredentials);
+                StudentPersonalInfoWindow studentPrsonalInfoWindow = new StudentPersonalInfoWindow(userCredentials);
                 studentPrsonalInfoWindow.ShowDialog();
-
-                MessageBox.Show(userCredentials.Name + " " + userCredentials.Surname);
-
-                TestSelection testSelectionWindow = new TestSelection();
-                testSelectionWindow.ShowDialog();
-                if (testSelectionWindow.DialogResult.Value)
+                if (studentPrsonalInfoWindow.DialogResult.Value)
                 {
-                    DataHandlerService dataHandlerService = new DataHandlerService();
-                    OfflineExam selectedOfflineExam = dataHandlerService.GetOfflineExam(testSelectionWindow.SelectedOfflineExamId);
+                    MessageBox.Show(userCredentials.Name + " " + userCredentials.Surname);
 
-                    new InstructionsWindow().ShowDialog();
+                    TestSelection testSelectionWindow = new TestSelection();
+                    testSelectionWindow.ShowDialog();
+                    if (testSelectionWindow.DialogResult.Value)
+                    {
+                        DataHandlerService dataHandlerService = new DataHandlerService();
+                        OfflineExam selectedOfflineExam = dataHandlerService.GetOfflineExam(testSelectionWindow.SelectedOfflineExamId);
 
-                    new Mainpage(selectedOfflineExam).ShowDialog();
+                        new InstructionsWindow().ShowDialog();
+
+                        new Mainpage(selectedOfflineExam,userCredentials).ShowDialog();
+                    }
                 }
             }
             finally
