@@ -1,4 +1,5 @@
 ﻿using MathYouCan.Models;
+using MathYouCan.Services.Concrete;
 using System;
 using System.Net;
 using System.Net.Mail;
@@ -181,8 +182,8 @@ namespace MathYouCan.Views
             {
                 total += Convert.ToInt32(ExamResults.ScienceGrade);
             }
-
-            return Math.Round(total / 4, 2).ToString();
+            total = Math.Round(total / 4, 2);
+            return total.ToString();
         }
         private void SendResults()
         {
@@ -256,7 +257,10 @@ namespace MathYouCan.Views
         }
         private void SaveResults()
         {
-
+            
+            DataHandlerService dataHandlerService = new DataHandlerService();
+           
+            dataHandlerService.AddStudent(_userCredentials.Name, _userCredentials.Surname,ExamResults.EnglishGrade,ExamResults.MathGrade,ExamResults.ReadingGrade,ExamResults.ScienceGrade,total);
         }
 
         private void SendButton_Click(object sender, RoutedEventArgs e)

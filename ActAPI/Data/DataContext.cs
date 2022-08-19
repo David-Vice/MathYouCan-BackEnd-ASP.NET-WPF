@@ -80,9 +80,25 @@ namespace ActAPI.Data
             {
                 entity.Property(e => e.Id).HasColumnName("ID");
 
+                entity.Property(e => e.EnglishScore)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.ExamDate).HasColumnType("datetime");
 
+                entity.Property(e => e.MathScore)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.Name)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ReadingScore)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ScienceScore)
                     .HasMaxLength(255)
                     .IsUnicode(false);
 

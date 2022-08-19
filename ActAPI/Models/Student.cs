@@ -9,10 +9,10 @@ namespace ActAPI.Models
         public string Name { get; set; } = null!;
         public string Surname { get; set; } = null!;
         public DateTime? ExamDate { get; set; }
-        public int? EnglishScore { get; set; }
-        public int? MathScore { get; set; }
-        public int? ReadingScore { get; set; }
-        public int? ScienceScore { get; set; }
-        public int? TotalScore { get; set; }
+        public string? EnglishScore { get; set; }
+        public string? MathScore { get; set; }
+        public string? ReadingScore { get; set; }
+        public string? ScienceScore { get; set; }
+        public double? TotalScore { get; set; }
     }
 }
