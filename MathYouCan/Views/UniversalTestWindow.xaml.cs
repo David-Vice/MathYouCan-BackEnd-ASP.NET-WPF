@@ -356,11 +356,28 @@ namespace MathYouCan.Views
 
                 imageContainer.Child = new Image();
                 Binding myBinding = new Binding($"AnswerImage{i + 1}");
+
                 myBinding.Source = _universalTestViewModel;
                 myBinding.Mode = BindingMode.TwoWay;
                 myBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+
+                //Binding widthBinding = new Binding($"AnswerImageWidth{i + 1}");
+
+                //widthBinding.Source = _universalTestViewModel;
+                //widthBinding.Mode = BindingMode.TwoWay;
+                //widthBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+
+                //Binding heightBinding = new Binding($"AnswerImageHeight{i + 1}");
+
+                //heightBinding.Source = _universalTestViewModel;
+                //heightBinding.Mode = BindingMode.TwoWay;
+                //heightBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
                 Image image = new Image();
                 image.SetBinding(Image.SourceProperty, myBinding);
+                //image.SetBinding(Image.WidthProperty, widthBinding);
+                //image.SetBinding(Image.HeightProperty, heightBinding);
+                  
+
                 imageContainer.Child = image;
                 gridAns.Children.Add(radioAns);
 

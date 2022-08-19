@@ -77,6 +77,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -132,8 +133,8 @@
     <Compile Include="Views\ResultsWindow.xaml.cs">
       <DependentUpon>ResultsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\StudentPrsonalInfoWindow.xaml.cs">
-      <DependentUpon>StudentPrsonalInfoWindow.xaml</DependentUpon>
+    <Compile Include="Views\StudentPersonalInfoWindow.xaml.cs">
+      <DependentUpon>StudentPersonalInfoWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TestSelection.xaml.cs">
       <DependentUpon>TestSelection.xaml</DependentUpon>
@@ -161,7 +162,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\StudentPrsonalInfoWindow.xaml">
+    <Page Include="Views\StudentPersonalInfoWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -231,18 +232,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="1659700382471.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Picsart_22-08-05_16-01-12-370 %281%29.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="mathyoucan_logo.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="MicrosoftTeams-image %282%29.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="logo.ico" />

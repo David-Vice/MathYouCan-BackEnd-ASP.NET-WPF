@@ -300,7 +300,7 @@
 
                             </Paragraph>
                             <BlockUIContainer Name="imageContainerPassage">
-                                <Image Name="imageQuestion" Source="{Binding QuestionImage}" Margin="0,15,0,0"></Image>
+                                <Image Name="imageQuestion" Stretch="Uniform" Source="{Binding QuestionImage}" Margin="0,15,0,0"></Image>
                             </BlockUIContainer>
                         </FlowDocument>
                     </FlowDocumentScrollViewer>

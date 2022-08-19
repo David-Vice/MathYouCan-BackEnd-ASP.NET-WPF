@@ -73,7 +73,37 @@ namespace MathYouCan.Services.Concrete
             }
         }
 
+        public void AddStudent(string name, string surname,  string englishScore = null, string mathScore = null, string readingScore = null, string scienceScore = null, double? totalScore = null)
+        {
+            try
+            {
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(_uri);
+                client.DefaultRequestHeaders.Accept.Add(
+                   new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json")
+                );
+                var payload = $"{{\"name\":\"{name}\" ," +
+                    $"\"surname\": \"{surname}\"," +
+                    $" \"englishscore\":\"{englishScore}\"," +
+                    $" \"mathscore\":\"{mathScore}\"," +
+                    $" \"readingscore\":\"{readingScore}\"," +
+                    $" \"sciencescore\":\"{scienceScore}\"," +
+                    $" \"totalscore\":{totalScore}," +
+                    $" \"examdate\":\"{DateTime.Now}\"," +
+                    $"}}"
+                    ;
 
+                HttpContent c = new StringContent(payload, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = client.PostAsync($"/api/Students",c).Result;
+                
+                response.EnsureSuccessStatusCode();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error message: {ex.Message}\n\nError Stack Trace: {ex.StackTrace}");
+                throw;
+            }
+        }
         /// <summary>
         /// Used in TestSelection.xaml to get all exam names
         /// </summary>

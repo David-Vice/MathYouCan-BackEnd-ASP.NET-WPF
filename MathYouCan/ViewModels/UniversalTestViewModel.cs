@@ -8,7 +8,9 @@ using MathYouCan.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,6 +20,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using Section = MathYouCan.Models.Exams.Section;
+
 
 namespace MathYouCan.ViewModels
 {
@@ -30,6 +33,7 @@ namespace MathYouCan.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+        #region Bindings
         private string questionImage = "";
         public string QuestionImage
         {
@@ -40,6 +44,34 @@ namespace MathYouCan.ViewModels
                 {
                     questionImage = value;
                     OnPropertyChanged(nameof(QuestionImage));
+                }
+            }
+
+        }
+        private string questionImageWidth = "";
+        public string QuestionImageWidth
+        {
+            get => questionImageWidth;
+            set
+            {
+                if (!questionImageWidth.Equals(value))
+                {
+                    questionImageWidth = value;
+                    OnPropertyChanged(nameof(QuestionImageWidth));
+                }
+            }
+
+        }
+        private string questionImageHeight = "";
+        public string QuestionImageHeight
+        {
+            get => questionImageHeight;
+            set
+            {
+                if (!questionImageHeight.Equals(value))
+                {
+                    questionImageHeight = value;
+                    OnPropertyChanged(nameof(QuestionImageHeight));
                 }
             }
 
@@ -57,6 +89,32 @@ namespace MathYouCan.ViewModels
                 }
             }
         }
+        private string answerImageWidth1 = "";
+        public string AnswerImageWidth1
+        {
+            get { return answerImageWidth1; }
+            set
+            {
+                if (!answerImageWidth1.Equals(value))
+                {
+                    answerImageWidth1 = value;
+                    OnPropertyChanged(nameof(AnswerImageWidth1));
+                }
+            }
+        }
+        private string answerImageHeight1 = "";
+        public string AnswerImageHeight1
+        {
+            get { return answerImageHeight1; }
+            set
+            {
+                if (!answerImageHeight1.Equals(value))
+                {
+                    answerImageHeight1 = value;
+                    OnPropertyChanged(nameof(AnswerImageHeight1));
+                }
+            }
+        }
         private string answerImage2 = "";
         public string AnswerImage2
         {
@@ -67,6 +125,32 @@ namespace MathYouCan.ViewModels
                 {
                     answerImage2 = value;
                     OnPropertyChanged(nameof(AnswerImage2));
+                }
+            }
+        }
+        private string answerImageWidth2 = "";
+        public string AnswerImageWidth2
+        {
+            get { return answerImageWidth2; }
+            set
+            {
+                if (!answerImageWidth2.Equals(value))
+                {
+                    answerImageWidth2 = value;
+                    OnPropertyChanged(nameof(AnswerImageWidth2));
+                }
+            }
+        }
+        private string answerImageHeight2 = "";
+        public string AnswerImageHeight2
+        {
+            get { return answerImageHeight2; }
+            set
+            {
+                if (!answerImageHeight2.Equals(value))
+                {
+                    answerImageHeight2 = value;
+                    OnPropertyChanged(nameof(AnswerImageHeight2));
                 }
             }
         }
@@ -83,6 +167,32 @@ namespace MathYouCan.ViewModels
                 }
             }
         }
+        private string answerImageWidth3 = "";
+        public string AnswerImageWidth3
+        {
+            get { return answerImageWidth3; }
+            set
+            {
+                if (!answerImageWidth3.Equals(value))
+                {
+                    answerImageWidth3 = value;
+                    OnPropertyChanged(nameof(AnswerImageWidth3));
+                }
+            }
+        }
+        private string answerImageHeight3 = "";
+        public string AnswerImageHeight3
+        {
+            get { return answerImageHeight3; }
+            set
+            {
+                if (!answerImageHeight3.Equals(value))
+                {
+                    answerImageHeight3 = value;
+                    OnPropertyChanged(nameof(AnswerImageHeight3));
+                }
+            }
+        }
         private string answerImage4 = "";
         public string AnswerImage4
         {
@@ -93,6 +203,32 @@ namespace MathYouCan.ViewModels
                 {
                     answerImage4 = value;
                     OnPropertyChanged(nameof(AnswerImage4));
+                }
+            }
+        }
+        private string answerImageWidth4 = "";
+        public string AnswerImageWidth4
+        {
+            get { return answerImageWidth4; }
+            set
+            {
+                if (!answerImageWidth4.Equals(value))
+                {
+                    answerImageWidth4 = value;
+                    OnPropertyChanged(nameof(AnswerImageWidth4));
+                }
+            }
+        }
+        private string answerImageHeight4 = "";
+        public string AnswerImageHeight4
+        {
+            get { return answerImageHeight4; }
+            set
+            {
+                if (!answerImageHeight4.Equals(value))
+                {
+                    answerImageHeight4 = value;
+                    OnPropertyChanged(nameof(AnswerImageHeight4));
                 }
             }
         }
@@ -109,6 +245,33 @@ namespace MathYouCan.ViewModels
                 }
             }
         }
+        private string answerImageWidth5 = "";
+        public string AnswerImageWidth5
+        {
+            get { return answerImageWidth5; }
+            set
+            {
+                if (!answerImageWidth5.Equals(value))
+                {
+                    answerImageWidth5 = value;
+                    OnPropertyChanged(nameof(AnswerImageWidth5));
+                }
+            }
+        }
+        private string answerImageHeight5 = "";
+        public string AnswerImageHeight5
+        {
+            get { return answerImageHeight5; }
+            set
+            {
+                if (!answerImageHeight5.Equals(value))
+                {
+                    answerImageHeight5 = value;
+                    OnPropertyChanged(nameof(AnswerImageHeight5));
+                }
+            }
+        }
+        #endregion
         //first question is Instructions
         public IList<QuestionView> Questions { get; set; }
         public Section _section { get; set; }
@@ -403,8 +566,13 @@ namespace MathYouCan.ViewModels
                 return;
             }
             QuestionImage = ApiUri.ActApiUri + "/" + photoname.Split('&')[0];
+            byte[] imageData = new WebClient().DownloadData(ApiUri.ActApiUri + "/" + photoname.Split('&')[0]);
+            MemoryStream imgStream = new MemoryStream(imageData);
+            System.Drawing.Image img = System.Drawing.Image.FromStream(imgStream);
+           // QuestionImageHeight=$"{img.Height}";
+          //  QuestionImageWidth=$"{img.Width}";
             //imageContainer.Source=new BitmapImage(new Uri( ApiUri.ActApiUri + "/" + photoname));
-       
+
         }
         public void FillAnswers(UniversalTestWindow window, int answersPerQuestion)
         {
@@ -427,12 +595,28 @@ namespace MathYouCan.ViewModels
                     if (i + 1 == 5) AnswerImage5 = "";
                     continue;
                 }
-                if(i+1==1) AnswerImage1 = ApiUri.ActApiUri + "/" + photoname.Split('&')[0];
-                if(i+1==2) AnswerImage2 = ApiUri.ActApiUri + "/" + photoname.Split('&')[0];
-                if(i+1==3) AnswerImage3 = ApiUri.ActApiUri + "/" + photoname.Split('&')[0];
-                if(i+1 == 4) AnswerImage4 = ApiUri.ActApiUri + "/" + photoname.Split('&')[0];
-                if(i+1 == 5) AnswerImage5 = ApiUri.ActApiUri + "/" + photoname.Split('&')[0];
+                //byte[] imageData = new WebClient().DownloadData(ApiUri.ActApiUri + "/" + photoname.Split('&')[0]);
+                //MemoryStream imgStream = new MemoryStream(imageData);
+                //System.Drawing.Image img = System.Drawing.Image.FromStream(imgStream);
 
+                if (i + 1 == 1) { 
+                    AnswerImage1 = ApiUri.ActApiUri + "/" + photoname.Split('&')[0];
+                 //   AnswerImageHeight1 = $"{img.Height}";
+                 //   AnswerImageWidth1 = $"{img.Width}";
+
+                }
+                if (i + 1 == 2) { 
+                    AnswerImage2 = ApiUri.ActApiUri + "/" + photoname.Split('&')[0];
+                }
+                if (i + 1 == 3) { 
+                    AnswerImage3 = ApiUri.ActApiUri + "/" + photoname.Split('&')[0];
+                }
+                if (i + 1 == 4) { 
+                    AnswerImage4 = ApiUri.ActApiUri + "/" + photoname.Split('&')[0];
+                }
+                if (i + 1 == 5) { 
+                    AnswerImage5 = ApiUri.ActApiUri + "/" + photoname.Split('&')[0];
+                }
 
                 //imageContainer.Child = CreateImage(photoname.Split('&')[0], true);
 

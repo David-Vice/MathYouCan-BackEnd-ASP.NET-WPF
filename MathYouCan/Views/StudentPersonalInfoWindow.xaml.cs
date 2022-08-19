@@ -16,12 +16,12 @@ using System.Windows.Shapes;
 namespace MathYouCan.Views
 {
     /// <summary>
-    /// Interaction logic for StudentPrsonalInfoWindow.xaml
+    /// Interaction logic for StudentPersonalInfoWindow.xaml
     /// </summary>
-    public partial class StudentPrsonalInfoWindow : Window
+    public partial class StudentPersonalInfoWindow : Window
     {
         UserCredentials _userCredentials;
-        public StudentPrsonalInfoWindow(UserCredentials userCredentials)
+        public StudentPersonalInfoWindow(UserCredentials userCredentials)
         {
             InitializeComponent();
             _userCredentials = userCredentials;
@@ -39,6 +39,7 @@ namespace MathYouCan.Views
             {
                 _userCredentials.Name = nameTextBox.Text;
                 _userCredentials.Surname = surnameTextBox.Text;
+                DialogResult = true;
                 Close();
             }
         }
