@@ -26,6 +26,12 @@ namespace ActAPI.Controllers
         {
             return Ok(_offlineExamService.GetAllExamDetails());
         }
+        [HttpGet]
+        [Route("ExamDetails/Section")]
+        public ActionResult<IEnumerable<OfflineExamDetails>> GetAllExamsBySection(string sectionName)
+        {
+            return Ok(_offlineExamService.GetAllExamsBySection(sectionName));
+        }
         [HttpGet("{id}")]
         public async Task<ActionResult<OfflineExam>> GetById(int id)
         {

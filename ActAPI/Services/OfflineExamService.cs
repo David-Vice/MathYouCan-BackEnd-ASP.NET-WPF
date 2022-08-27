@@ -56,7 +56,14 @@ namespace ActAPI.Services
             List<OfflineExamDetails> offlineExamDetails = offlineExams.Select(x => new OfflineExamDetails() { Id = x.Id, Name = x.Name, Date = x.Date, StartTime = x.StartTime, EndTime = x.EndTime,SectionsCount=x.Sections.ToList().Count }).ToList();
             return offlineExamDetails.ToList();
         }
-
+        public List<OfflineExamDetails> GetAllExamsBySection(string sectionName)
+        {
+            List<OfflineExam> offlineExams = _dataContext.OfflineExams.ToList();
+            List<OfflineExamDetails> offlineExamDetails = offlineExams.Where(ex=>ex.Sections.ToList().Count==1&&ex.Sections.ToList().FirstOrDefault()?.Name==sectionName).Select(
+                x => new OfflineExamDetails() 
+                { Id = x.Id, Name = x.Name, Date = x.Date, StartTime = x.StartTime, EndTime = x.EndTime, SectionsCount = x.Sections.ToList().Count }).ToList();
+            return offlineExamDetails.ToList();
+        }
         /// <summary>
         /// </summary>
         /// <param name="objToUpdate"> Object of type OfflineExam to be updated </param>
