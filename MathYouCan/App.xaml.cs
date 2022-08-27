@@ -29,7 +29,6 @@ namespace MathYouCan
                 studentPrsonalInfoWindow.ShowDialog();
                 if (studentPrsonalInfoWindow.DialogResult.Value)
                 {
-
                     TestSelection testSelectionWindow = new TestSelection();
                     testSelectionWindow.ShowDialog();
                     if (testSelectionWindow.DialogResult.Value)
