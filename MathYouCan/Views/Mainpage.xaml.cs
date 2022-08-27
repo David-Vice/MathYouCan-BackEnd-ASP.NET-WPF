@@ -1,6 +1,7 @@
 ﻿using MathYouCan.Models;
 using MathYouCan.Models.Exams;
 using MathYouCan.Services.Concrete;
+using MathYouCan.Shared;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -29,15 +30,15 @@ namespace MathYouCan.Views
             Close();
 
             ResultsWindow resultsWindow = new ResultsWindow(_userCredentials);
-
             List<Section> sections = SortSections();
+            StaticValues.SectionsCount = sections.Count;
             SetTotalQuestionsNumber(resultsWindow, sections);
             InitializeResultsWindow(sections,resultsWindow);
             SetIncorrectQuestions(resultsWindow);
             for (int i = 0; i < sections.Count; i++)
             {
                 windows.Add(new UniversalTestWindow(sections.ElementAt(i), resultsWindow));
-                if (i == 2)
+                if (i == 2&&sections.Count == 4)
                 {
                     PauseWindow pauseWindow = new PauseWindow();
                     pauseWindow.ShowDialog();
@@ -86,32 +87,8 @@ namespace MathYouCan.Views
         //Change if he wants to create not full test
         private List<Section> SortSections()
         {
-
-            List<Section> sectionsTmp = _exam.Sections.ToList();
-            for (int i = 0; i < _exam.Sections.Count(); i++)
-            {
-                Section s = _exam.Sections.ElementAt(i);
-                if (s.Name == "English Section")
-                {
-                    sectionsTmp[0] = s;
-                }
-                if (s.Name == "Math Section")
-                {
-                    sectionsTmp[1] = s;
-                }
-                if (s.Name == "Reading Section")
-                {
-                    sectionsTmp[2] = s;
-                }
-                if (s.Name == "Science Section")
-                {
-                    sectionsTmp[3] = s;
-                }
-            }
-            return sectionsTmp;
+            return _exam.Sections.ToList().OrderBy(x => x.Name).ToList();
         }
-
-
         private void SetTotalQuestionsNumber(ResultsWindow resultsWindow, List<Section> sections)
         {
             for (int i = 0; i < sections.Count; i++)

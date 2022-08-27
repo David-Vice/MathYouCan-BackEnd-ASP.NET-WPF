@@ -65,7 +65,7 @@
                    Grid.Column="0" Grid.Row="0"
                    FontWeight="Bold" FontSize="42"
                    VerticalAlignment="Top"
-                   HorizontalAlignment="Left"/>
+                   HorizontalAlignment="Center"/>
 
         </Grid>
 
@@ -91,9 +91,7 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
+
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
@@ -113,26 +111,12 @@
 
                 <Border Grid.Row="1" Grid.Column="0"
                         BorderBrush="Black" BorderThickness="1">
-                    <Label Content="English" FontSize="18" FontWeight="Bold"/>
+                    <Label Content="Math" FontSize="22" FontWeight="Bold"/>
                 </Border>
 
                 <Border Grid.Row="2" Grid.Column="0"
-                        BorderBrush="Black" BorderThickness="1">
-                    <Label Content="Math" FontSize="18" FontWeight="Bold"/>
-                </Border>
-
-                <Border Grid.Row="3" Grid.Column="0"
-                        BorderBrush="Black" BorderThickness="1">
-                    <Label Content="Reading" FontSize="18" FontWeight="Bold"/>
-                </Border>
-
-                <Border Grid.Row="4" Grid.Column="0"
-                        BorderBrush="Black" BorderThickness="1">
-                    <Label Content="Science" FontSize="18" FontWeight="Bold"/>
-                </Border>
-                <Border Grid.Row="5" Grid.Column="0"
                         BorderBrush="Red" BorderThickness="1">
-                    <Label Content="Final score" FontSize="18" FontWeight="Bold"/>
+                    <Label Content="Final score" FontSize="22" FontWeight="Bold"/>
                 </Border>
                 <!-- COLUMN 1  END-->
 
@@ -145,29 +129,14 @@
                     
                 </Border>
 
+
                 <Border Grid.Row="1" Grid.Column="1"
                         BorderBrush="Black" BorderThickness="1">
-                    <Label Name="englishCorrectNumber" Content="0" HorizontalAlignment="Center"
-                           FontSize="18" FontWeight="Bold"/>
-                </Border>
-
-                <Border Grid.Row="2" Grid.Column="1"
-                        BorderBrush="Black" BorderThickness="1">
                     <Label Name="mathCorrectNumber" Content="0" HorizontalAlignment="Center"
-                           FontSize="18" FontWeight="Bold"/>
+                           FontSize="22" FontWeight="Bold"/>
                 </Border>
 
-                <Border Grid.Row="3" Grid.Column="1"
-                        BorderBrush="Black" BorderThickness="1">
-                    <Label Name="readingCorrectNumber" Content="0" HorizontalAlignment="Center"
-                           FontSize="18" FontWeight="Bold"/>
-                </Border>
 
-                <Border Grid.Row="4" Grid.Column="1"
-                        BorderBrush="Black" BorderThickness="1">
-                    <Label Name="scienceCorrectNumber" Content="0" HorizontalAlignment="Center"
-                           FontSize="18" FontWeight="Bold"/>
-                </Border>
                 <!-- COLUMN 2  END-->
 
 
@@ -175,70 +144,40 @@
                 <Border Grid.Row="0" Grid.Column="2"
                         BorderBrush="Black" BorderThickness="1">
                     <Label  Content="Total" HorizontalAlignment="Center"
-                            FontSize="18" FontWeight="Bold"/>
+                            FontSize="22" FontWeight="Bold"/>
 
                 </Border>
+
 
                 <Border Grid.Row="1" Grid.Column="2"
                         BorderBrush="Black" BorderThickness="1">
-                    <Label Name="englishTotal" Content="0" HorizontalAlignment="Center"
-                           FontSize="18" FontWeight="Bold"/>
-                </Border>
-
-                <Border Grid.Row="2" Grid.Column="2"
-                        BorderBrush="Black" BorderThickness="1">
                     <Label Name="mathTotal" Content="0" HorizontalAlignment="Center"
-                           FontSize="18" FontWeight="Bold"/>
+                           FontSize="22" FontWeight="Bold"/>
                 </Border>
 
-                <Border Grid.Row="3" Grid.Column="2"
-                        BorderBrush="Black" BorderThickness="1">
-                    <Label Name="readingTotal" Content="0" HorizontalAlignment="Center"
-                           FontSize="18" FontWeight="Bold"/>
-                </Border>
 
-                <Border Grid.Row="4" Grid.Column="2"
-                        BorderBrush="Black" BorderThickness="1">
-                    <Label Name="scienceTotal" Content="0" HorizontalAlignment="Center"
-                           FontSize="18" FontWeight="Bold"/>
-                </Border>
                 <!-- COLUMN 3  END-->
 
                 <!-- COLUMN 4 -->
                 <Border Grid.Row="0" Grid.Column="3"
                         BorderBrush="Black" BorderThickness="1">
                     <Label  Content="Score" HorizontalAlignment="Center"
-                            FontSize="18" FontWeight="Bold"/>
+                            FontSize="22" FontWeight="Bold"/>
 
                 </Border>
+
 
                 <Border Grid.Row="1" Grid.Column="3"
                         BorderBrush="Black" BorderThickness="1">
-                    <Label Name="englishGrade" Content="-" HorizontalAlignment="Center"
-                           FontSize="18" FontWeight="Bold"/>
-                </Border>
-
-                <Border Grid.Row="2" Grid.Column="3"
-                        BorderBrush="Black" BorderThickness="1">
                     <Label Name="mathGrade" Content="-" HorizontalAlignment="Center"
-                           FontSize="18" FontWeight="Bold"/>
+                           FontSize="22" FontWeight="Bold"/>
                 </Border>
 
-                <Border Grid.Row="3" Grid.Column="3"
-                        BorderBrush="Black" BorderThickness="1">
-                    <Label Name="readingGrade" Content="-" HorizontalAlignment="Center"
-                           FontSize="18" FontWeight="Bold"/>
-                </Border>
-
-                <Border Grid.Row="4" Grid.Column="3"
-                        BorderBrush="Black" BorderThickness="1">
-                    <Label Name="scienceGrade" Content="-" HorizontalAlignment="Center"
-                           FontSize="18" FontWeight="Bold"/>
-                </Border>
-                <Border Grid.Row="5" Grid.Column="3"
+               
+                <Border Grid.Row="2" Grid.Column="3"
                         BorderBrush="Red" BorderThickness="2">
                     <Label Name="totalGrade" Content="-" HorizontalAlignment="Center"
-                           FontSize="18" FontWeight="Bold"/>
+                           FontSize="22" FontWeight="Bold"/>
                 </Border>
                 <!-- COLUMN 4  END-->
 
@@ -265,7 +204,7 @@
                    Grid.Column="0" Grid.Row="0"
                    FontWeight="Bold" FontSize="42"
                    VerticalAlignment="Center"
-                   HorizontalAlignment="Left"/>
+                   HorizontalAlignment="Center"/>
         </Grid>
 
 
@@ -275,7 +214,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                
                 <RowDefinition Height="0.3*"/>
             </Grid.RowDefinitions>
 
@@ -286,34 +225,15 @@
                 <ColumnDefinition Width="0.2*"/>
             </Grid.ColumnDefinitions>
 
-            <!-- ENGLISH INCORRECT ANSWERS -->
+
+            <!-- MATH INCORRECT ANSWERS -->
             <Grid Grid.Row="0" Grid.Column="1">
                 <Border Grid.Row="1" Grid.Column="0"
                         BorderBrush="Black" BorderThickness="1">
-                    <Label Content="English" FontSize="18" FontWeight="Bold"/>
+                    <Label Content="Math" FontSize="25" FontWeight="Bold"/>
                 </Border>
             </Grid>
             <Grid Grid.Row="0" Grid.Column="2">
-                <Border BorderBrush="Black" BorderThickness="1">
-                    <ScrollViewer HorizontalScrollBarVisibility="Auto"
-                                  VerticalScrollBarVisibility="Disabled"
-                                  HorizontalAlignment="Stretch">
-                        <StackPanel Name="englishIncorrectQuestionStackPanel"
-                            Orientation="Horizontal">
-                        </StackPanel>
-                    </ScrollViewer>
-                </Border>
-            </Grid>
-            <!-- ENGLISH INCORRECT END -->
-
-            <!-- MATH INCORRECT ANSWERS -->
-            <Grid Grid.Row="1" Grid.Column="1">
-                <Border Grid.Row="1" Grid.Column="0"
-                        BorderBrush="Black" BorderThickness="1">
-                    <Label Content="Math" FontSize="18" FontWeight="Bold"/>
-                </Border>
-            </Grid>
-            <Grid Grid.Row="1" Grid.Column="2">
                 <Border BorderBrush="Black" BorderThickness="1">
                     <ScrollViewer HorizontalScrollBarVisibility="Auto"
                                   VerticalScrollBarVisibility="Disabled">
@@ -324,49 +244,6 @@
                 </Border>
             </Grid>
             <!-- MATH INCORRECT END -->
-
-
-            <!-- READING INCORRECT ANSWERS -->
-            <Grid Grid.Row="2" Grid.Column="1">
-                <Border Grid.Row="1" Grid.Column="0"
-                        BorderBrush="Black" BorderThickness="1">
-                    <Label Content="Reading" FontSize="18" FontWeight="Bold"/>
-                </Border>
-            </Grid>
-            <Grid Grid.Row="2" Grid.Column="2">
-                <Border BorderBrush="Black" BorderThickness="1">
-                    <ScrollViewer HorizontalScrollBarVisibility="Auto"
-                                  VerticalScrollBarVisibility="Disabled">
-                        <StackPanel Name="readingIncorrectQuestionStackPanel"
-                            Orientation="Horizontal">
-
-                        </StackPanel>
-                    </ScrollViewer>
-                </Border>
-            </Grid>
-            <!-- READING INCORRECT END -->
-
-
-            <!-- SCIENCE INCORRECT ANSWERS -->
-            <Grid Grid.Row="3" Grid.Column="1">
-                <Border Grid.Row="1" Grid.Column="0"
-                        BorderBrush="Black" BorderThickness="1">
-                    <Label Content="Science" FontSize="18" FontWeight="Bold"/>
-                </Border>
-            </Grid>
-            <Grid Grid.Row="3" Grid.Column="2">
-                <Border BorderBrush="Black" BorderThickness="1">
-                    <ScrollViewer HorizontalScrollBarVisibility="Auto"
-                                  VerticalScrollBarVisibility="Disabled">
-                        <StackPanel Name="scienceIncorrectQuestionStackPanel"
-                            Orientation="Horizontal">
-
-                        </StackPanel>
-                    </ScrollViewer>
-                </Border>
-
-            </Grid>
-            <!-- SCIENCE INCORRECT END -->
 
         </Grid>
         <Grid Grid.Row="5">

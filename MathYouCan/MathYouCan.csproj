@@ -112,6 +112,7 @@
     <Compile Include="Models\UserCredentials.cs" />
     <Compile Include="Services\Concrete\DataHandlerService.cs" />
     <Compile Include="Services\Concrete\InfosAndInstructions.cs" />
+    <Compile Include="Shared\StaticValues.cs" />
     <Compile Include="ViewModels\InstructionWindowViewModel.cs" />
     <Compile Include="ViewModels\UniversalTestViewModel.cs" />
     <Compile Include="Views\InstructionsWindow.xaml.cs">

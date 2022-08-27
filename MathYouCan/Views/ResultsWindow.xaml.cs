@@ -1,5 +1,6 @@
 ﻿using MathYouCan.Models;
 using MathYouCan.Services.Concrete;
+using MathYouCan.Shared;
 using System;
 using System.Net;
 using System.Net.Mail;
@@ -183,7 +184,7 @@ namespace MathYouCan.Views
             {
                 total += Convert.ToInt32(ExamResults.ScienceGrade);
             }
-            total = Math.Round(total / 4, 0);
+            total = Math.Round(total / StaticValues.SectionsCount, 0);
             return total.ToString();
         }
         private void SendResults()
