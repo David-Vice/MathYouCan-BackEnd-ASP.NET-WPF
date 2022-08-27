@@ -53,8 +53,7 @@ namespace MathYouCan.Services.Concrete
             }
         }
 
-        private string EngInfo()
-        {
+        private string EngInfo() {
             return $"|~B~|English Test Directions\n\nYou will have {Section.Duration} minutes to complete this section. |~B~| \n " +
 "SECTION DIRECTIONS: The first screen in this section contains instructions about the English test." +
 " That screen is not part of the\n scored questions. You can return to the instructions at any time by selecting the " +

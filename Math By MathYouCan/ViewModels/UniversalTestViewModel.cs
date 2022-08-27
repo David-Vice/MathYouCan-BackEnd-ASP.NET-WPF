@@ -416,9 +416,9 @@ namespace MathYouCan.ViewModels
             return navPanels;
         }
 
-        public string GetInfo(Section testType)
+        public string GetInfo(Section section)
         {
-            InfosAndInstructions infosAndInstructions = new InfosAndInstructions(testType);
+            InfosAndInstructions infosAndInstructions = new InfosAndInstructions(section);
             return infosAndInstructions.GetInfo();
 
         }
