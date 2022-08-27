@@ -50,10 +50,10 @@ namespace ActAPI.Services
             return await _dataContext.OfflineExams.ToListAsync();
         }
 
-        public IEnumerable<OfflineExamDetails> GetAllExamDetails()
+        public List<OfflineExamDetails> GetAllExamDetails()
         {
-            IEnumerable<OfflineExam> offlineExams = _dataContext.OfflineExams;
-            IEnumerable<OfflineExamDetails> offlineExamDetails = offlineExams.Select(x => new OfflineExamDetails() { Id=x.Id, Name=x.Name, Date=x.Date, StartTime=x.StartTime, EndTime=x.EndTime});
+            List<OfflineExam> offlineExams = _dataContext.OfflineExams.ToList();
+            List<OfflineExamDetails> offlineExamDetails = offlineExams.Select(x => new OfflineExamDetails() { Id = x.Id, Name = x.Name, Date = x.Date, StartTime = x.StartTime, EndTime = x.EndTime,SectionsCount=x.Sections.ToList().Count }).ToList();
             return offlineExamDetails.ToList();
         }
 

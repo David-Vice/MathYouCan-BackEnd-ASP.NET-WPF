@@ -5,6 +5,6 @@ namespace ActAPI.Services.Abstract
 {
     public interface IOfflineExamService:IBase<OfflineExam>
     {
-        IEnumerable<OfflineExamDetails> GetAllExamDetails();
+        List<OfflineExamDetails> GetAllExamDetails();
     }
 }

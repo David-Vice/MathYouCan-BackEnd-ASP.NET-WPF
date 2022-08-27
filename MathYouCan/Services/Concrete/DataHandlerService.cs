@@ -6,6 +6,7 @@ using System.Text;
 using System.Windows;
 using System;
 using MathYouCan.Data;
+using System.Linq;
 
 namespace MathYouCan.Services.Concrete
 {
@@ -121,8 +122,9 @@ namespace MathYouCan.Services.Concrete
                 response.EnsureSuccessStatusCode();
                 string content = response.Content.ReadAsStringAsync().Result;
 
-                IEnumerable<OfflineExam> offlineExams = JsonConvert.DeserializeObject<IEnumerable<OfflineExam>>(content);
-                return offlineExams;
+                IEnumerable<OfflineExam> offlineExams = JsonConvert.DeserializeObject<List<OfflineExam>>(content);
+               
+                return offlineExams.Where(ex=>ex.SectionsCount>1);
             }
             catch (Exception ex)
             {

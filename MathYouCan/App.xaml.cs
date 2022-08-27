@@ -29,7 +29,6 @@ namespace MathYouCan
                 studentPrsonalInfoWindow.ShowDialog();
                 if (studentPrsonalInfoWindow.DialogResult.Value)
                 {
-                    MessageBox.Show(userCredentials.Name + " " + userCredentials.Surname);
 
                     TestSelection testSelectionWindow = new TestSelection();
                     testSelectionWindow.ShowDialog();

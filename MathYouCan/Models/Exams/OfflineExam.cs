@@ -14,5 +14,6 @@ namespace MathYouCan.Models.Exams
         public long? StartTime { get; set; }
         public long? EndTime { get; set; }
         public IEnumerable<Section> Sections { get; set; }
+        public int? SectionsCount { get; set; }
     }
 }
