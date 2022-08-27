@@ -161,7 +161,5 @@ namespace MathYouCan.Services.Concrete
                 return "-";
             }
         }
-
-
     }
 }

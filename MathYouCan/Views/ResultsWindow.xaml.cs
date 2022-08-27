@@ -21,6 +21,7 @@ namespace MathYouCan.Views
         {
             _userCredentials = userCredentials;
             InitializeComponent();
+          
         }
 
         #region On Window Load
@@ -182,7 +183,7 @@ namespace MathYouCan.Views
             {
                 total += Convert.ToInt32(ExamResults.ScienceGrade);
             }
-            total = Math.Round(total / 4, 2);
+            total = Math.Round(total / 4, 0);
             return total.ToString();
         }
         private void SendResults()
