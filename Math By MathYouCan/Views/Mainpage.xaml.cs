@@ -1,7 +1,5 @@
 ﻿using MathYouCan.Models;
 using MathYouCan.Models.Exams;
-using MathYouCan.Services.Concrete;
-using MathYouCan.Shared;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -30,15 +28,14 @@ namespace MathYouCan.Views
             Close();
 
             ResultsWindow resultsWindow = new ResultsWindow(_userCredentials);
-            List<Section> sections = SortSections();
-            StaticValues.SectionsCount = sections.Count;
+            List<Section> sections = _exam.Sections.ToList();
             SetTotalQuestionsNumber(resultsWindow, sections);
-            InitializeResultsWindow(sections,resultsWindow);
+
             SetIncorrectQuestions(resultsWindow);
             for (int i = 0; i < sections.Count; i++)
             {
                 windows.Add(new UniversalTestWindow(sections.ElementAt(i), resultsWindow));
-                if (i == 2&&sections.Count == 4)
+                if (i == 2)
                 {
                     PauseWindow pauseWindow = new PauseWindow();
                     pauseWindow.ShowDialog();
@@ -57,38 +54,35 @@ namespace MathYouCan.Views
 
 
         }
-        private void InitializeResultsWindow(List<Section> sections,ResultsWindow resultsWindow)
-        {
-            DataHandlerService dataHandlerService = new DataHandlerService();
-            foreach (var _section in sections)
-            {
-                if (_section.Name == "English Section")
-                {
-
-                    resultsWindow.ExamResults.EnglishGrade = dataHandlerService.GetExamGrade(_section.Id, 0);
-                }
-                else if (_section.Name == "Math Section")
-                {
-
-                    resultsWindow.ExamResults.MathGrade = dataHandlerService.GetExamGrade(_section.Id, 0);
-                }
-                else if (_section.Name == "Reading Section")
-                {
-
-                    resultsWindow.ExamResults.ReadingGrade = dataHandlerService.GetExamGrade(_section.Id, 0);
-                }
-                else if (_section.Name == "Science Section")
-                {
-                    resultsWindow.ExamResults.ScienceGrade = dataHandlerService.GetExamGrade(_section.Id, 0);
-                }
-            }
-           
-        }
         //Change if he wants to create not full test
         private List<Section> SortSections()
         {
-            return _exam.Sections.ToList().OrderBy(x => x.Name).ToList();
+
+            List<Section> sectionsTmp = _exam.Sections.ToList();
+            for (int i = 0; i < _exam.Sections.Count(); i++)
+            {
+                Section s = _exam.Sections.ElementAt(i);
+                if (s.Name == "English Section")
+                {
+                    sectionsTmp[0] = s;
+                }
+                if (s.Name == "Math Section")
+                {
+                    sectionsTmp[1] = s;
+                }
+                if (s.Name == "Reading Section")
+                {
+                    sectionsTmp[2] = s;
+                }
+                if (s.Name == "Science Section")
+                {
+                    sectionsTmp[3] = s;
+                }
+            }
+            return sectionsTmp;
         }
+
+
         private void SetTotalQuestionsNumber(ResultsWindow resultsWindow, List<Section> sections)
         {
             for (int i = 0; i < sections.Count; i++)

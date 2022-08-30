@@ -1,0 +1,149 @@
+﻿<Window x:Class="MathYouCan.Views.InstructionsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MathYouCan.Views"
+        mc:Ignorable="d"
+        Height="450" Width="800"
+        WindowStyle="None" ResizeMode="NoResize" Loaded="Window_Loaded"
+        Background="#f2f2f2">
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="11*"/>
+            <RowDefinition Height="82*"/>
+            <RowDefinition Height="7*"/>
+        </Grid.RowDefinitions>
+
+        
+        <!-- Top Panel -->
+        <Border Grid.Row="0" Background="#001733">
+
+            <Grid>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="0.5*"/>
+                </Grid.RowDefinitions>
+
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="20,0,0,0"
+                            Grid.Row="1">
+
+                    <Image Name="actLogoImage" RenderOptions.BitmapScalingMode="HighQuality"/>
+
+                    <Button Name="prevButton" Content="Prev" Margin="50,0,10,0"
+                            Width="65" FontSize="15" FontWeight="Bold" Background="#F4F6F8"
+                            IsEnabled="False" Click="prevButton_Click">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="4"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+
+
+                    <Button Name="nextButton" Content="Next" Margin="10,0,10,0"
+                            Width="65" FontSize="15" FontWeight="Bold" Background="#F4F6F8"
+                            Click="nextButton_Click">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="4"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+
+                </StackPanel>
+
+
+            </Grid>
+
+        </Border>
+        <!-- Top Panel END-->
+
+        <!-- Instructions -->
+        <Border Grid.Row="1">
+
+            <Grid>
+
+                <Grid.RowDefinitions>
+
+                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition/>
+
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" VerticalAlignment="Center">
+                    <Label Name="instructionSectionNameLabel" FontSize="18" 
+                           FontWeight="Bold" Margin="30,0,0,0"/>
+                </StackPanel>
+
+
+                <StackPanel Grid.Row="1" Margin="30,0,0,0">
+
+                    
+                    
+                        <!--This Stack Panel Fills dynamically-->
+                    <FlowDocumentScrollViewer Name="instructionContent" VerticalScrollBarVisibility="Disabled" 
+                                              HorizontalScrollBarVisibility="Disabled"
+                                              >
+                        <FlowDocument>                
+                            <Paragraph Name="instructionContentParagraph" Margin="0">
+                            </Paragraph>
+                        </FlowDocument>
+                    </FlowDocumentScrollViewer>
+                    
+
+
+                    <StackPanel Name="acceptDeclineStackPanel" Orientation="Horizontal" Margin="0,40,0,0"
+                                Visibility="Hidden">
+                        <!-- Contains 2 buttons (accept decline).
+                            Buttons are added dynamically -->
+
+                        <Button Name="acceptButton" Width="75" Height="23" Content="Accept">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="5"/>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+
+                        
+                    </StackPanel>
+
+                </StackPanel>
+
+            </Grid>
+
+        </Border>
+        <!-- Instructions END-->
+
+        <!-- Lower Panel -->
+        <Border Grid.Row="2" Background="LightGray">
+
+            <Grid>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition Height="0.1*"/>
+                </Grid.RowDefinitions>
+
+                <ScrollViewer  Focusable="False" Grid.RowSpan="2" HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Auto">
+
+                    <StackPanel x:Name="questionsStackPanel" Orientation="Horizontal" CanHorizontallyScroll="False">
+
+                    </StackPanel>
+                </ScrollViewer>
+
+
+            </Grid>
+
+        </Border>
+        <!-- Lower Panel END-->
+
+    </Grid>
+</Window>

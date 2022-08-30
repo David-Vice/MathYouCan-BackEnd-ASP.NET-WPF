@@ -4,33 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8AA3E549-118D-43D5-9209-78A11B7AB5F3}</ProjectGuid>
+    <ProjectGuid>{C06E5959-CC85-4E87-8AF1-EDB91327BAAF}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>MathYouCan</RootNamespace>
-    <AssemblyName>ACT MathYouCan</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <RootNamespace>Math_By_MathYouCan</RootNamespace>
+    <AssemblyName>Math By MathYouCan</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
-    <TargetFrameworkProfile />
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>3</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <PublishWizardCompleted>true</PublishWizardCompleted>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -50,26 +33,6 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationIcon>logo.ico</ApplicationIcon>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ManifestCertificateThumbprint>455E139ABDE2F14BBD1432685D2CB1E9E74A81ED</ManifestCertificateThumbprint>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ManifestKeyFile>MathYouCan_TemporaryKey.pfx</ManifestKeyFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <GenerateManifests>true</GenerateManifests>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignManifests>false</SignManifests>
-  </PropertyGroup>
-  <PropertyGroup />
-  <PropertyGroup />
-  <PropertyGroup>
-    <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -97,22 +60,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Converters\TextToFlowDocumentConverter.cs" />
-    <Compile Include="Data\ApiUri.cs" />
-    <Compile Include="Models\Enums\AnswerType.cs" />
-    <Compile Include="Models\Enums\QuestionType.cs" />
-    <Compile Include="Models\ExamResults.cs" />
-    <Compile Include="Models\Exams\OfflineExam.cs" />
-    <Compile Include="Models\Exams\Question.cs" />
-    <Compile Include="Models\Exams\QuestionAnswer.cs" />
-    <Compile Include="Models\Exams\Result.cs" />
-    <Compile Include="Models\Exams\Section.cs" />
-    <Compile Include="Models\Exams\Instruction.cs" />
-    <Compile Include="Models\QuestionView.cs" />
-    <Compile Include="Models\UserCredentials.cs" />
     <Compile Include="Services\Concrete\DataHandlerService.cs" />
     <Compile Include="Services\Concrete\InfosAndInstructions.cs" />
-    <Compile Include="Shared\StaticValues.cs" />
     <Compile Include="ViewModels\InstructionWindowViewModel.cs" />
     <Compile Include="ViewModels\UniversalTestViewModel.cs" />
     <Compile Include="Views\InstructionsWindow.xaml.cs">
@@ -120,10 +69,6 @@
     </Compile>
     <Compile Include="Views\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Views\Mainpage.xaml.cs">
       <DependentUpon>Mainpage.xaml</DependentUpon>
@@ -143,40 +88,57 @@
     <Compile Include="Views\UniversalTestWindow.xaml.cs">
       <DependentUpon>UniversalTestWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Converters\TextToFlowDocumentConverter.cs" />
+    <Compile Include="Data\ApiUri.cs" />
     <Page Include="Views\InstructionsWindow.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Login.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Mainpage.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\PauseWindow.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\ResultsWindow.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\StudentPersonalInfoWindow.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\TestSelection.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\UniversalTestWindow.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Enums\AnswerType.cs" />
+    <Compile Include="Models\Enums\QuestionType.cs" />
+    <Compile Include="Models\ExamResults.cs" />
+    <Compile Include="Models\Exams\Instruction.cs" />
+    <Compile Include="Models\Exams\OfflineExam.cs" />
+    <Compile Include="Models\Exams\Question.cs" />
+    <Compile Include="Models\Exams\QuestionAnswer.cs" />
+    <Compile Include="Models\Exams\Result.cs" />
+    <Compile Include="Models\Exams\Section.cs" />
+    <Compile Include="Models\QuestionView.cs" />
+    <Compile Include="Models\UserCredentials.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -194,7 +156,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="MathYouCan_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -205,34 +166,22 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Img\mathyoucan_logo.png" />
+    <Resource Include="Img\act_logo.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Img\Assetsmall.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Img\act_logo.png" />
+    <Resource Include="Img\close.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Img\large.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Img\close.png" />
+    <Resource Include="Img\mathyoucan_logo.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\Abstract\" />
-  </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.8">
-      <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.8 %28x86 and x64%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="logo.ico" />

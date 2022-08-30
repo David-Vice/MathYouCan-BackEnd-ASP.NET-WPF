@@ -118,13 +118,13 @@ namespace MathYouCan.Services.Concrete
                 client.DefaultRequestHeaders.Accept.Add(
                    new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json")
                 );
-                HttpResponseMessage response = client.GetAsync("/api/OfflineExams/ExamDetails").Result;
+                HttpResponseMessage response = client.GetAsync("/api/OfflineExams/ExamDetails/Section?sectionName=Math%20Section").Result;
                 response.EnsureSuccessStatusCode();
                 string content = response.Content.ReadAsStringAsync().Result;
 
                 IEnumerable<OfflineExam> offlineExams = JsonConvert.DeserializeObject<List<OfflineExam>>(content);
                
-                return offlineExams.Where(ex=>ex.SectionsCount>1);
+                return offlineExams;
             }
             catch (Exception ex)
             {
@@ -161,5 +161,7 @@ namespace MathYouCan.Services.Concrete
                 return "-";
             }
         }
+
+
     }
 }
