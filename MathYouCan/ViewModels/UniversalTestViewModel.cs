@@ -531,28 +531,26 @@ namespace MathYouCan.ViewModels
 
 
         #region Filling 
-        public void FillQuestionInfo(Paragraph questionPassageParagraph, TextBlock questionTextBlock)
+        public void FillQuestionInfo(Paragraph questionPassageParagraph, Paragraph questionTextParagraph)
         {
-            questionTextBlock.Visibility = Visibility.Visible;
 
             if (Questions[CurrentQuestionIndex].Question.QuestionContent == String.Empty &&
                 Questions[CurrentQuestionIndex].Question.PhotoName == String.Empty)
             {
                 Questions[CurrentQuestionIndex].Question.QuestionContent = Questions[CurrentQuestionIndex].Question.Text;
-                questionTextBlock.Visibility = Visibility.Collapsed;
                 Questions[CurrentQuestionIndex].Question.Text = String.Empty;
             }
 
             Converter.ConvertToParagraph(questionPassageParagraph,
                 Questions[CurrentQuestionIndex].Question.QuestionContent, 16);
 
-            questionTextBlock.Inlines.Clear();
+            Converter.ConvertToParagraph(questionTextParagraph,
+                Questions[CurrentQuestionIndex].Question.Text, 16);
 
-            string questionContent = Questions[CurrentQuestionIndex].Question.Text;
+            //string questionContent = Questions[CurrentQuestionIndex].Question.Text;
 
-            if (!String.IsNullOrEmpty(questionContent))
-                questionTextBlock.Inlines.Add(questionContent);
-            else questionTextBlock.Visibility = Visibility.Collapsed;
+            //if (!String.IsNullOrEmpty(questionContent))
+            //    questionTextBlock.Inlines.Add(questionContent);
         }
 
         public void FillImage()

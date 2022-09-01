@@ -19,9 +19,10 @@ namespace MathYouCan.Converters
              SPECIFICATORS:
 
 
-               text          -->  Default text
-          |~B~| text |~B~|     -->  Bold text
-          |~I~| text |~I~|     -->  Italic text
+          <strong> text </strong>     -->  Bold text
+          <i> text </i>               -->  Italic text
+
+
           |~U~| text |~U~|     -->  UnderLine text
           |~C~| text |~C~|     -->  Selected text
           |~H~| text |~H~|     -->  Highlighted text (Not used yet)
@@ -55,49 +56,49 @@ namespace MathYouCan.Converters
            
                 foreach (String word in words)
                 {
-                    if (word.Contains("|~B~|"))
-                        _isBoldActive = !_isBoldActive;
+                    if (word.Contains("<strong>")) _isBoldActive = true;
+                    if (word.Contains("<i>")) _isItalicActive = true;
 
-                    if (word.Contains("|~I~|"))
-                        _isItalicActive = !_isItalicActive;
+                    //if (word.Contains("|~U~|"))
+                    //    _isUnderlineActive = !_isUnderlineActive;
 
-                    if (word.Contains("|~U~|"))
-                        _isUnderlineActive = !_isUnderlineActive;
-
-                    if (word.Contains("|~C~|"))
-                        _isSelectedActive = !_isSelectedActive;
+                    //if (word.Contains("|~C~|"))
+                    //    _isSelectedActive = !_isSelectedActive;
 
                     Span span = new Span();
                     span.FontFamily = new FontFamily("Segoe UI");
                     span.FontSize = fontSize;
                     string newWord = word;
 
+                    // applying decorator to span
                     if (_isBoldActive) span.FontWeight = FontWeights.Bold;
                     if (_isItalicActive) span.FontStyle = FontStyles.Italic;
                     if (_isUnderlineActive) span.TextDecorations = TextDecorations.Underline;
                     if (_isSelectedActive) span.Background = _selectedTextColor;
 
 
-                    // 'H' (highlight) must be before 'C' (color)
-                    if (word.Contains("|~H~|"))
-                    {
-                        span.Background = _userHighlightColor;
-                        newWord = newWord.Replace("|~H~|", "");
-                    }
 
-                    newWord = newWord.Replace("|~B~|", "");
-                    newWord = newWord.Replace("|~I~|", "");
-                    newWord = newWord.Replace("|~U~|", "");
-                    newWord = newWord.Replace("|~C~|", "");
+                    
+                    if (word.Contains("</strong>")) _isBoldActive = false;
+                    if (word.Contains("</i>")) _isItalicActive = false;
+
+
+
+                    newWord = newWord.Replace("<p>", "");
+                    newWord = newWord.Replace("</p>", "");
+                    newWord = newWord.Replace("<strong>", "");
+                    newWord = newWord.Replace("</strong>", "");
+                    newWord = newWord.Replace("<i>", "");
+                    newWord = newWord.Replace("</i>", "");
+                    //newWord = newWord.Replace("|~U~|", "");
+                    //newWord = newWord.Replace("|~C~|", "");
 
                     newWord += newWord.Length > 0 ? " " : "";
 
                     span.Inlines.Add(newWord);
                     paragraph.Inlines.Add(span);
                 }
-
             }
-            
         }
     }
 }

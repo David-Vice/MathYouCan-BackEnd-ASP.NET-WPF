@@ -79,12 +79,8 @@ namespace MathYouCan.Views
 
         private void FillQuestion()
         {
-            _universalTestViewModel.FillQuestionInfo(questionPassageParagraph, questionTextBlock);
+            _universalTestViewModel.FillQuestionInfo(questionPassageParagraph, questionTextParagraph);
 
-            //if (!String.IsNullOrEmpty(_universalTestViewModel.Questions[_universalTestViewModel.CurrentQuestionIndex].Question.Text))
-            //    _universalTestViewModel.FillImage(imageContainerPassage);
-            //else
-            //    _universalTestViewModel.FillImage(imageContainerQuesion);
             _universalTestViewModel.FillImage();
 
             _universalTestViewModel.FillAnswers(this, answersPerQuestion);
@@ -319,7 +315,7 @@ namespace MathYouCan.Views
                 bodyScroll.Name = $"BodyScroll{i + 1}";
                 bodyScroll.SetValue(Grid.ColumnProperty, 1);
                 Panel.SetZIndex(bodyScroll, 0);
-                bodyScroll.IsMouseCapturedChanged += questionPassageFlowDocument_IsMouseCapturedChanged;
+                bodyScroll.IsMouseCapturedChanged += flowDocument_IsMouseCapturedChanged;
                 bodyScroll.HorizontalAlignment = HorizontalAlignment.Stretch;
                 bodyScroll.VerticalAlignment = VerticalAlignment.Center;
                 bodyScroll.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
@@ -521,7 +517,7 @@ namespace MathYouCan.Views
             UpdateWindowContent();
         }
 
-        private void questionPassageFlowDocument_IsMouseCapturedChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void flowDocument_IsMouseCapturedChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             if (_universalTestViewModel.IsHighlightEnabled)
             {

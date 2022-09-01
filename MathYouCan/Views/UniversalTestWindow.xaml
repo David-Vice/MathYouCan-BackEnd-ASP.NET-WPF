@@ -294,7 +294,7 @@
 
                     <!-- Passage Section -->
                     <FlowDocumentScrollViewer  Name="questionPassageFlowDocument" Grid.Row="1"
-                                               IsMouseCapturedChanged="questionPassageFlowDocument_IsMouseCapturedChanged">
+                                               IsMouseCapturedChanged="flowDocument_IsMouseCapturedChanged">
                         <FlowDocument>
                             <Paragraph Name="questionPassageParagraph">
 
@@ -319,9 +319,16 @@
                             </Grid.RowDefinitions>
 
                             <!-- Question Part -->
-                            <TextBlock x:Name="questionTextBlock" HorizontalAlignment="Stretch" Height="Auto" TextWrapping="Wrap" Padding="10,20,10,20" FontSize="17" Grid.Row="0">
 
-                            </TextBlock>
+                            <FlowDocumentScrollViewer Name="questionTextFlowDocument" HorizontalAlignment="Stretch" Height="Auto" 
+                                                      FontSize="17" Grid.Row="0"
+                                                      IsMouseCapturedChanged="flowDocument_IsMouseCapturedChanged">
+                                <FlowDocument>
+                                    <Paragraph Name="questionTextParagraph">
+
+                                    </Paragraph>
+                                </FlowDocument>
+                            </FlowDocumentScrollViewer>
                             <!-- Question Part END -->
 
                             <!-- Answer List -->
