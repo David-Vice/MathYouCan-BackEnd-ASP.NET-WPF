@@ -1,4 +1,4 @@
-﻿ //using MathYouCan.Models;
+﻿//using MathYouCan.Models;
 using MathYouCan.Converters;
 using MathYouCan.Data;
 using MathYouCan.Models;
@@ -416,9 +416,9 @@ namespace MathYouCan.ViewModels
             return navPanels;
         }
 
-        public string GetInfo(Section section)
+        public string GetInfo(Section testType)
         {
-            InfosAndInstructions infosAndInstructions = new InfosAndInstructions(section);
+            InfosAndInstructions infosAndInstructions = new InfosAndInstructions(testType);
             return infosAndInstructions.GetInfo();
 
         }
@@ -531,33 +531,31 @@ namespace MathYouCan.ViewModels
 
 
         #region Filling 
-        public void FillQuestionInfo(Paragraph questionPassageParagraph, TextBlock questionTextBlock)
+        public void FillQuestionInfo(Paragraph questionPassageParagraph, Paragraph questionTextParagraph)
         {
-            questionTextBlock.Visibility = Visibility.Visible;
 
             if (Questions[CurrentQuestionIndex].Question.QuestionContent == String.Empty &&
                 Questions[CurrentQuestionIndex].Question.PhotoName == String.Empty)
             {
                 Questions[CurrentQuestionIndex].Question.QuestionContent = Questions[CurrentQuestionIndex].Question.Text;
-                questionTextBlock.Visibility = Visibility.Collapsed;
                 Questions[CurrentQuestionIndex].Question.Text = String.Empty;
             }
 
             Converter.ConvertToParagraph(questionPassageParagraph,
                 Questions[CurrentQuestionIndex].Question.QuestionContent, 16);
 
-            questionTextBlock.Inlines.Clear();
+            Converter.ConvertToParagraph(questionTextParagraph,
+                Questions[CurrentQuestionIndex].Question.Text, 16);
 
-            string questionContent = Questions[CurrentQuestionIndex].Question.Text;
+            //string questionContent = Questions[CurrentQuestionIndex].Question.Text;
 
-            if (!String.IsNullOrEmpty(questionContent))
-                questionTextBlock.Inlines.Add(questionContent);
-            else questionTextBlock.Visibility = Visibility.Collapsed;
+            //if (!String.IsNullOrEmpty(questionContent))
+            //    questionTextBlock.Inlines.Add(questionContent);
         }
 
         public void FillImage()
         {
-          //  imageContainer.Source=null;
+            //  imageContainer.Source=null;
             String photoname = Questions[CurrentQuestionIndex].Question.PhotoName;
             if (String.IsNullOrEmpty(photoname))
             {
@@ -569,8 +567,8 @@ namespace MathYouCan.ViewModels
             byte[] imageData = new WebClient().DownloadData(ApiUri.ActApiUri + "/" + photoname.Split('&')[0]);
             MemoryStream imgStream = new MemoryStream(imageData);
             System.Drawing.Image img = System.Drawing.Image.FromStream(imgStream);
-           // QuestionImageHeight=$"{img.Height}";
-          //  QuestionImageWidth=$"{img.Width}";
+            // QuestionImageHeight=$"{img.Height}";
+            //  QuestionImageWidth=$"{img.Width}";
             //imageContainer.Source=new BitmapImage(new Uri( ApiUri.ActApiUri + "/" + photoname));
 
         }
@@ -585,9 +583,10 @@ namespace MathYouCan.ViewModels
                 answerGrid.Visibility = Visibility.Visible;
                 var answer = (Paragraph)window.FindName($"BodyAns{i + 1}");
                 Converter.ConvertToParagraph(answer, (Questions[CurrentQuestionIndex].Question.QuestionAnswers as List<QuestionAnswer>)[i].Text, 16);
-                
+
                 String photoname = (Questions[CurrentQuestionIndex].Question.QuestionAnswers as List<QuestionAnswer>)[i].PhotoName;
-                if (String.IsNullOrEmpty(photoname)) {
+                if (String.IsNullOrEmpty(photoname))
+                {
                     if (i + 1 == 1) AnswerImage1 = "";
                     if (i + 1 == 2) AnswerImage2 = "";
                     if (i + 1 == 3) AnswerImage3 = "";
@@ -599,22 +598,27 @@ namespace MathYouCan.ViewModels
                 //MemoryStream imgStream = new MemoryStream(imageData);
                 //System.Drawing.Image img = System.Drawing.Image.FromStream(imgStream);
 
-                if (i + 1 == 1) { 
+                if (i + 1 == 1)
+                {
                     AnswerImage1 = ApiUri.ActApiUri + "/" + photoname.Split('&')[0];
-                 //   AnswerImageHeight1 = $"{img.Height}";
-                 //   AnswerImageWidth1 = $"{img.Width}";
+                    //   AnswerImageHeight1 = $"{img.Height}";
+                    //   AnswerImageWidth1 = $"{img.Width}";
 
                 }
-                if (i + 1 == 2) { 
+                if (i + 1 == 2)
+                {
                     AnswerImage2 = ApiUri.ActApiUri + "/" + photoname.Split('&')[0];
                 }
-                if (i + 1 == 3) { 
+                if (i + 1 == 3)
+                {
                     AnswerImage3 = ApiUri.ActApiUri + "/" + photoname.Split('&')[0];
                 }
-                if (i + 1 == 4) { 
+                if (i + 1 == 4)
+                {
                     AnswerImage4 = ApiUri.ActApiUri + "/" + photoname.Split('&')[0];
                 }
-                if (i + 1 == 5) { 
+                if (i + 1 == 5)
+                {
                     AnswerImage5 = ApiUri.ActApiUri + "/" + photoname.Split('&')[0];
                 }
 

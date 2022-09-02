@@ -19,13 +19,12 @@ namespace MathYouCan.Converters
              SPECIFICATORS:
 
 
-               text          -->  Default text
-          |~B~| text |~B~|     -->  Bold text
-          |~I~| text |~I~|     -->  Italic text
-          |~U~| text |~U~|     -->  UnderLine text
-          |~C~| text |~C~|     -->  Selected text
-          |~H~| text |~H~|     -->  Highlighted text (Not used yet)
+          <strong> text </strong>       -->  Bold text
+          <em> text </em>               -->  Italic text
+          <u> text </u>                 -->  underline text
 
+
+     
 
         */
 
@@ -46,58 +45,63 @@ namespace MathYouCan.Converters
             _userHighlightColor = userHighlightColor;
         }
 
-        public void ConvertToParagraph(Paragraph paragraph, string text ,double fontSize = 12)
+        public void ConvertToParagraph(Paragraph paragraph, string text, double fontSize = 12)
         {
             paragraph.Inlines.Clear();
             if (text != null)
             {
                 String[] words = text.Split(' ');
-           
+
                 foreach (String word in words)
                 {
-                    if (word.Contains("|~B~|"))
-                        _isBoldActive = !_isBoldActive;
+                    if (word.Contains("<strong>")) _isBoldActive = true;
+                    if (word.Contains("<em>")) _isItalicActive = true;
+                    if (word.Contains("<u>")) _isUnderlineActive = true;
+                    if (word.Contains("<span")) _isSelectedActive = true;
 
-                    if (word.Contains("|~I~|"))
-                        _isItalicActive = !_isItalicActive;
-
-                    if (word.Contains("|~U~|"))
-                        _isUnderlineActive = !_isUnderlineActive;
-
-                    if (word.Contains("|~C~|"))
-                        _isSelectedActive = !_isSelectedActive;
 
                     Span span = new Span();
                     span.FontFamily = new FontFamily("Segoe UI");
                     span.FontSize = fontSize;
                     string newWord = word;
 
+                    // applying decorator to span
                     if (_isBoldActive) span.FontWeight = FontWeights.Bold;
                     if (_isItalicActive) span.FontStyle = FontStyles.Italic;
                     if (_isUnderlineActive) span.TextDecorations = TextDecorations.Underline;
                     if (_isSelectedActive) span.Background = _selectedTextColor;
 
 
-                    // 'H' (highlight) must be before 'C' (color)
-                    if (word.Contains("|~H~|"))
-                    {
-                        span.Background = _userHighlightColor;
-                        newWord = newWord.Replace("|~H~|", "");
-                    }
 
-                    newWord = newWord.Replace("|~B~|", "");
-                    newWord = newWord.Replace("|~I~|", "");
-                    newWord = newWord.Replace("|~U~|", "");
-                    newWord = newWord.Replace("|~C~|", "");
+
+                    if (word.Contains("</strong>")) _isBoldActive = false;
+                    if (word.Contains("</em>")) _isItalicActive = false;
+                    if (word.Contains("</u>")) _isUnderlineActive = false;
+                    if (word.Contains("</span>")) _isSelectedActive = false;
+
+
+
+                    newWord = newWord.Replace("<p>", "");
+                    newWord = newWord.Replace("</p>", "\n");
+                    newWord = newWord.Replace("<strong>", "");
+                    newWord = newWord.Replace("</strong>", "");
+                    newWord = newWord.Replace("<em>", "");
+                    newWord = newWord.Replace("</em>", "");
+                    newWord = newWord.Replace("<u>", "");
+                    newWord = newWord.Replace("</u>", "");
+                    newWord = newWord.Replace("<span", "");
+                    newWord = newWord.Replace("class=\"marker\">", " ");
+                    newWord = newWord.Replace("</span>", "");
 
                     newWord += newWord.Length > 0 ? " " : "";
 
-                    span.Inlines.Add(newWord);
-                    paragraph.Inlines.Add(span);
+                    if (newWord != String.Empty)
+                    {
+                        span.Inlines.Add(newWord);
+                        paragraph.Inlines.Add(span);
+                    }
                 }
-
             }
-            
         }
     }
 }

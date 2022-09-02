@@ -117,8 +117,8 @@ $"Begin Mathematics Test—{Section.Duration} minutes, {Section.Questions.ToList
 "Note: Unless otherwise stated, all of the following should be assumed.\n" +
 " 1.Illustrative figures are NOT necessarily drawn to scale.\n" +
 " 2.Geometric figures lie in a plane.\n" +
-" 3.The word <i> line </i> indicates a straight line.\n" +
-" 4.The word <i> average </i> indicates arithmetic mean\n\n" +
+" 3.The word <em> line </em> indicates a straight line.\n" +
+" 4.The word <em> average </em> indicates arithmetic mean\n\n" +
 "Select the <strong> Next </strong> button to proceed.\n"
             };
         }

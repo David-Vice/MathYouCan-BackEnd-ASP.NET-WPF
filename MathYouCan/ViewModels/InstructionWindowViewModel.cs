@@ -81,9 +81,9 @@ namespace MathYouCan.ViewModels
                 "<strong> Next </strong> button to proceed.";
 
 
-            string instructionText4 = "By accessing the online test, I agree to comply with and be bound by the <i> Terms and " +
+            string instructionText4 = "By accessing the online test, I agree to comply with and be bound by the <em> Terms and " +
                 "Conditions: Testing Rules and Policies for the\n ACT " +
-                "Test</i> provided in the ACT registration material for this test, including those conserning test security, " +
+                "Test</em> provided in the ACT registration material for this test, including those conserning test security, " +
                 "score cancellation,\nexaminee remedies, binding arbitration, and consent to the processing of my personally identifying information, " +
                 "including the\ncollection, use, transfer, and disclosure of information as described in the ACT Privace Policy (www.act.org/privacy.html).\n\n" +
                 "I understand that ACT owns the test questions and responces and affirm that I will not share any test questions or responces with\nanyone " +

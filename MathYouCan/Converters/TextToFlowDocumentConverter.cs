@@ -19,14 +19,12 @@ namespace MathYouCan.Converters
              SPECIFICATORS:
 
 
-          <strong> text </strong>     -->  Bold text
-          <i> text </i>               -->  Italic text
+          <strong> text </strong>       -->  Bold text
+          <em> text </em>               -->  Italic text
+          <u> text </u>                 -->  underline text
 
 
-          |~U~| text |~U~|     -->  UnderLine text
-          |~C~| text |~C~|     -->  Selected text
-          |~H~| text |~H~|     -->  Highlighted text (Not used yet)
-
+     
 
         */
 
@@ -57,14 +55,11 @@ namespace MathYouCan.Converters
                 foreach (String word in words)
                 {
                     if (word.Contains("<strong>")) _isBoldActive = true;
-                    if (word.Contains("<i>")) _isItalicActive = true;
+                    if (word.Contains("<em>")) _isItalicActive = true;
+                    if (word.Contains("<u>")) _isUnderlineActive = true;
+                    if (word.Contains("<span")) _isSelectedActive = true;
 
-                    //if (word.Contains("|~U~|"))
-                    //    _isUnderlineActive = !_isUnderlineActive;
-
-                    //if (word.Contains("|~C~|"))
-                    //    _isSelectedActive = !_isSelectedActive;
-
+               
                     Span span = new Span();
                     span.FontFamily = new FontFamily("Segoe UI");
                     span.FontSize = fontSize;
@@ -80,23 +75,31 @@ namespace MathYouCan.Converters
 
                     
                     if (word.Contains("</strong>")) _isBoldActive = false;
-                    if (word.Contains("</i>")) _isItalicActive = false;
+                    if (word.Contains("</em>")) _isItalicActive = false;
+                    if (word.Contains("</u>")) _isUnderlineActive = false;
+                    if (word.Contains("</span>")) _isSelectedActive = false;
 
 
 
                     newWord = newWord.Replace("<p>", "");
-                    newWord = newWord.Replace("</p>", "");
+                    newWord = newWord.Replace("</p>", "\n");
                     newWord = newWord.Replace("<strong>", "");
                     newWord = newWord.Replace("</strong>", "");
-                    newWord = newWord.Replace("<i>", "");
-                    newWord = newWord.Replace("</i>", "");
-                    //newWord = newWord.Replace("|~U~|", "");
-                    //newWord = newWord.Replace("|~C~|", "");
+                    newWord = newWord.Replace("<em>", "");
+                    newWord = newWord.Replace("</em>", "");
+                    newWord = newWord.Replace("<u>", "");
+                    newWord = newWord.Replace("</u>", "");
+                    newWord = newWord.Replace("<span", "");
+                    newWord = newWord.Replace("class=\"marker\">", " ");
+                    newWord = newWord.Replace("</span>", "");
 
                     newWord += newWord.Length > 0 ? " " : "";
-
-                    span.Inlines.Add(newWord);
-                    paragraph.Inlines.Add(span);
+                    
+                    if (newWord != String.Empty)
+                    {
+                        span.Inlines.Add(newWord);
+                        paragraph.Inlines.Add(span);
+                    }
                 }
             }
         }

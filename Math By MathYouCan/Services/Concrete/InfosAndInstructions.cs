@@ -53,13 +53,14 @@ namespace MathYouCan.Services.Concrete
             }
         }
 
-        private string EngInfo() {
-            return $"|~B~|English Test Directions\n\nYou will have {Section.Duration} minutes to complete this section. |~B~| \n " +
+        private string EngInfo()
+        {
+            return $"<strong>English Test Directions\n\nYou will have {Section.Duration} minutes to complete this section. </strong> \n " +
 "SECTION DIRECTIONS: The first screen in this section contains instructions about the English test." +
 " That screen is not part of the\n scored questions. You can return to the instructions at any time by selecting the " +
-"|~B~| Nav |~B~| button at the top of the screen and then selecting |~B~| Instr |~B~| " +
+"<strong> Nav </strong> button at the top of the screen and then selecting <strong> Instr </strong> " +
 "\n\nYou may use your scratch paper on this test. You will hand that in to the room supervisor at the end of testing.\n" +
-"Select the |~B~| Next |~B~| button to proceed.\n";
+"Select the <strong> Next </strong> button to proceed.\n";
         }
 
         private Instruction EngInst()
@@ -76,20 +77,20 @@ namespace MathYouCan.Services.Concrete
 " side of the screen a question about the underlined and highlighted part. You are to choose the best answer to the question.\n\n" +
 "You will also find questions about a section of the passage, or about the passage as a whole. These questions do not refer to an " +
 "underlined portion of the passage, but rather refer to a letter or letters, a number or numbers, or an asterisk within square brackets [ ].\n\n" +
-"For each question, choose the alternative you consider best, select the circle next to your answer, then select the |~B~| Next |~B~| " +
+"For each question, choose the alternative you consider best, select the circle next to your answer, then select the <strong> Next </strong> " +
 "button. Read each passage through once, using the scroll bar to see the entire passage, before you begin to answer the questions that accompany" +
 " the passage. For many of the questions, you must read several sentences beyond the question to determine the answer. Be sure that you have read " +
 "far enough ahead each time you choose an alternative.\n\n" +
-"Select the |~B~| Next |~B~| button to proceed."
+"Select the <strong> Next </strong> button to proceed."
             };
         }
 
         private string MathInfo()
         {
-            return $"|~B~|Mathematics Test Directions\n\nYou will have {Section.Duration} minutes to complete this section. |~B~|\n" +
+            return $"<strong>Mathematics Test Directions\n\nYou will have {Section.Duration} minutes to complete this section. </strong>\n" +
 "SECTION DIRECTIONS: The first screen in this section contains instructions about the mathematics test." +
 " That screen is not part of the\n scored questions. You can return to the instructions at any time by selecting the \n" +
-"|~B~| Nav |~B~|button at the top of the screen and then selecting |~B~| Instr |~B~|. \n" +
+"<strong> Nav </strong> button at the top of the screen and then selecting <strong> Instr </strong>. \n" +
 "You are permitted to use a calculator on this test, and you may get it out now. Some types of calculators are prohibited. For example, you may not" +
 " use any version of the TI-89. You are responsible for knowing if your calculator is permitted. Testing staff will check your calculator periodically" +
 " during the test. If you use a prohibited calculator, you will be dismissed and your tests will not be scored.\n\n" +
@@ -100,7 +101,7 @@ namespace MathYouCan.Services.Concrete
 "If your calculator has games or other functions, you may not use those functions during the test; you may use only the mathematics functions. Keep your calculator" +
 " flat on your workstation." +
 "You may use your scratch paper on this test. You will hand that in to the room supervisor at the end of testing.\n" +
-"Select the |~B~| Next |~B~| button to proceed.\n";
+"Select the <strong> Next </strong> button to proceed.\n";
         }
         private Instruction MathInst()
         {
@@ -109,26 +110,26 @@ namespace MathYouCan.Services.Concrete
                 Header =
 $"Begin Mathematics Test—{Section.Duration} minutes, {Section.Questions.ToList().Count} questions",
                 InstructionText =
-"Solve each problem, choose the correct answer, and then select your answer. Select the |~B~| Next |~B~| button.\n\n" +
+"Solve each problem, choose the correct answer, and then select your answer. Select the <strong> Next </strong> button.\n\n" +
 "Do not linger over problems that take too much time. Solve as many as you can; then return to the others in the time you have " +
 "left for this test.\n" +
 "You may use your calculator for any problems you choose, but some of the problems may best be done without using a calculator.\n" +
 "Note: Unless otherwise stated, all of the following should be assumed.\n" +
 " 1.Illustrative figures are NOT necessarily drawn to scale.\n" +
 " 2.Geometric figures lie in a plane.\n" +
-" 3.The word |~I~| line |~I~| indicates a straight line.\n" +
-" 4.The word |~I~| average |~I~| indicates arithmetic mean\n\n" +
-"Select the |~B~| Next |~B~| button to proceed.\n"
+" 3.The word <em> line </em> indicates a straight line.\n" +
+" 4.The word <em> average </em> indicates arithmetic mean\n\n" +
+"Select the <strong> Next </strong> button to proceed.\n"
             };
         }
         private string ScienceInfo()
         {
-            return $"|~B~| Science Test Directions\n\nYou will have {Section.Duration} minutes to complete this section. |~B~|\n" +
+            return $"<strong> Science Test Directions\n\nYou will have {Section.Duration} minutes to complete this section. </strong>\n" +
 "SECTION DIRECTIONS: The first screen in this section contains instructions about the science test." +
 " That screen is not part of the\n scored questions. You can return to the instructions at any time by selecting the \n" +
-"|~B~| Nav |~B~|button at the top of the screen and then selecting |~B~|Instr|~B~|.\n\n" +
+"<strong> Nav </strong> button at the top of the screen and then selecting <strong> Instr </strong>.\n\n" +
 "You may use your scratch paper on this test. You will hand that in to the room supervisor at the end of testing.\n" +
-"Select the |~B~| Next |~B~| button to proceed.\n";
+"Select the <strong> Next </strong> button to proceed.\n";
         }
         private Instruction ScienceInst()
         {
@@ -139,21 +140,21 @@ $"Begin Science Test—{Section.Duration} minutes, {Section.Questions.ToList().C
                 InstructionText =
 "There are several passages in this section. Each passage is followed by several questions. Read each passage through once, using the scroll bar to see" +
 " the entire passage, before you begin to answer the questions that accompany it. After reading a passage, choose the best answer to each question, select" +
-" the circle next to it, then select the |~B~| Next |~B~| button. You may refer to the passages as often as necessary.\n" +
+" the circle next to it, then select the <strong> Next </strong> button. You may refer to the passages as often as necessary.\n" +
 "You are NOT permitted to use a calculator on this section.\n" +
-"Select the |~B~| Next |~B~| button to proceed.\n"
+"Select the <strong> Next </strong> button to proceed.\n"
             };
         }
         private string ReadingInfo()
         {
-            return "|~B~| Reading Test Directions |~B~| \n" +
+            return "<strong> Reading Test Directions </strong> \n" +
 "You may now resume testing. Remember, if you are wearing a watch with an alarm or have any other alarm device, it must remain turned\n off. If you have" +
 " a cell phone or other electronic device, it must remain powered off and stored out of sight until you leave the test site.\n\n" +
 "Clear your workstation of everything except your testing computer, scratch paper, and pencil.\n " +
-$"|~B~| You will have {Section.Duration} minutes to complete this section|~B~| \n" +
-"SECTION DIRECTIONS: The first screen in this section contains instructions about the reading test. That screen is not part of the scored questions. You can return to the instructions at any time by selecting the  |~B~| Nav |~B~| button at the top of the screen and then selecting |~B~| Instr |~B~|\n\n" +
+$"<strong> You will have {Section.Duration} minutes to complete this section</strong> \n" +
+"SECTION DIRECTIONS: The first screen in this section contains instructions about the reading test. That screen is not part of the scored questions. You can return to the instructions at any time by selecting the <strong> Nav </strong> button at the top of the screen and then selecting <strong> Instr </strong>\n\n" +
 " You may use your scratch paper on this test. You will hand that in to the room supervisor at the end of testing.\n\n" +
-"Select the |~B~| Next |~B~| button to proceed.\n";
+"Select the <strong> Next </strong> button to proceed.\n";
         }
         private Instruction ReadingInst()
         {
@@ -163,8 +164,8 @@ $"|~B~| You will have {Section.Duration} minutes to complete this section|~B~| \
                 InstructionText =
 "There are several passages in this test. Each passage is accompanied by several questions. Some passages are grouped within a\n single scrollable window and the corresponding questions will refer to Passage A, Passage B, or both passages.\n\n" +
 "Read each passage through once, using the scroll bar to see the entire passage, before you begin to answer the questions that accompany the passage. After reading a passage, choose the best answer to each question, select the circle next to it, then select\n the " +
-"|~B~| Next |~B~|  button. You may refer to the passages as often as necessary.\n" +
-"Select the |~B~| Next |~B~| button to proceed.\n"
+"<strong> Next </strong>  button. You may refer to the passages as often as necessary.\n" +
+"Select the <strong> Next </strong> button to proceed.\n"
             };
         }
     }
