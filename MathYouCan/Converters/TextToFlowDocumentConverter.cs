@@ -45,7 +45,7 @@ namespace MathYouCan.Converters
             if (text != null)
             {
                 text = text.Replace("\n", "\n ");
-
+                text = text.Replace(" class=\"marker\"", "");
 
                 String[] allWords = text.Split(' ');
 
@@ -58,24 +58,28 @@ namespace MathYouCan.Converters
                     Span fullWordSpan = new Span();
 
                     string modifiedWordFull = wordFull;
-                    modifiedWordFull = modifiedWordFull.Replace("<strong>", " <strong> ");
-                    modifiedWordFull = modifiedWordFull.Replace("</strong>", " </strong> ");
-                    modifiedWordFull = modifiedWordFull.Replace("<em>", " <em> ");
-                    modifiedWordFull = modifiedWordFull.Replace("</em>", " </em> ");
-                    modifiedWordFull = modifiedWordFull.Replace("<u>", " <u> ");
-                    modifiedWordFull = modifiedWordFull.Replace("</u>", " </u> ");
-                    modifiedWordFull = modifiedWordFull.Replace("class=\"marker\">", " class=\"marker\"> ");
-                    modifiedWordFull = modifiedWordFull.Replace("</span>", " </span> ");
+                    modifiedWordFull = modifiedWordFull.Replace("<strong>", " <strong>");
+                    modifiedWordFull = modifiedWordFull.Replace("</strong>", "</strong> ");
+                    modifiedWordFull = modifiedWordFull.Replace("<em>", " <em>");
+                    modifiedWordFull = modifiedWordFull.Replace("</em>", "</em> ");
+                    modifiedWordFull = modifiedWordFull.Replace("<u>", " <u>");
+                    modifiedWordFull = modifiedWordFull.Replace("</u>", "</u> ");
+                    //modifiedWordFull = modifiedWordFull.Replace("class=\"marker\">", " class=\"marker\">");
+                    modifiedWordFull = modifiedWordFull.Replace("</span>", "</span> ");
+                    modifiedWordFull = modifiedWordFull.Replace("<span>", " <span>");
+                    //modifiedWordFull = modifiedWordFull.Replace("<span", " <span");
 
                     String[] words = modifiedWordFull.Split(' ');
 
                     string newWordAddToSpan = "";
                     foreach (string word in words)
                     {
+                        if (word == String.Empty) continue;
                         if (word.Contains("<strong>")) _isBoldActive = true;
                         if (word.Contains("<em>")) _isItalicActive = true;
                         if (word.Contains("<u>")) _isUnderlineActive = true;
-                        if (word.Contains("<span")) _isSelectedActive = true;
+                        //if (word.Contains("<span")) _isSelectedActive = true;
+                        if (word.Contains("<span>")) _isSelectedActive = true;
 
                         Span span = new Span();
                         span.FontFamily = new FontFamily("Segoe UI");
@@ -105,10 +109,11 @@ namespace MathYouCan.Converters
                         newWord = newWord.Replace("</em>", "");
                         newWord = newWord.Replace("<u>", "");
                         newWord = newWord.Replace("</u>", "");
-                        newWord = newWord.Replace("<span", "");
-                        newWord = newWord.Replace("class=\"marker\">", " ");
+                        newWord = newWord.Replace("<span>", "");
+                        //newWord = newWord.Replace("<span", "");
+                        //newWord = newWord.Replace("class=\"marker\">", "");
                         newWord = newWord.Replace("</span>", "");
-                        newWord = newWord.Trim(' ');
+                        newWord = newWord.Replace(" ", "");
 
                         if (newWord != String.Empty)
                         {
@@ -121,7 +126,18 @@ namespace MathYouCan.Converters
 
                     if (!String.IsNullOrEmpty(newWordAddToSpan) && newWordAddToSpan.Length > 0)
                     {
-                        fullWordSpan.Inlines.Add(" ");
+                        Span span = new Span();
+                        span.FontFamily = new FontFamily("Segoe UI");
+                        span.FontSize = fontSize;
+
+                        if (_isBoldActive) span.FontWeight = FontWeights.Bold;
+                        if (_isItalicActive) span.FontStyle = FontStyles.Italic;
+                        if (_isUnderlineActive) span.TextDecorations = TextDecorations.Underline;
+                        if (_isSelectedActive) span.Background = _selectedTextColor;
+
+                        if (!newWordAddToSpan.Contains("\n"))
+                            span.Inlines.Add(" ");
+                        fullWordSpan.Inlines.Add(span);
                         paragraph.Inlines.Add(fullWordSpan);
                     }
                 }
