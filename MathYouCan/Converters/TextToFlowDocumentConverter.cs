@@ -50,10 +50,24 @@ namespace MathYouCan.Converters
             paragraph.Inlines.Clear();
             if (text != null)
             {
-                String[] words = text.Split(' ');
+                text = text.Replace("\n", "\n ");
+                //text = text.Replace("<strong>", "<strong> ");
+                //text = text.Replace("</strong>", "</strong> ");
+                //text = text.Replace("<em>", "<em> ");
+                //text = text.Replace("</em>", "</em> ");
+                //text = text.Replace("<u>", "<u> ");
+                //text = text.Replace("</u>", "</u> ");
+                //text = text.Replace("<class=\"marker\">", "class=\"marker\"> ");
+                //text = text.Replace("</span>", "</span> ");
+
+
+                String[] words= text.Split(' ');
+
            
                 foreach (String word in words)
                 {
+                    if (String.IsNullOrEmpty(word)) continue;
+
                     if (word.Contains("<strong>")) _isBoldActive = true;
                     if (word.Contains("<em>")) _isItalicActive = true;
                     if (word.Contains("<u>")) _isUnderlineActive = true;
@@ -92,8 +106,9 @@ namespace MathYouCan.Converters
                     newWord = newWord.Replace("<span", "");
                     newWord = newWord.Replace("class=\"marker\">", " ");
                     newWord = newWord.Replace("</span>", "");
+                    newWord = newWord.Trim(' ');
 
-                    newWord += newWord.Length > 0 ? " " : "";
+                    newWord += newWord.Length > 0 && !newWord.Contains("\n") && !String.IsNullOrEmpty(newWord) ? " " : "";
                     
                     if (newWord != String.Empty)
                     {
