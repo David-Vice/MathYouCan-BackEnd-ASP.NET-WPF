@@ -130,7 +130,7 @@ namespace MathYouCan.Views
         /// </summary>
         public void FillInstruction()
         {
-            TextToFlowDocumentConverter textTo = new TextToFlowDocumentConverter(Brushes.Yellow, Brushes.GreenYellow);
+            TextToFlowDocumentConverter textTo = new TextToFlowDocumentConverter(Brushes.Yellow);
             textTo.ConvertToParagraph(instructionContentParagraph, _instructionWindowViewModel.Instructions[_instructionWindowViewModel.CurrentInstructionIndex].InstructionText);
         }
 

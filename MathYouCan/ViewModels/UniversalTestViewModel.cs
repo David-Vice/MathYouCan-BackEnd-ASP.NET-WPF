@@ -292,7 +292,7 @@ namespace MathYouCan.ViewModels
             Questions = new List<QuestionView>();
             SelectedTextBrush = Brushes.Yellow;
             HighLighteTextBrush = Brushes.GreenYellow;
-            Converter = new TextToFlowDocumentConverter(SelectedTextBrush, HighLighteTextBrush);
+            Converter = new TextToFlowDocumentConverter(SelectedTextBrush);
             InitializeList(section);
         }
         //private void SetInstructions()

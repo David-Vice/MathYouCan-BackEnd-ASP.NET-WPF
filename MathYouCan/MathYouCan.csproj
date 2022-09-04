@@ -97,6 +97,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\HtmlMathTextToParagraphConverter.cs" />
+    <Compile Include="Converters\HtmlTextToParagraphConverter.cs" />
     <Compile Include="Converters\TextToFlowDocumentConverter.cs" />
     <Compile Include="Data\ApiUri.cs" />
     <Compile Include="Models\Enums\AnswerType.cs" />
